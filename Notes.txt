@@ -1,0 +1,16 @@
+
+
+|  HOW TO USE GIT |
+
+1 - Master branch
+2 - Use new branches for each new feature and then merge onto the master once finished
+		Create: git co -b "branchname"
+		Check them: git branch
+		inspect changes: git log
+		/!\ need to still add + commit + push for them to upload online
+		afterpush, go on GitHub, "Pull request" > "send Pull request"
+
+|  MINISHELL SUBJECT  |
+
+prompt, working history, search and launch exec from PATH, 1 global variable only, quotes, redirections
+pipes, env var, $?, ctrl + C - D - \ , echo -n, cd, pwd, export, unset, env, exit
