@@ -14,3 +14,60 @@
 
 prompt, working history, search and launch exec from PATH, 1 global variable only, quotes, redirections
 pipes, env var, $?, ctrl + C - D - \ , echo -n, cd, pwd, export, unset, env, exit
+
+| TUTO |
+
+variable globale: pour la gestion d'erreur (mettre code d'erreur)
+
+[PARSING]
+
+>> MAIN
+
+>> SPLIT
+	- int status
+		0: no quote
+		1: single quote
+		2: double quote
+	- liste token (mettre resultat du split dans chaque maillon,et lui donner son type si jamais "cat" = word, | = pipe)
+	t_token 
+	{
+		char *value;
+		int type;( < << > >> | espace WORD FD LIM)
+		t_token *next;
+	}
+	- ENUM ( < << > >> | et espace)
+
+>> EXPANSION ($ ""): aller chercher ma variable
+	- quoting rules
+	- status
+		0: no quote => $
+		1: single quote => remove quote + magic space 
+											space * -1 (-32)
+		2: double quote => remove quote
+							$ (stop at special char, only _ is valid for env var)
+							magic space
+
+>> SPLIT 32
+
+>> STRUCT pour exec
+	t_cmd
+	{
+		t_token *ARG;
+		t_token *RED;
+		intfd_in;
+		intfd_out;
+		t_cmd *next;
+	}
+	si on croise une pipe, nouvelle structure pcq deuxieme commande a exec
+
+[EXEC]
+
+Heredoc first
+While ()
+	pipe 
+	redirection (fd_in / fd_out)
+	transfo pour utiliser execve (terminer tableau avec null)
+	close les fds
+
+>>> SIGNAUX
+3 modes differents: 1 pour debut de l'exec, 1 dans l'enfant, 1 apres 	
