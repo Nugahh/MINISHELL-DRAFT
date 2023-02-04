@@ -33,9 +33,16 @@ variable globale: pour la gestion d'erreur (mettre code d'erreur)
 	{
 		char *value;
 		int type;( < << > >> | espace WORD FD LIM)
+		int	status;
 		t_token *next;
 	}
 	- ENUM ( < << > >> | et espace)
+		typedef ENUM
+		{
+			DEFAULT,
+			SINGLE,
+			DOUBLE
+		}
 
 >> EXPANSION ($ ""): aller chercher ma variable
 	- quoting rules
@@ -71,3 +78,26 @@ While ()
 
 >>> SIGNAUX
 3 modes differents: 1 pour debut de l'exec, 1 dans l'enfant, 1 apres 	
+
+| PLAN - PROTO |
+
+int main (int ac, char **av);
+
+char **split (char *str, char c);
+enregistrer l'entree en char * => char *getcommand (char **av);
+void initlist(t_token token, char *command);
+void initstruct(t_token *token, t_cmd *command);
+int *get_state(char *command);
+void split_state(char *command, int *state, t_token **token);
+void define_type(t_token **token);
+
+int	error_handler(t_token **token);
+
+void expand_node(t_token **token);
+void double_expand(t_token **token);
+void single_expand(t_token **token);
+void dollar_expand(t_token **token);
+
+
+
+
