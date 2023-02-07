@@ -28,12 +28,12 @@ variable globale: pour la gestion d'erreur (mettre code d'erreur)
 		0: no quote
 		1: single quote
 		2: double quote
-	- liste token (mettre resultat du split dans chaque maillon,et lui donner son type si jamais "cat" = word, | = pipe)
+		(if state 2 is not finished, return error command)
+	- liste token (mettre resultat du split dans chaque maillon, et lui donner son type si jamais "cat" = word, | = pipe)
 	t_token 
 	{
 		char *value;
 		int type;( < << > >> | espace WORD FD LIM)
-		int	status;
 		t_token *next;
 	}
 	- ENUM ( < << > >> | et espace)
