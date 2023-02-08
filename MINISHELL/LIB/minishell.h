@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/08 14:52:16 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/08 22:06:42 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ enum e_type
 	ROUT,
 	DRIN,
 	DROUT,
-	PIPE,
+	PIPE
+} ;
+
+enum e_status
+{
 	DEFAULT,
 	SINGLE,
 	DOUBLE
