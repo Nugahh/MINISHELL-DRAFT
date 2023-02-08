@@ -1,50 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:20:04 by khuynh           ###   ########.fr       */
+/*   Created: 2022/03/30 14:21:43 by khuynh            #+#    #+#             */
+/*   Updated: 2022/03/30 14:21:49 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ========== LIBRARY ========== //
-
-# include "libft/libft.h"
-# include <stdio.h> 
-
-// ========== STRUCTURES ========== //
-
-enum type
+int	ft_isalpha(int c)
 {
-	ARG,
-	FD,
-	LIM,
-	RIN,
-	ROUT,
-	DRIN,
-	DROUT,
-	PIPE,
-	DEFAULT,
-	SINGLE,
-	DOUBLE
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
 }
 
-typedef struct s_token
-{
-	char *value;
-	int type;
-	t_token *next;
-}	t_token;
+/*
+#include <stdio.h>
+#include <ctype.h>
 
-typedef struct s_cmdexec
+int	main()
 {
-	t_token 	*ARG;
-	t_token		*RED;
-	int			fd_in;
-	int			fd_out;
-	t_cmdexec	*next;
-}	t_cmdexec;
-
+	int b = 'x';
+	printf("%d\n", ft_isalpha(b));
+	printf("%d\n", isalpha (b));
+	return (0);
+}
+*/

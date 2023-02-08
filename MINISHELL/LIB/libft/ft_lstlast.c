@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 21:20:27 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:22:07 by khuynh           ###   ########.fr       */
+/*   Created: 2022/04/12 01:31:14 by khuynh            #+#    #+#             */
+/*   Updated: 2022/04/13 21:04:50 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	while (1)
-	{
+#include "libft.h"
 
-	}
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

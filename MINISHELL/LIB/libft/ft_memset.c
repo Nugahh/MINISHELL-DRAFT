@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 21:20:27 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:22:07 by khuynh           ###   ########.fr       */
+/*   Created: 2022/03/30 22:20:08 by khuynh            #+#    #+#             */
+/*   Updated: 2022/04/11 21:58:25 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	while (1)
-	{
+#include <stddef.h>
 
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *)b)[i] = c;
+		i++;
 	}
+	return (b);
 }

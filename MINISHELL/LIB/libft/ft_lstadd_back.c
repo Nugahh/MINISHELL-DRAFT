@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 21:20:27 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:22:07 by khuynh           ###   ########.fr       */
+/*   Created: 2022/04/12 01:33:36 by khuynh            #+#    #+#             */
+/*   Updated: 2022/04/13 21:06:11 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	while (1)
-	{
+#include "libft.h"
 
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*backy;
+
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
 	}
+	backy = ft_lstlast(*lst);
+	backy->next = new;
 }

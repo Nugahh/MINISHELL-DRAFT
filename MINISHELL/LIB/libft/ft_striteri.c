@@ -1,50 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:20:04 by khuynh           ###   ########.fr       */
+/*   Created: 2022/04/11 21:13:52 by khuynh            #+#    #+#             */
+/*   Updated: 2022/05/04 18:16:06 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ========== LIBRARY ========== //
+/* 
 
-# include "libft/libft.h"
-# include <stdio.h> 
+Applies the function ’f’ on each character of
+the string passed as argument, passing its index
+as first argument.  Each character is passed by
+address to ’f’ to be modified if necessary.
 
-// ========== STRUCTURES ========== //
+*/
 
-enum type
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	ARG,
-	FD,
-	LIM,
-	RIN,
-	ROUT,
-	DRIN,
-	DROUT,
-	PIPE,
-	DEFAULT,
-	SINGLE,
-	DOUBLE
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		(*f)(i, s + i);
+		i++;
+	}
 }
-
-typedef struct s_token
-{
-	char *value;
-	int type;
-	t_token *next;
-}	t_token;
-
-typedef struct s_cmdexec
-{
-	t_token 	*ARG;
-	t_token		*RED;
-	int			fd_in;
-	int			fd_out;
-	t_cmdexec	*next;
-}	t_cmdexec;
-

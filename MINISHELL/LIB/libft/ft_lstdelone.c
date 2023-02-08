@@ -1,50 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:20:04 by khuynh           ###   ########.fr       */
+/*   Created: 2022/04/13 01:37:23 by khuynh            #+#    #+#             */
+/*   Updated: 2022/04/13 01:55:51 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ========== LIBRARY ========== //
+/* 
 
-# include "libft/libft.h"
-# include <stdio.h> 
+Takes as a parameter a node and frees the memory of
+the node’s content using the function ’del’ given
+as a parameter and free the node.  The memory of
+’next’ must not be freed.
 
-// ========== STRUCTURES ========== //
+*/
 
-enum type
+#include "libft.h"
+#include <stdlib.h>
+
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	ARG,
-	FD,
-	LIM,
-	RIN,
-	ROUT,
-	DRIN,
-	DROUT,
-	PIPE,
-	DEFAULT,
-	SINGLE,
-	DOUBLE
+	if (lst)
+	{
+		(*del)(lst->content);
+		free(lst);
+	}
 }
-
-typedef struct s_token
-{
-	char *value;
-	int type;
-	t_token *next;
-}	t_token;
-
-typedef struct s_cmdexec
-{
-	t_token 	*ARG;
-	t_token		*RED;
-	int			fd_in;
-	int			fd_out;
-	t_cmdexec	*next;
-}	t_cmdexec;
-

@@ -1,50 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/07 21:20:04 by khuynh           ###   ########.fr       */
+/*   Created: 2022/03/30 14:20:36 by khuynh            #+#    #+#             */
+/*   Updated: 2022/03/30 14:21:27 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ========== LIBRARY ========== //
-
-# include "libft/libft.h"
-# include <stdio.h> 
-
-// ========== STRUCTURES ========== //
-
-enum type
+int	ft_isalnum(int c)
 {
-	ARG,
-	FD,
-	LIM,
-	RIN,
-	ROUT,
-	DRIN,
-	DROUT,
-	PIPE,
-	DEFAULT,
-	SINGLE,
-	DOUBLE
+	if ((c >= '0' && c <= '9')
+		|| (c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
 }
+/*
+#include <ctype.h>
+#include <stdio.h>
 
-typedef struct s_token
+int	main()
 {
-	char *value;
-	int type;
-	t_token *next;
-}	t_token;
-
-typedef struct s_cmdexec
-{
-	t_token 	*ARG;
-	t_token		*RED;
-	int			fd_in;
-	int			fd_out;
-	t_cmdexec	*next;
-}	t_cmdexec;
-
+	printf("%d\n", ft_isalnum(' '));
+	printf("%d\n", isalnum(' '));
+	return (0);
+}
+*/
