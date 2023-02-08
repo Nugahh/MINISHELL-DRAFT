@@ -6,9 +6,12 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/08 12:56:57 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:52:16 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 // ========== LIBRARY ========== //
 
@@ -19,8 +22,9 @@
 
 // ========== STRUCTURES ========== //
 
-enum type
+enum e_type
 {
+	START,
 	ARG,
 	FD,
 	LIM,
@@ -39,16 +43,28 @@ typedef struct s_cmdexec	t_cmdexec;
 
 struct	s_token
 {
-	char 	*value;
-	int 	type;
-	t_token *next;
+	char	*value;
+	int		type;
+	t_token	*next;
 }	;
 
 struct	s_cmdexec
 {
-	t_token 	*ARG;
-	t_token		*RED;
+	t_token		*arg;
+	t_token		*red;
 	int			fd_in;
 	int			fd_out;
 	t_cmdexec	*next;
 }	;
+
+// ========== BASE ========== //
+
+int		main(int ac, char **av);
+void	init_structoken(t_token *tok);
+void	init_structcmd(t_cmdexec *exec);
+
+// ========== PARSING ========== //
+
+// ========== EXEC ========== //
+
+#endif

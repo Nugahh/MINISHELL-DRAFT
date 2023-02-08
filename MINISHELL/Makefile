@@ -6,7 +6,7 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/07 20:43:00 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/08 14:40:01 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,10 @@
 NAME = minishell
 
 MFILES = \
-		./PARSING/	\
-		./EXEC/		
+		PARSING/		\
+		EXEC/			\
+		BUILT-INS/		\
+		main.c
 
 
 OBJS :=  	${addprefix ./obj/,${PFILES:%.c=%.o}}
@@ -24,7 +26,7 @@ DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
 
 #------  2.COMPILING VARIABLES
 
-CFLAGS = -Wall -Werror -Wextra -pthread -MMD -MP -I./includes -g3
+CFLAGS = -Wall -Werror -Wextra -pthread -MMD -MP -I./includes -g3 -lreadline
 LIB	   = -L./lib/libft/ -lft
 
 #------  3.COLORS VARIABLES
