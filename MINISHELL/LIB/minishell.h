@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/08 22:06:42 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/13 21:26:42 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 // ========== STRUCTURES ========== //
 
-enum e_type
+typedef enum
 {
 	START,
 	ARG,
@@ -33,17 +33,18 @@ enum e_type
 	DRIN,
 	DROUT,
 	PIPE
-} ;
+} TYPE;
 
-enum e_status
+typedef enum
 {
 	DEFAULT,
 	SINGLE,
 	DOUBLE
-} ;
+} STATE;
 
 typedef struct s_token		t_token;
 typedef struct s_cmdexec	t_cmdexec;
+
 
 struct	s_token
 {
@@ -63,11 +64,13 @@ struct	s_cmdexec
 
 // ========== BASE ========== //
 
-int		main(int ac, char **av);
 void	init_structoken(t_token *tok);
 void	init_structcmd(t_cmdexec *exec);
 
 // ========== PARSING ========== //
+
+int		get_state(char *cmd);
+char	*first_split(char *cmd);
 
 // ========== EXEC ========== //
 
