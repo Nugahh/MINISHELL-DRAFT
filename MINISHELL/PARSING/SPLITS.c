@@ -6,24 +6,24 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 18:26:06 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/15 22:07:42 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-t_token *create(char *str, int start, int j)
+t_token *create(char *str, int end)
 {
 	t_token *yo;
 	int	x;
 
 	x = 0;
 	yo = malloc(sizeof(t_token));
-	yo->value = malloc(sizeof(char) * (j + 1));
-	while (x <= j)
+	yo->value = malloc(sizeof(char) * (end + 1));
+	while (x <= end)
 	{
-		yo->value[x] = str[start];
-		start++;
+		yo->value[x] = *str;
+		str++;
 		x++;
 	}
 	yo->type = START;
@@ -31,12 +31,12 @@ t_token *create(char *str, int start, int j)
 	return (yo);
 }
 
-void	insert(t_token **head, char *str, int start, int j)
+void	insert(t_token **head, char *str, int end)
 {
 	t_token *new;
 	t_token *temp;
 
-	new = create(str, start, j);
+	new = create(str, end);
 	if (!*head)
 	{
 		*head = new;
@@ -147,11 +147,13 @@ void	printstr(t_token *head)
 	printf("\n");
 }
 
-int main( int ac, char **av) {
+int main( int ac, char **av) 
+{
 	t_token *head = NULL;
 	(void)ac;
 	first_split(av[1], &head);
 	printstr(head);
 	return 0;
+}
 	
 	echo "hello"'hello'hello'hello'"hello"
