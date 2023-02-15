@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/14 17:42:30 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/15 18:42:48 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,10 @@ struct	s_cmdexec
 
 // ========== BASE ========== //
 
-void	init_structoken(t_token *tok);
-void	init_structcmd(t_cmdexec *exec);
+int	main(int ac, char **av, char **envp);
 
 // ========== PARSING ========== //
 
-int		get_state(char *cmd);
 
 // ========== EXEC ========== //
 

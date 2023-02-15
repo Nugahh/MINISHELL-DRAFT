@@ -6,7 +6,7 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/08 14:40:01 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/12 17:13:54 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,7 @@
 NAME = minishell
 
 MFILES = \
-		PARSING/		\
-		EXEC/			\
-		BUILT-INS/		\
+		PARSING/SPLITS.c		\
 		main.c
 
 
@@ -27,7 +25,7 @@ DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
 #------  2.COMPILING VARIABLES
 
 CFLAGS = -Wall -Werror -Wextra -pthread -MMD -MP -I./includes -g3 -lreadline
-LIB	   = -L./lib/libft/ -lft
+LIB	   = -L./lib/libft/
 
 #------  3.COLORS VARIABLES
 
@@ -56,14 +54,14 @@ all: ${NAME}
 	@cc ${CFLAGS} -o $@ -c $<
 	
 ${NAME} : ${OBJS}
-	@echo "${MAGENTA}assembling in progress for philo...${RS}"
+	@echo "${MAGENTA}assembling in progress for minishell...${RS}"
 	@echo "${GREEN}done and moved into obj directory${RS}"
-	@echo "${MAGENTA}compiling philo... ${RS}"
+	@echo "${MAGENTA}compiling minishell... ${RS}"
 	@cc ${CFLAGS} -o ${NAME} ${OBJS} ${LIB}
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
-	@echo "⬜⬜⬜⬜⬛🟨🟨🟨🟨⬛⬛⬜🟨🟨🟨⬛⬜ ${WHITE}PHILO READY${RS}⬜⬜⬜⬜⬜"
+	@echo "⬜⬜⬜⬜⬛🟨🟨🟨🟨⬛⬛⬜🟨🟨🟨⬛⬜ ${WHITE}MINISHELL READY${RS}⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬛🟨🟨🟨🟨⬛⬛⬛🟨🟨🟨⬛⬜ ${WHITE}BY KHUYNH & FWONG${RS}⬜⬜"
 	@echo "⬜⬜⬜⬜⬛⬛🟨🟨🟨⬛⬛⬛🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬛🟨🟨⬛🟨🟨🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"

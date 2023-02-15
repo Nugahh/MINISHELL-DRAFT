@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 17:46:30 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:26:06 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,29 @@ void	first_split(char *cmd, t_token **head)
 	}
 }
 
+
+/*
+
+	while( str[i] )
+	{
+		if ( ' && 0 -> 1)
+		if ( ' && 1 -> 0)
+		if ( " && 0 -> 2)
+		if ( " && 2 -> 0)
+
+
+		while ( un char autre que 32 et opp )
+			j++;
+			
+		if ( opp ou 32 && state 0 )
+			insert;
+		
+	}
+
+
+*/
+
+
 void	printstr(t_token *head)
 {
 	t_token *temp = head;
@@ -124,14 +147,11 @@ void	printstr(t_token *head)
 	printf("\n");
 }
 
-int main()
-{
+int main( int ac, char **av) {
 	t_token *head = NULL;
-	char cmd[] = "echo \'hello\' |  \"\'yo\'\"";
-	first_split(cmd, &head);
+	(void)ac;
+	first_split(av[1], &head);
 	printstr(head);
-	// for (int i = 0; cmd[i]; i++)
-	// {
-	// 	printf("[%c] -> %d\n", cmd[i], state[i]);
-	// }
-}
+	return 0;
+	
+	echo "hello"'hello'hello'hello'"hello"
