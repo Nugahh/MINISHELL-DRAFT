@@ -40,6 +40,7 @@ variable globale: pour la gestion d'erreur (mettre code d'erreur)
 		1: single quote
 		2: double quote
 		(if state 2 is not finished, return error command)
+	- first split: operateurs + espace
 	- liste token (mettre resultat du split dans chaque maillon, et lui donner son type si jamais "cat" = word, | = pipe)
 	t_token 
 	{
@@ -54,6 +55,8 @@ variable globale: pour la gestion d'erreur (mettre code d'erreur)
 			SINGLE,
 			DOUBLE
 		}
+
+>> syntax error
 
 >> EXPANSION ($ ""): aller chercher ma variable
 	- quoting rules
