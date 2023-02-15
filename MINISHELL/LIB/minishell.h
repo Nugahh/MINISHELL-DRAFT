@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/13 21:26:42 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/14 17:42:30 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	init_structcmd(t_cmdexec *exec);
 // ========== PARSING ========== //
 
 int		get_state(char *cmd);
-char	*first_split(char *cmd);
 
 // ========== EXEC ========== //
 

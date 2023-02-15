@@ -6,68 +6,104 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/14 17:06:41 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/15 15:28:47 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-int	get_state(char *cmd)
+t_token *create(char *str, int start, int j)
+{
+	t_token *yo;
+	int	x;
+
+	x = 0;
+	yo = malloc(sizeof(t_token));
+	yo->value = malloc(sizeof(char) * (j + 1));
+	while (x <= j)
+	{
+		yo->value[x] = str[start];
+		start++;
+		x++;
+	}
+	// yo->value = str;
+	yo->type = 0;
+	yo->next = NULL;
+	return (yo);
+}
+
+void	insert(t_token **head, char *str, int start, int j)
+{
+	t_token *new;
+	t_token *temp;
+
+	new = create(str, start, j);
+	if (!*head)
+	{
+		*head = new;
+		return ;
+	}
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}
+
+void		*first_split(char *cmd, t_token **head)
 {
 	int state;
 	int	i;
-
+	int	j;
+	int start;
+	
 	i = 0;
 	state = DEFAULT;
 	while (cmd[i])
 	{
 		if (cmd[i] == '\"')
 		{
-			printf("[%c] -> 2 = %d\n", cmd[i], state);
-			state = DOUBLE;
+			j = 0;
+			start = i;
 			while (cmd[i] && cmd[i + 1] != '\"')
 			{
-				// remplir node ici
-				printf("[%c] -> 2 = %d\n", cmd[i], state);
-				state = DOUBLE;
+				j++;
 				i++;
 			}
 			if (cmd[i + 1] == '\"')
 			{
-				// remplir node ici
-				printf("[%c] -> 2bis = %d\n", cmd[i], state);
-				state = DEFAULT;
+				j++;
 				i++;
 			}
+			i++;
+			insert(head, cmd, start, j);
 		}
-		if (cmd[i] == '\'')
+		else if (cmd[i] == '\'')
 		{
 			state = SINGLE;
-			printf("[%c] -> ICI = %d\n", cmd[i + 1],  state);
 			while (cmd[i] && cmd[i + 1] != '\'')
-			{
-				// remplir node ici
-				printf("[%c] -> 1 = %d\n", cmd[i + 1],  state);
-				state = SINGLE;
 				i++;
-			}
 			if (cmd[i + 1] == '\'')
-			{
-				// remplir node ici
-				printf("[%c] -> 1bis = %d\n",cmd[i + 1],  state);
-				state = DEFAULT;
 				i++;
-			}
+			i++;
+			// insert(head, cmd, i);
 		}
-		printf("[%c] -> def = %d\n", cmd[i], state);
+		state = DEFAULT;
 		i++;
+		// insert(head, cmd, i);
 	}
-	/* if state = DOUBLE || SINGLE return error newline
-	and free node */
-	return (state);
 }
 
-char	*first_split(char *cmd)
+void	printstr(t_token *head)
+{
+	t_token *temp = head;
+	while (temp)
+	{
+		printf("%s+", temp->value);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+/*char	*firt_split(char *cmd)
 {
 	int		i;
 	char	*node;
@@ -96,12 +132,14 @@ char	*first_split(char *cmd)
 		}	
 	}
 	return (node);
-}
+}*/
 
 int main()
 {
-	char cmd[] = "echo \'hello\"\'\'\'\'\' \"test\'\'\"  dsdsfd";
-	get_state(cmd);
+	t_token *head = NULL;
+	char cmd[] = "echo \"hello\" ";
+	first_split(cmd, &head);
+	printstr(head);
 	// for (int i = 0; cmd[i]; i++)
 	// {
 	// 	printf("[%c] -> %d\n", cmd[i], state[i]);
