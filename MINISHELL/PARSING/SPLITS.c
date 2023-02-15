@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SPLITS.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 15:28:47 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/15 17:46:30 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_token *create(char *str, int start, int j)
 		start++;
 		x++;
 	}
-	// yo->value = str;
-	yo->type = 0;
+	yo->type = START;
 	yo->next = NULL;
 	return (yo);
 }
@@ -49,7 +48,7 @@ void	insert(t_token **head, char *str, int start, int j)
 	temp->next = new;
 }
 
-void		*first_split(char *cmd, t_token **head)
+void	first_split(char *cmd, t_token **head)
 {
 	int state;
 	int	i;
@@ -62,6 +61,7 @@ void		*first_split(char *cmd, t_token **head)
 	{
 		if (cmd[i] == '\"')
 		{
+			state = DOUBLE;
 			j = 0;
 			start = i;
 			while (cmd[i] && cmd[i + 1] != '\"')
@@ -80,16 +80,36 @@ void		*first_split(char *cmd, t_token **head)
 		else if (cmd[i] == '\'')
 		{
 			state = SINGLE;
+			start = i;
+			j = 0;
 			while (cmd[i] && cmd[i + 1] != '\'')
+			{
 				i++;
+				j++;
+			}
 			if (cmd[i + 1] == '\'')
+			{
 				i++;
+				j++;
+			}
 			i++;
-			// insert(head, cmd, i);
+			insert(head, cmd, start, j);
 		}
-		state = DEFAULT;
+		else if (cmd[i] != '\'' || cmd[i] != '\"')
+		{
+			state = DEFAULT;
+			start = i;
+			j = 0;
+			while (cmd[i] && cmd [i + 1] != '\'' && cmd[i + 1] != '\"')
+			{
+				i++;
+				j++;
+			}
+			insert(head, cmd, start, j);
+		}
+		if (cmd[i] == '\0')
+			return ;
 		i++;
-		// insert(head, cmd, i);
 	}
 }
 
@@ -98,46 +118,16 @@ void	printstr(t_token *head)
 	t_token *temp = head;
 	while (temp)
 	{
-		printf("%s+", temp->value);
+		printf("node:%s+ ", temp->value);
 		temp = temp->next;
 	}
 	printf("\n");
 }
-/*char	*firt_split(char *cmd)
-{
-	int		i;
-	char	*node;
-
-	i = 0;
-	node = NULL;
-	while (cmd[i] && cmd[i] != ' ')
-	{
-		while (get_state(cmd) == DEFAULT)
-		{
-			node[i] = cmd [i];
-			i++;
-			return (node);
-		}
-		while (get_state(cmd) == SINGLE)
-		{
-			node[i] = cmd [i];
-			i++;
-			return (node);
-		}
-		while (get_state(cmd) == DOUBLE)
-		{
-			node[i] = cmd [i];
-			i++;
-			return (node);
-		}	
-	}
-	return (node);
-}*/
 
 int main()
 {
 	t_token *head = NULL;
-	char cmd[] = "echo \"hello\" ";
+	char cmd[] = "echo \'hello\' |  \"\'yo\'\"";
 	first_split(cmd, &head);
 	printstr(head);
 	// for (int i = 0; cmd[i]; i++)
