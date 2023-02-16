@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 22:07:42 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:26:53 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token *create(char *str, int end)
 	x = 0;
 	yo = malloc(sizeof(t_token));
 	yo->value = malloc(sizeof(char) * (end + 1));
-	while (x <= end)
+	while (x < end)
 	{
 		yo->value[x] = *str;
 		str++;

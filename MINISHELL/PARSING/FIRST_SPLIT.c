@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 22:58:26 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:31:23 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ void f_split(char *cmd, t_token **head)
 			state = DOUBLE;
 		if (*cmd + 1 == '\"' && state == DOUBLE)
 			state = DEFAULT;
-		while (*cmd && (state != DEFAULT) && *cmd == 32)
+		if (state != DEFAULT && *cmd == 32)
 			cmd++;
 		while (*cmd && *cmd != 32 && *cmd != '|' && *cmd != '<' && *cmd != '>')
 		{
 			cmd++;
 			end++;
 		}
-		if ((state == DEFAULT) || (*cmd == 32 || *cmd == '|' || *cmd == '<' || *cmd == '>' || *cmd == '\0'))
+		if ((state == DEFAULT) && *cmd == 32 || *cmd == '|' || *cmd == '<' || *cmd == '>' || *cmd == '\0')
 		{
-			insert(head, cmd - end, end - 1);
+			insert(head, cmd - end, end);
 			end = 0;
 		}
 		end++;
@@ -98,7 +98,7 @@ int main(int ac, char **av)
 	t_token *head = NULL;
 	(void)ac;
 	(void)av;
-	f_split("echo        \"hello\"\'yo\'", &head);
+	f_split("echo \"hello\" allo", &head);
 	printstr(head);
 	return 0;
 }
