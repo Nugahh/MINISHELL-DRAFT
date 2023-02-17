@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 00:28:34 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/18 00:37:28 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,13 @@ void	ft_split_test(char *cmd, t_token **head)
 	end = 0;
 	while (cmd[i])
 	{
-			printf("cmd x[%d] = %c\n", i, cmd[i]);
+//			printf("cmd x[%d] = %c\n", i, cmd[i]);
 
 		while (cmd[i] == 32 && store[i] == DEFAULT)
 		{
 			end++;
 			i++;
 			printf("cmd h[%d] = %c\n", i, cmd[i]);
-
 		}
 		start = i;
 		while (cmd[i] && cmd[i] != 32 && cmd[i] != '<' && cmd[i] != '>' && cmd[i] != '|' && store[i] == DEFAULT)
@@ -138,9 +137,9 @@ void	ft_split_test(char *cmd, t_token **head)
 				i++;
 			}
 		}
-		if (cmd[i] == 32 && store[i] == DEFAULT || cmd[i + 1] == '\0')
+		if (cmd[i] == 32 && store[i] == DEFAULT || (cmd[i + 1] == '\0'))
 		{
-			printf("je rentre \n");			
+//			printf("je rentre \n");			
 			insert(head, cmd, start, end - start - 1);
 		}
 		if (cmd[i] == '\0')
@@ -155,7 +154,7 @@ int main(int ac, char **av)
 	t_token *head = NULL;
 	(void)ac;
 	(void)av;
-	ft_split_test("echo he  llo haha lol oui", &head);
+	ft_split_test("   echo he    llo haha \"lo   l\"     ", &head);
 	// int *store = ft_store_state("0123 \"\" \'123\"\'");
 	// for (int i = 0; i < 20; i++)
 	// 	printf("%d = %d\n", i, store[i]);
