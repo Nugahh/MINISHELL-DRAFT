@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/17 18:55:17 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/17 19:42:09 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ int	*ft_store_state(char *cmd)
 			state = DOUBLE;
 		else if (cmd[i] == '\"' && state == DOUBLE)
 			state = DEFAULT;
- 		// if (state != DEFAULT && cmd[i] == 32)
-		// 	i++;
-		store[cmd[i]] = state;
+		store[i] = state;
 		i++;
 	}
 	return (store);
@@ -108,92 +106,39 @@ void	ft_split_test(char *cmd, t_token **head)
 	end = 0;
 	while (cmd[i])
 	{
-		start = i;
-		printf("cmd[%d] = %d\n", i, store[cmd[i]]);
-		if (cmd[i] != 32 && cmd[i] != '<' && cmd[i] != '>' && cmd[i] != '|' && store[cmd[i]] == DEFAULT)
+		while (cmd[i] == 32 && store[i] == DEFAULT)
 		{
-		printf("cmd[%d] = %d\n", i, store[cmd[i]]);
-
+			end++;
+			i++;
+		}
+		start = i;
+		while (cmd[i] != 32 && cmd[i] != '<' && cmd[i] != '>' && cmd[i] != '|' && store[i] == DEFAULT)
+		{
 			i++;
 			end++;
 		}
-		start = i;
-		if (store[cmd[i]] != DEFAULT)
+		while (store[i] != DEFAULT)
 		{
-		printf("cmd[%d] = %d\n", i, store[cmd[i]]);
-
 			i++;
-			end++;			
+			end++;
+			if (cmd[i] == '\"' && store[i] != SINGLE)
+				i++;
+			if (cmd[i] == '\'' && store[i] != DOUBLE)
+				i++;
 		}
-		if (cmd[i] == 32 && store[cmd[i]] == DEFAULT)
+		if (cmd[i] == 32 && store[i] == DEFAULT || cmd[i + 1] == '\0')
 			insert(head, cmd, start, end - start);
 		i++;
 		end++;
 	}
 }
 
-// void f_split(char *cmd, t_token **head)
-// {
-// 	int state;
-// 	int	end;
-// 	int	start;
-// 	int	i;
-	
-// 	i = 0;
-// 	state = DEFAULT;
-// 	while (cmd[i])
-// 	{
-// 		start = i;
-// 		if (cmd[i] == '\'' && state != DOUBLE)
-// 		{
-// 			i++;
-// 			state = SINGLE;
-// 		}
-// 		if (cmd[i + 1] == '\'' && state == SINGLE)
-// 			state = DEFAULT;
-// 		if (cmd[i] == '\"' && state != SINGLE)
-// 		{
-// 			i++;
-// 			state = DOUBLE;
-// 		}
-// 		if (cmd[i + 1] == '\"' && state == DOUBLE)
-// 			state = DEFAULT;
-// 		if (state != DEFAULT && cmd[i] == 32)
-// 			i++;
-// 		end = 0;
-// 		;
-// 		while (cmd[i] && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
-// 		{
-// 			if (cmd[i] == ' ' && state == DEFAULT)
-// 				break ;
-// 			if (ft_check_end_state(cmd[i], state))
-// 			{
-// 				state = DEFAULT;
-// 				i++;
-// 				end++;
-// 				break ;
-// 			}
-// 			i++;
-// 			end++;
-// 		}
-// 		// if (cmd[i + 1] == '\0')
-// 		// 	return ;
-// 		if ((state == DEFAULT) && cmd[i] == 32 || cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>' || cmd[i] == '\0')
-// 		{
-// 			if (end > 0)
-// 				insert(head, cmd, start, end);
-// 			end = 0;
-// 		}
-// 		i++;
-// 	}
-// }
-
 int main(int ac, char **av) 
 {
 	t_token *head = NULL;
 	(void)ac;
 	(void)av;
-	ft_split_test("0123 \"\" \'123\"\'", &head);
+	ft_split_test("echo \"$USER\"\'123\"\' ls -l", &head);
 	// int *store = ft_store_state("0123 \"\" \'123\"\'");
 	// for (int i = 0; i < 20; i++)
 	// 	printf("%d = %d\n", i, store[i]);
