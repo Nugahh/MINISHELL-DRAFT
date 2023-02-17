@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/17 19:42:09 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/17 20:30:35 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,28 +106,42 @@ void	ft_split_test(char *cmd, t_token **head)
 	end = 0;
 	while (cmd[i])
 	{
+			printf("cmd[%d] = %c\n", i, cmd[i]);
+
 		while (cmd[i] == 32 && store[i] == DEFAULT)
 		{
 			end++;
 			i++;
+			printf("cmd[%d] = %c\n", i, cmd[i]);
+
 		}
 		start = i;
-		while (cmd[i] != 32 && cmd[i] != '<' && cmd[i] != '>' && cmd[i] != '|' && store[i] == DEFAULT)
+		while (cmd[i] && cmd[i] != 32 && cmd[i] != '<' && cmd[i] != '>' && cmd[i] != '|' && store[i] == DEFAULT)
 		{
 			i++;
 			end++;
+			printf("cmd[%d] = %c\n", i, cmd[i]);
 		}
 		while (store[i] != DEFAULT)
 		{
+			printf("cmd[%d] = %c\n", i, cmd[i]);
 			i++;
 			end++;
 			if (cmd[i] == '\"' && store[i] != SINGLE)
+			{
+				end++;	
 				i++;
+			}
 			if (cmd[i] == '\'' && store[i] != DOUBLE)
+			{
+				end++;	
 				i++;
+			}
 		}
+		if (cmd[i] == '\0')
+			return;
 		if (cmd[i] == 32 && store[i] == DEFAULT || cmd[i + 1] == '\0')
-			insert(head, cmd, start, end - start);
+			insert(head, cmd, start, end - start - 1);
 		i++;
 		end++;
 	}
@@ -138,7 +152,7 @@ int main(int ac, char **av)
 	t_token *head = NULL;
 	(void)ac;
 	(void)av;
-	ft_split_test("echo \"$USER\"\'123\"\' ls -l", &head);
+	ft_split_test("echo \"$USER\"\'123\"\' ls -l              ", &head);
 	// int *store = ft_store_state("0123 \"\" \'123\"\'");
 	// for (int i = 0; i < 20; i++)
 	// 	printf("%d = %d\n", i, store[i]);
