@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/15 18:42:48 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:31:00 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <stdbool.h>
 
 // ========== STRUCTURES ========== //
 
@@ -64,7 +65,6 @@ struct	s_cmdexec
 
 // ========== BASE ========== //
 
-int	main(int ac, char **av, char **envp);
 
 // ========== PARSING ========== //
 
