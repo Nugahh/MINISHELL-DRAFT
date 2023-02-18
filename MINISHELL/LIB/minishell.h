@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:51 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/19 00:01:22 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	printstr(t_token *head);
 
 // ========== PARSING ========== //
 
-void	ft_split_test(char *cmd, t_token **head);
+void	ft_split_test(char *cmd, t_token **head, int i, int start);
 
 // ========== EXEC ========== //
 

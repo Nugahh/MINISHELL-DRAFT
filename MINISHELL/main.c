@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:20:27 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 20:14:48 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/19 00:00:31 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av, char **envp)
 		command = readline("minishell$> ");
 		printf("command = %s\n", command);
 		add_history(command);
-		ft_split_test(command, &head);
+		ft_split_test(command, &head, 0, 0);
 		free(command);
 		printstr(head);
 	}
