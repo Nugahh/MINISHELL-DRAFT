@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
+#    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/18 19:38:45 by fwong            ###   ########.fr        #
+#    Updated: 2023/02/18 23:52:38 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ ${NAME} : ${OBJS}
 	@echo "${MAGENTA}assembling in progress for minishell...${RS}"
 	@echo "${GREEN}done and moved into obj directory${RS}"
 	@echo "${MAGENTA}compiling minishell... ${RS}"
-	@cc ${CFLAGS} ${RL} -o ${NAME} ${OBJS} ${LIB}
+	@cc ${CFLAGS} ${OBJS} ${RL} ${LIB} -o ${NAME}
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
