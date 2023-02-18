@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_split_index.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 23:33:06 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 00:20:26 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,12 @@ void	ft_split_test(char *cmd, t_token **head)
 	end = ft_strlen(cmd);
 	start = 0;
 	state = DEFAULT;
-	while (i < end)
+	if (end == 1)
+	{
+		insert(head, cmd, start, end);
+		return ;
+	}
+	while (cmd[i])
 	{
 		state = ft_store_state(cmd[i], state);
 		if (state == DEFAULT && i < end && cmd[i] == 32)
