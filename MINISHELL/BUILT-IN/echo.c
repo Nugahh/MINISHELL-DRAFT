@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:50:54 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 00:21:06 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 00:55:29 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ int	ft_echo(char **str)
 	{
 		while (str[i])
 		{
-			if (ft_strcmp(str[i], "- n") == 0)
+			if (ft_strncmp(str[i], "-n", ft_strlen(str[i])) == 0)
 				n = 1;
 			i++;
 		}
-		i = 0;
+		if (n == 1)
+			i = 2;
+		else
+			i = 1;
 		while (str[i])
 		{
-			printf("%s", str);
+			printf("%s", str[i]);
 			if (str[i + 1] && str[i][0] != '\0')
 				printf(" ");
 			i++;
@@ -51,8 +54,8 @@ int	ft_echo(char **str)
 	return (0);
 }
 
-int main ()
+int main (int ac, char **av)
 {
-	char str[] = "echo mdr";
-	ft_echo(str);
+	(void)ac;
+	ft_echo(av);
 }
