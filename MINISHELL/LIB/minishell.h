@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:51 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/18 23:27:54 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // ========== LIBRARY ========== //
 
-# include "libft/libft.h"
+# include "./libft/libft.h"
 # include <stdio.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -64,6 +64,7 @@ struct	s_cmdexec
 }	;
 
 // ========== BASE ========== //
+
 int		main(int ac, char **av, char **envp);
 void	printstr(t_token *head);
 
