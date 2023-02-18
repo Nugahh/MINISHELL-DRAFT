@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
+#    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/12 17:13:54 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/18 19:38:45 by fwong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,18 @@
 NAME = minishell
 
 MFILES = \
-		PARSING/SPLITS.c		\
+		./PARSING/first_split_index.c		\
 		main.c
 
 
-OBJS :=  	${addprefix ./obj/,${PFILES:%.c=%.o}}
+OBJS :=  	${addprefix ./obj/,${MFILES:%.c=%.o}}
 DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
 
 #------  2.COMPILING VARIABLES
 
-CFLAGS = -Wall -Werror -Wextra -pthread -MMD -MP -I./includes -g3 -lreadline
-LIB	   = -L./lib/libft/
+CFLAGS = -Wall -Werror -Wextra -MMD -MP -I./includes -g3 
+RL = -lreadline
+LIB	   = -L./LIB/libft/
 
 #------  3.COLORS VARIABLES
 
@@ -50,14 +51,14 @@ all: ${NAME}
 
 ./obj/%.o: ./%.c
 	@mkdir -p ${@D}
-	@make -C ./lib/libft/
+	@make -C ./LIB/libft/
 	@cc ${CFLAGS} -o $@ -c $<
 	
 ${NAME} : ${OBJS}
 	@echo "${MAGENTA}assembling in progress for minishell...${RS}"
 	@echo "${GREEN}done and moved into obj directory${RS}"
 	@echo "${MAGENTA}compiling minishell... ${RS}"
-	@cc ${CFLAGS} -o ${NAME} ${OBJS} ${LIB}
+	@cc ${CFLAGS} ${RL} -o ${NAME} ${OBJS} ${LIB}
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 	@echo "⬜⬜⬜⬜⬜⬛🟨🟨🟨🟨🟨🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
@@ -89,7 +90,7 @@ ${NAME} : ${OBJS}
 clean:
 	@rm -rf obj/
 	@rm -f ${OBJS}
-	@make $@ -C ./lib/libft/
+	@make $@ -C ./LIB/libft/
 	@echo "${BOLDGREEN}ALL CLEAN: no more obj files ${RS}"
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜"
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛"
@@ -124,7 +125,7 @@ clean:
 fclean:
 	@rm -rf obj/
 	@rm -f ${NAME}
-	@make $@ -C ./lib/libft/
+	@make $@ -C ./LIB/libft/
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜"
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛"
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛"
