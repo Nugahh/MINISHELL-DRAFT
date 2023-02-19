@@ -6,7 +6,11 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/19 22:29:40 by khuynh           ###   ########.fr        #
+<<<<<<<<< Temporary merge branch 1
+#    Updated: 2023/02/18 23:52:38 by khuynh           ###   ########.fr        #
+=========
+#    Updated: 2023/02/19 00:11:50 by fwong            ###   ########.fr        #
+>>>>>>>>> Temporary merge branch 2
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +20,6 @@ NAME = minishell
 
 MFILES = \
 		./PARSING/first_split_index.c		\
-		./PARSING/split_separator.c		\
 		main.c
 
 
@@ -27,7 +30,7 @@ DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
 
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -I./includes -g3 
 RL = -lreadline
-LIB	= -L./LIB/libft/ -lft
+LIB	   = -L./LIB/libft/ -lft
 
 #------  3.COLORS VARIABLES
 
