@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 18:16:35 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/19 19:39:43 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,44 +31,6 @@ t_token *create(char *str, int start, int end)
 	yo->next = NULL;
 	return (yo);
 }
-
-static t_token *create_separator(char *str, int start, int end)
-{
-	t_token *yo;
-	int	x;
-
-	x = 0;
-	yo = malloc(sizeof(t_token));
-	yo->value = ft_calloc(end + 1, sizeof(char)) ;
-	while (x < end)
-	{
-		yo->value[x] = str[start];
-		str++;
-		x++;
-	}
-	yo->value[x] = '\0';
-	yo->type = START;
-	yo->next = NULL;
-	return (yo);
-}
-
-void	insert_sep(t_token **head, char *str, int start, int end)
-{
-	t_token *new;
-	t_token *temp;
-
-	new = create_separator(str, start, end);
-	if (!*head)
-	{
-		*head = new;
-		return ;
-	}
-	temp = *head;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new;
-}
-
 
 void	insert(t_token **head, char *str, int start, int end)
 {
@@ -98,7 +60,7 @@ void	printstr(t_token *head)
 	printf("\n");
 }
 
-int	ft_store_state(char c, int state)
+int	ft_get_state(char c, int state)
 {
 	if (state == DEFAULT)
 	{
@@ -138,28 +100,39 @@ void	ft_split_test(char *cmd, t_token **head)
 	}
 	while (cmd[i])
 	{
-		state = ft_store_state(cmd[i], state);
-		if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
-		{
-			if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
-				insert_sep(head, cmd, start, 1);
-			else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
-				insert_sep(head, cmd, start, 2);
-			// if (cmd[i] == '>' && cmd[i + 1] == '>')
-			// 	i += 2;
-			// else if (cmd[i] == '<' && cmd[i + 1] == '<')
-			// 	i += 2;
-		}
-		if (state == DEFAULT && i < end && cmd[i] == 32)
+		state = ft_get_state(cmd[i], state);
+		// if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
+		// {
+		// 	if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
+		// 		insert_sep(head, cmd, start, 1);
+		// 	else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
+		// 		insert_sep(head, cmd, start, 2);
+		// 	// if (cmd[i] == '>' && cmd[i + 1] == '>')
+		// 	// 	i += 2;
+		// 	// else if (cmd[i] == '<' && cmd[i + 1] == '<')
+		// 	// 	i += 2;
+		// }
+		if (state == DEFAULT && i < end && (cmd[i] == 32 || is_separator(cmd[i])))
 		{
 			while (cmd[i] == 32)
 				i++;
 			start = i;
-		}
-		else if((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
-		{
-			i += 2;
-			start = i;
+			if (is_separator(cmd[i]))
+			{
+				if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
+				{
+				if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
+					insert_sep(head, cmd, start, 1);
+				else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
+					insert_sep(head, cmd, start, 2);
+				// if (cmd[i] == '>' && cmd[i + 1] == '>')
+				// 	i += 2;
+				// else if (cmd[i] == '<' && cmd[i + 1] == '<')
+				// 	i += 2;
+				}
+				i = skip_separator(i, cmd[i], cmd[i + 1]);
+				start = i;
+			}
 		}
 		else
 			i++;
@@ -167,6 +140,11 @@ void	ft_split_test(char *cmd, t_token **head)
 		{
 			insert(head, cmd, start, i - start - 1);
 			start = i + 1;
+		}
+		else if (state == DEFAULT && is_separator(cmd[i - 1]))
+		{
+			insert(head, cmd, start, i - start - 1);
+			start = i;
 		}
 		else if (i == end && cmd[i - 1] != '<' && cmd[i - 1] != '>' && cmd[i - 1] != '|')
 			insert(head, cmd, start, i - start);

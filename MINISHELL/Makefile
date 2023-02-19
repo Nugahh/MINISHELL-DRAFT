@@ -6,7 +6,7 @@
 #    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/19 00:11:50 by fwong            ###   ########.fr        #
+#    Updated: 2023/02/19 18:46:09 by fwong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = minishell
 
 MFILES = \
 		./PARSING/first_split_index.c		\
+		./PARSING/split_separator.c		\
 		main.c
 
 
