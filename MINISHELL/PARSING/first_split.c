@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 00:00:10 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 14:49:59 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ t_token	*create(char *str, int start, int end)
 	int		x;
 
 	x = 0;
-	yo = malloc(sizeof(t_token));
-	yo->value = malloc(sizeof(char) * (end + 1));
+	yo = ft_calloc(1, sizeof(t_token));
+	yo->value = ft_calloc((end + 1), sizeof(char));
 	while (x <= end)
 	{
 		yo->value[x] = str[start];
 		str++;
 		x++;
 	}
+	yo->value[x] = '\0';
 	yo->type = START;
 	yo->next = NULL;
 	return (yo);
@@ -83,14 +84,14 @@ int	ft_store_state(char c, int state)
 	return (state);
 }
 
-void	ft_split_test(char *cmd, t_token **head, int i, int start)
+void	ft_split_test(char *cmd, t_token **head, int start, int i)
 {
-	int	end;
 	int	state;
+	int	end;
 
 	end = ft_strlen(cmd);
 	state = DEFAULT;
-	while (i < end)
+	while (cmd[i])
 	{
 		state = ft_store_state(cmd[i], state);
 		if (state == DEFAULT && i < end && cmd[i] == 32)
@@ -106,7 +107,7 @@ void	ft_split_test(char *cmd, t_token **head, int i, int start)
 			insert(head, cmd, start, i - start - 1);
 			start = i + 1;
 		}
-		else if (i + 1 == end)
+		else if (i + 1 == end || end == 1)
 			insert(head, cmd, start, i - start);
 	}
 }
