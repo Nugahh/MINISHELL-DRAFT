@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 14:58:16 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 17:19:25 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef enum
 
 typedef struct s_token		t_token;
 typedef struct s_cmdexec	t_cmdexec;
-
+typedef	struct s_env		t_env;
 
 struct	s_token
 {
@@ -61,6 +61,14 @@ struct	s_cmdexec
 	int			fd_in;
 	int			fd_out;
 	t_cmdexec	*next;
+}	;
+
+struct s_env
+{
+	char	**env;
+	char	*name;
+	char	*value;
+	t_env	*next;
 }	;
 
 // ========== BASE ========== //
