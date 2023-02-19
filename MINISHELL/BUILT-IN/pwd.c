@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 21:20:27 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 17:51:37 by khuynh           ###   ########.fr       */
+/*   Created: 2023/02/19 16:17:34 by khuynh            #+#    #+#             */
+/*   Updated: 2023/02/19 16:22:46 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./LIB/minishell.h"
+#include "../LIB/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_pwd(char **str, int fd)
 {
-	char	*command;
-	t_token	*head;
+	char *pwd;
 
-	(void)ac;
-	(void)av;
-	(void)envp;
-	head = NULL;
-	while (1)
-	{
-		command = readline("minishell$> ");
-		printf("command = %s\n", command);
-		add_history(command);
-		ft_split_test(command, &head, 0, 0);
-		free(command);
-		printstr(head);
-		free(head);
-	}
+	if (!str)
+		return (0);
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return (0);
+	ft_putstr_fd(pwd, fd);
+	ft_putchar_fd('\n', fd);
+	free(pwd);
+	return (0);
 }
+
+/*nt	main(int ac, char **av)
+{
+	(void)ac;
+	ft_pwd(av, 1);
+}*/
