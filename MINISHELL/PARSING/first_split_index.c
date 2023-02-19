@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 19:39:43 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/19 19:50:55 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,10 @@ void	ft_split_test(char *cmd, t_token **head)
 			insert(head, cmd, start, i - start - 1);
 			start = i + 1;
 		}
-		else if (state == DEFAULT && is_separator(cmd[i - 1]))
+		else if (state == DEFAULT && is_separator(cmd[i - 1]) && is_separator(cmd[i + 1]) && cmd[i])
 		{
-			insert(head, cmd, start, i - start - 1);
-			start = i;
+			insert(head, cmd, start, i - start);
+			start = i + 1;
 		}
 		else if (i == end && cmd[i - 1] != '<' && cmd[i - 1] != '>' && cmd[i - 1] != '|')
 			insert(head, cmd, start, i - start);
