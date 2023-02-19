@@ -6,7 +6,7 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/19 17:50:49 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/19 18:04:48 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
 
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -I./includes -g3 
 RL = -lreadline
-LIB	   = -L./LIB/libft/
+LIB	   = -L./LIB/libft/ -lft
 
 #------  3.COLORS VARIABLES
 
