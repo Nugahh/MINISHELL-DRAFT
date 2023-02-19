@@ -6,7 +6,7 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/18 23:56:46 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/19 15:56:57 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = minishell
 
 MFILES = \
-		./PARSING/first_split_index.c		\
+		./PARSING/first_split.c		\
 		main.c
 
 

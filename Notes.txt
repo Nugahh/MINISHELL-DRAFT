@@ -13,7 +13,9 @@
 |  MINISHELL SUBJECT  |
 
 prompt, working history, search and launch exec from PATH, 1 global variable only, quotes, redirections
-pipes, env var, $?, ctrl + C - D - \ , echo -n, cd, pwd, export, unset, env, exit
+pipes, env var, ctrl + C - D - \ , echo -n, cd, pwd, export, unset, env, exit
+$? = retour dernier code erreur fait, si y en a pas mettre 0
+
 
 allowed functions: readline, rl_clear_history, rl_on_new_line,
 rl_replace_line, rl_redisplay, add_history,

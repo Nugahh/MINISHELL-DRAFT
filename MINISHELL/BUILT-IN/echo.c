@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:50:54 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 15:50:45 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 16:20:57 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_flag(char **str)
 	return (count);
 }
 
-int	ft_echo(char **str)
+int	ft_echo(char **str, int fd)
 {
 	int	i;
 	int	n;
@@ -51,13 +51,13 @@ int	ft_echo(char **str)
 		n++;
 	while (str[i])
 	{
-		printf("%s", str[i]);
+		ft_putstr_fd(str, fd);
 		if (str[i + 1] && str[i][0] != '\0')
-			printf(" ");
+			ft_putchar_fd(" ", fd);
 		i++;
 	}
 	if (n == 0)
-		printf("\n");
+		ft_putchar_fd("\n", fd);
 	return (0);
 }
 
