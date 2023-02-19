@@ -6,13 +6,13 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:50:54 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 15:33:04 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 15:50:45 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-int check_flag(char **str)
+int	check_flag(char **str)
 {
 	int	i;
 	int	j;
@@ -23,7 +23,7 @@ int check_flag(char **str)
 	i = 0;
 	while (str[i] && ft_strlen(str[i]) >= 2)
 	{
-		if(str[i][j] == '-' && str[i][j + 1] == 'n')
+		if (str[i][j] == '-' && str[i][j + 1] == 'n')
 		{
 			j++;
 			while (str[i][j] == 'n')
@@ -61,8 +61,8 @@ int	ft_echo(char **str)
 	return (0);
 }
 
-int main (int ac, char **av)
+/*int main (int ac, char **av)
 {
 	(void)ac;
 	ft_echo(av);
-}
+}*/
