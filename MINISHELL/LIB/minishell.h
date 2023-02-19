@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 18:02:49 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 18:13:22 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ struct	s_cmdexec
 
 struct s_env
 {
-	char	**env;
 	char	*name;
 	char	*value;
 	t_env	*next;
