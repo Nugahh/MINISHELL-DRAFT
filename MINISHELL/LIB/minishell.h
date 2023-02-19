@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 18:02:49 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 22:40:19 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	printstr(t_token *head);
 
 // ========== PARSING ========== //
 
-void	ft_split_test(char *cmd, t_token **head, int start, int i);
+void	ft_split_test(char *cmd, t_token **head);
 
 // ========== EXEC ========== //
 

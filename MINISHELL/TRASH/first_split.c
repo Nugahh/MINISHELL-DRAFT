@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   first_split_index.c                                :+:      :+:    :+:   */
+/*   first_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 00:00:10 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 22:40:44 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-t_token	*create(char *str, int start, int end)
+t_token *create(char *str, int start, int end)
 {
-	t_token	*yo;
-	int		x;
+	t_token *yo;
+	int	x;
 
 	x = 0;
 	yo = malloc(sizeof(t_token));
@@ -33,8 +33,8 @@ t_token	*create(char *str, int start, int end)
 
 void	insert(t_token **head, char *str, int start, int end)
 {
-	t_token	*new;
-	t_token	*temp;
+	t_token *new;
+	t_token *temp;
 
 	new = create(str, start, end);
 	if (!*head)
@@ -50,9 +50,7 @@ void	insert(t_token **head, char *str, int start, int end)
 
 void	printstr(t_token *head)
 {
-	t_token	*temp;
-
-	temp = head;
+	t_token *temp = head;
 	while (temp)
 	{
 		printf("node:%s+ ", temp->value);
@@ -68,7 +66,7 @@ int	ft_store_state(char c, int state)
 		if (c == '\'')
 			state = SINGLE;
 		else if (c == '\"')
-			state = DOUBLE;
+			state = DOUBLE;	
 	}
 	else if (state == SINGLE)
 	{
@@ -83,14 +81,23 @@ int	ft_store_state(char c, int state)
 	return (state);
 }
 
-void	ft_split_test(char *cmd, t_token **head, int i, int start)
+void	ft_split_test(char *cmd, t_token **head)
 {
+	int state;
 	int	end;
-	int	state;
+	int	start;
+	int	i;
 
+	i = 0;
 	end = ft_strlen(cmd);
+	start = 0;
 	state = DEFAULT;
-	while (i < end)
+	if (end == 1)
+	{
+		insert(head, cmd, start, end);
+		return ;
+	}
+	while (cmd[i])
 	{
 		state = ft_store_state(cmd[i], state);
 		if (state == DEFAULT && i < end && cmd[i] == 32)
