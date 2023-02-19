@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 17:19:25 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 17:51:16 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // ========== LIBRARY ========== //
 
-# include "libft/libft.h"
+# include "./libft/libft.h"
 # include <stdio.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -72,13 +72,12 @@ struct s_env
 }	;
 
 // ========== BASE ========== //
-
-// int		main(int ac, char **av, char **envp);
+int		main(int ac, char **av, char **envp);
 void	printstr(t_token *head);
 
 // ========== PARSING ========== //
 
-void	ft_split_test(char *cmd, t_token **head, int i, int start);
+void	ft_split_test(char *cmd, t_token **head);
 
 // ========== EXEC ========== //
 
