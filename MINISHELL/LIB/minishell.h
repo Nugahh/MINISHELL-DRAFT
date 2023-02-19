@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 00:01:22 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 14:58:16 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ struct	s_cmdexec
 }	;
 
 // ========== BASE ========== //
-int		main(int ac, char **av, char **envp);
+
+// int		main(int ac, char **av, char **envp);
 void	printstr(t_token *head);
 
 // ========== PARSING ========== //
