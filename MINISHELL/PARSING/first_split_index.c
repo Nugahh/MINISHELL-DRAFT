@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 00:37:46 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/19 14:49:59 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ t_token	*create(char *str, int start, int end)
 	int		x;
 
 	x = 0;
-	yo = malloc(sizeof(t_token));
-	yo->value = malloc(sizeof(char) * (end + 1));
+	yo = ft_calloc(1, sizeof(t_token));
+	yo->value = ft_calloc((end + 1), sizeof(char));
 	while (x <= end)
 	{
 		yo->value[x] = str[start];
 		str++;
 		x++;
 	}
+	yo->value[x] = '\0';
 	yo->type = START;
 	yo->next = NULL;
 	return (yo);
