@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 19:50:55 by fwong            ###   ########.fr       */
+/*   Updated: 2023/02/19 21:09:47 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,7 @@ void	ft_split_test(char *cmd, t_token **head)
 	while (cmd[i])
 	{
 		state = ft_get_state(cmd[i], state);
-		// if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
-		// {
-		// 	if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
-		// 		insert_sep(head, cmd, start, 1);
-		// 	else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
-		// 		insert_sep(head, cmd, start, 2);
-		// 	// if (cmd[i] == '>' && cmd[i + 1] == '>')
-		// 	// 	i += 2;
-		// 	// else if (cmd[i] == '<' && cmd[i + 1] == '<')
-		// 	// 	i += 2;
-		// }
+
 		if (state == DEFAULT && i < end && (cmd[i] == 32 || is_separator(cmd[i])))
 		{
 			while (cmd[i] == 32)
@@ -121,14 +111,10 @@ void	ft_split_test(char *cmd, t_token **head)
 			{
 				if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
 				{
-				if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
-					insert_sep(head, cmd, start, 1);
-				else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
-					insert_sep(head, cmd, start, 2);
-				// if (cmd[i] == '>' && cmd[i + 1] == '>')
-				// 	i += 2;
-				// else if (cmd[i] == '<' && cmd[i + 1] == '<')
-				// 	i += 2;
+					if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
+						insert_sep(head, cmd, start, 1);
+					else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
+						insert_sep(head, cmd, start, 2);
 				}
 				i = skip_separator(i, cmd[i], cmd[i + 1]);
 				start = i;
@@ -136,16 +122,21 @@ void	ft_split_test(char *cmd, t_token **head)
 		}
 		else
 			i++;
-		if (state == DEFAULT && cmd[i] == 32 && (cmd[i - 1] != '<' && cmd[i - 1] != '>' && cmd[i - 1] != '|'))
+		if (state == DEFAULT && ((cmd[i] == 32 && !is_separator(cmd[i - 1])) || (is_separator(cmd[i]) && !is_separator(cmd[i - 1]))))
 		{
 			insert(head, cmd, start, i - start - 1);
 			start = i + 1;
 		}
-		else if (state == DEFAULT && is_separator(cmd[i - 1]) && is_separator(cmd[i + 1]) && cmd[i])
-		{
-			insert(head, cmd, start, i - start);
-			start = i + 1;
-		}
+		// if (state == DEFAULT && (cmd[i] == 32 || cmd[i] == '<' || cmd[i] == '>' || cmd[i] == '|'))
+		// {
+		// 	insert(head, cmd, start, i - start - 1);
+		// 	start = i + 1;
+		// }
+		// else if (state == DEFAULT && is_separator(cmd[i - 1]) && is_separator(cmd[i]) && cmd[i])
+		// {
+		// 	insert(head, cmd, start, i - start);
+		// 	start = i + 1;
+		// }
 		else if (i == end && cmd[i - 1] != '<' && cmd[i - 1] != '>' && cmd[i - 1] != '|')
 			insert(head, cmd, start, i - start);
 	}
