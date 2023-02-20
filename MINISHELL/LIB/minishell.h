@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 18:13:22 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/20 21:22:07 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,36 @@ struct s_env
 	t_env	*next;
 }	;
 
-// ========== BASE ========== //
 int		main(int ac, char **av, char **envp);
+
+// ========================================================================= //
+//                               PARSING                                     //
+// ========================================================================= //
+
+/* [1.0] node_utils.c */
+
+t_token *create(char *str, int start, int end);
+void	insert(t_token **head, char *str, int start, int end);
 void	printstr(t_token *head);
 
-// ========== PARSING ========== //
+/* [1.1] split_operators.c */
 
-void	ft_split_test(char *cmd, t_token **head, int start, int i);
+int		is_operator(char c);
+int		skip_operator(int i, char c1, char c2);
+t_token *create_operator(char *str, int start, int end);
+void	insert_op(t_token **head, char *str, int start, int end);
+int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 
-// ========== EXEC ========== //
+/* [1] first_split.c */
+
+int		ft_get_state(char c, int state);
+int		ft_skip_spaces(char *cmd, int i);
+int		ft_check_spaces_and_not_operator(char *cmd, int i);
+int		insert_and_init_new_start(char *cmd, t_token **head, int i, int start);
+void	ft_split_test(char *cmd, t_token **head, int i, int start);
+
+// ========================================================================= //
+//                               EXEC                                        //
+// ========================================================================= //
 
 #endif
