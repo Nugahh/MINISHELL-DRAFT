@@ -6,11 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/19 22:40:19 by khuynh           ###   ########.fr       */
-=======
-/*   Updated: 2023/02/20 20:22:04 by fwong            ###   ########.fr       */
->>>>>>> 7fc6933 (first step done)
+/*   Updated: 2023/02/20 21:18:31 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +63,10 @@ struct	s_cmdexec
 	t_cmdexec	*next;
 }	;
 
-<<<<<<< HEAD
-struct s_env
-{
-	char	**env;
-	char	*name;
-	char	*value;
-	t_env	*next;
-}	;
-=======
 // ========================================================================= //
 //                                BASE	                                     //
 // ========================================================================= //
->>>>>>> 7fc6933 (first step done)
 
-// ========== BASE ========== //
 int		main(int ac, char **av, char **envp);
 
 // ========================================================================= //
@@ -96,9 +81,6 @@ void	printstr(t_token *head);
 
 /* [1.1] split_operators.c */
 
-<<<<<<< HEAD
-void	ft_split_test(char *cmd, t_token **head);
-=======
 int		is_operator(char c);
 int		skip_operator(int i, char c1, char c2);
 t_token *create_operator(char *str, int start, int end);
@@ -106,7 +88,6 @@ void	insert_op(t_token **head, char *str, int start, int end);
 int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 
 /* [1] first_split.c */
->>>>>>> 7fc6933 (first step done)
 
 int		ft_get_state(char c, int state);
 int		ft_skip_spaces(char *cmd, int i);

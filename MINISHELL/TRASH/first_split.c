@@ -6,30 +6,27 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-<<<<<<<< HEAD:MINISHELL/TRASH/first_split.c
-/*   Updated: 2023/02/19 22:40:44 by khuynh           ###   ########.fr       */
-========
-/*   Updated: 2023/02/20 20:06:31 by fwong            ###   ########.fr       */
->>>>>>>> 7fc6933 (first step done):.history/MINISHELL/PARSING/[1] first_split_20230220200630.c
+/*   Updated: 2023/02/19 22:49:21 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-t_token *create(char *str, int start, int end)
+t_token	*create(char *str, int start, int end)
 {
-	t_token *yo;
-	int	x;
+	t_token	*yo;
+	int		x;
 
 	x = 0;
-	yo = malloc(sizeof(t_token));
-	yo->value = malloc(sizeof(char) * (end + 1));
+	yo = ft_calloc(1, sizeof(t_token));
+	yo->value = ft_calloc((end + 1), sizeof(char));
 	while (x <= end)
 	{
 		yo->value[x] = str[start];
 		str++;
 		x++;
 	}
+	yo->value[x] = '\0';
 	yo->type = START;
 	yo->next = NULL;
 	return (yo);
@@ -37,8 +34,8 @@ t_token *create(char *str, int start, int end)
 
 void	insert(t_token **head, char *str, int start, int end)
 {
-	t_token *new;
-	t_token *temp;
+	t_token	*new;
+	t_token	*temp;
 
 	new = create(str, start, end);
 	if (!*head)
@@ -54,7 +51,9 @@ void	insert(t_token **head, char *str, int start, int end)
 
 void	printstr(t_token *head)
 {
-	t_token *temp = head;
+	t_token	*temp;
+
+	temp = head;
 	while (temp)
 	{
 		printf("node:%s+ ", temp->value);
@@ -70,7 +69,7 @@ int	ft_store_state(char c, int state)
 		if (c == '\'')
 			state = SINGLE;
 		else if (c == '\"')
-			state = DOUBLE;	
+			state = DOUBLE;
 	}
 	else if (state == SINGLE)
 	{
@@ -85,70 +84,62 @@ int	ft_store_state(char c, int state)
 	return (state);
 }
 
-int	ft_skip_spaces(char *cmd, int i)
+void    ft_split_test(char *cmd, t_token **head)
 {
-	while (cmd[i] == 32)
-		i++;
-	return (i);
-}
+    int state;
+    int end;
+    int start;
+    int i;
 
-int	ft_check_spaces_and_not_operator(char *cmd, int i)
-{
-	if ((cmd[i] == 32 && !is_operator(cmd[i - 1]))
-		|| (is_operator(cmd[i]) && !is_operator(cmd[i - 1])))
-		return (1);
-	return (0);
-}
+    i = 0;
+    end = ft_strlen(cmd);
+    start = 0;
+    state = DEFAULT;
+    if (end == 1)
+    {
+        insert(head, cmd, start, end);
+        return ;
+    }
+    while (cmd[i])
+    {
+        state = ft_get_state(cmd[i], state);
 
-int	insert_and_init_new_start(char *cmd, t_token **head, int i, int start)
-{
-	insert(head, cmd, start, i - start - 1);
-	start = i + 1;
-	return (start);
-}
-
-void	ft_split_test(char *cmd, t_token **head, int i, int start)
-{
-	int	state;
-	int	end;
-
-	end = ft_strlen(cmd);
-	state = DEFAULT;
-	while (cmd[i])
-	{
-<<<<<<<< HEAD:MINISHELL/TRASH/first_split.c
-		state = ft_store_state(cmd[i], state);
-		if (state == DEFAULT && i < end && cmd[i] == 32)
-========
-		state = ft_get_state(cmd[i], state);
-		if (state == DEFAULT && (cmd[i] == 32 || is_operator(cmd[i])))
->>>>>>>> 7fc6933 (first step done):.history/MINISHELL/PARSING/[1] first_split_20230220200630.c
-		{
-			i = ft_skip_spaces(cmd, i);
-			start = i;
-<<<<<<<< HEAD:MINISHELL/TRASH/first_split.c
-		}
-		else
-			i++;
-		if (state == DEFAULT && cmd[i] == 32)
-		{
-			insert(head, cmd, start, i - start - 1);
-			start = i + 1;
-		}
-		else if (i + 1 == end)
-========
-			if (is_operator(cmd[i]))
-			{
-				i = check_insert_op_and_init(head, cmd, start, i);
-				start = i;
-			}
-		}
-		else
-			i++;
-		if (state == DEFAULT && (ft_check_spaces_and_not_operator(cmd, i)))
-			start = insert_and_init_new_start(cmd, head, i, start);
-		else if (i == end && !is_operator(cmd[i - 1]) && cmd[i - 1] != ' ')
->>>>>>>> 7fc6933 (first step done):.history/MINISHELL/PARSING/[1] first_split_20230220200630.c
-			insert(head, cmd, start, i - start);
-	}
+        if (state == DEFAULT && i < end && (cmd[i] == 32 || is_separator(cmd[i])))
+        {
+            while (cmd[i] == 32)
+                i++;
+            start = i;
+            if (is_separator(cmd[i]))
+            {
+                if (state == DEFAULT && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == '|'))
+                {
+                    if ((cmd[i] == '>' && cmd[i + 1] != '>') || (cmd[i] == '<' && cmd[i + 1] != '<') || cmd[i] == '|')
+                        insert_sep(head, cmd, start, 1);
+                    else if ((cmd[i] == '>' && cmd[i + 1] == '>') || (cmd[i] == '<' && cmd[i + 1] == '<'))
+                        insert_sep(head, cmd, start, 2);
+                }
+                i = skip_separator(i, cmd[i], cmd[i + 1]);
+                start = i;
+            }
+        }
+        else
+            i++;
+        if (state == DEFAULT && ((cmd[i] == 32 && !is_separator(cmd[i - 1])) || (is_separator(cmd[i]) && !is_separator(cmd[i - 1]))))
+        {
+            insert(head, cmd, start, i - start - 1);
+            start = i + 1;
+        }
+        // if (state == DEFAULT && (cmd[i] == 32 || cmd[i] == '<' || cmd[i] == '>' || cmd[i] == '|'))
+        // {
+        //  insert(head, cmd, start, i - start - 1);
+        //  start = i + 1;
+        // }
+        // else if (state == DEFAULT && is_separator(cmd[i - 1]) && is_separator(cmd[i]) && cmd[i])
+        // {
+        //  insert(head, cmd, start, i - start);
+        //  start = i + 1;
+        // }
+        else if (i == end && cmd[i - 1] != '<' && cmd[i - 1] != '>' && cmd[i - 1] != '|')
+            insert(head, cmd, start, i - start);
+    }
 }
