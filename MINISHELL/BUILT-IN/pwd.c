@@ -15,7 +15,7 @@ int	ft_pwd(char **str, int fd)
 	return (0);
 }
 
-/*nt	main(int ac, char **av)
+/*int	main(int ac, char **av)
 {
 	(void)ac;
 	ft_pwd(av, 1);
