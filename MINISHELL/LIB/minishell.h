@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/20 23:29:35 by khuynh           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -81,7 +69,7 @@ int		main(int ac, char **av, char **envp);
 
 t_token *create(char *str, int start, int end);
 void	insert(t_token **head, char *str, int start, int end);
-void	printstr(t_token *head);
+//void	printstr(t_token *head);
 
 /* [1.1] split_operators.c */
 
