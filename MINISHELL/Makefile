@@ -3,9 +3,13 @@
 NAME = minishell
 
 MFILES = \
-		PARSING/[1.0]node_utils.c	\
+		PARSING/[1.0]node_utils.c		\
 		PARSING/[1.1]split_operators.c	\
-		PARSING/[1]first_split.c	\
+		PARSING/[1]first_split.c		\
+		PARSING/env_parsing.c			\
+		BUILT-IN/echo.c					\
+		BUILT-IN/pwd.c					\
+		BUILT-IN/env.c					\
 		main.c
 
 

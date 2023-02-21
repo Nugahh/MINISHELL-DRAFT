@@ -13,7 +13,6 @@
 
 typedef enum TYPE
 {
-	START,
 	ARG,
 	FD,
 	LIM,
@@ -33,26 +32,25 @@ typedef enum STATE
 
 typedef struct s_token
 {
-	char	*value;
-	int		type;
-	t_token	*next;
+	char			*value;
+	int				type;
+	struct s_token	*next;
 }	t_token;
 
 typedef struct s_cmdexec
 {
-	t_token		*arg;
-	t_token		*red;
-	int			fd_in;
-	int			fd_out;
-	t_env		*env;
-	t_cmdexec	*next;
+	t_token				*arg;
+	t_token				*red;
+	int					fd_in;
+	int					fd_out;
+	struct s_cmdexec	*next;
 }	t_cmdexec;
 
 typedef struct s_env
 {
-	char	*name;
-	char	*value;
-	t_env	*next;
+	char			*name;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 int		main(int ac, char **av, char **envp);
@@ -83,8 +81,18 @@ int		ft_check_spaces_and_not_operator(char *cmd, int i);
 int		insert_and_init_new_start(char *cmd, t_token **head, int i, int start);
 void	ft_split_test(char *cmd, t_token **head, int i, int start);
 
+/* env_parsing.c */
+
+void	env_parser(char **envp, t_env **head, int i);
+
 // ========================================================================= //
 //                               EXEC                                        //
 // ========================================================================= //
+
+/* BUILT-INS */
+
+int	ft_echo(char **str, int fd);
+int	ft_env(t_env *head, int fd, char **envp);
+int	ft_pwd(int fd);
 
 #endif

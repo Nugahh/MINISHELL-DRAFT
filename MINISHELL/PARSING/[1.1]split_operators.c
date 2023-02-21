@@ -31,7 +31,7 @@ t_token	*create_operator(char *str, int start, int end)
 		x++;
 	}
 	yo->value[x] = '\0';
-	yo->type = START;
+	yo->type = ARG;
 	yo->next = NULL;
 	return (yo);
 }

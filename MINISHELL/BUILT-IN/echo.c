@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 23:50:54 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 16:20:57 by khuynh           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../LIB/minishell.h"
 
-int	check_flag(char **str)
+static int	check_flag(char **str)
 {
 	int	i;
 	int	j;
@@ -51,13 +39,13 @@ int	ft_echo(char **str, int fd)
 		n++;
 	while (str[i])
 	{
-		ft_putstr_fd(str, fd);
+		ft_putstr_fd(str[i], fd);
 		if (str[i + 1] && str[i][0] != '\0')
-			ft_putchar_fd(" ", fd);
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (n == 0)
-		ft_putchar_fd("\n", fd);
+		ft_putchar_fd('\n', fd);
 	return (0);
 }
 
