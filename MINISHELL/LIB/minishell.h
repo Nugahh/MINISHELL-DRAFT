@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/20 21:22:07 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/20 23:29:35 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ struct	s_cmdexec
 	t_token		*red;
 	int			fd_in;
 	int			fd_out;
+	t_env		*env;
 	t_cmdexec	*next;
 }	;
 
