@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 20:40:48 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/20 21:22:07 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:56:42 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <stdio.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 // ========== STRUCTURES ========== //
 
-typedef enum
+typedef enum TYPE
 {
 	START,
 	ARG,
@@ -34,41 +34,37 @@ typedef enum
 	DRIN,
 	DROUT,
 	PIPE
-} TYPE;
+}	t_TYPE;
 
-typedef enum
+typedef enum STATE
 {
 	DEFAULT,
 	SINGLE,
 	DOUBLE
-} STATE;
+}	t_STATE;
 
-typedef struct s_token		t_token;
-typedef struct s_cmdexec	t_cmdexec;
-typedef	struct s_env		t_env;
-
-struct	s_token
+typedef struct s_token
 {
 	char	*value;
 	int		type;
 	t_token	*next;
-}	;
+}	t_token;
 
-struct	s_cmdexec
+typedef struct s_cmdexec
 {
 	t_token		*arg;
 	t_token		*red;
 	int			fd_in;
 	int			fd_out;
 	t_cmdexec	*next;
-}	;
+}	t_cmdexec;
 
-struct s_env
+typedef struct s_env
 {
 	char	*name;
 	char	*value;
 	t_env	*next;
-}	;
+}	t_env;
 
 int		main(int ac, char **av, char **envp);
 
@@ -78,7 +74,7 @@ int		main(int ac, char **av, char **envp);
 
 /* [1.0] node_utils.c */
 
-t_token *create(char *str, int start, int end);
+t_token	*create(char *str, int start, int end);
 void	insert(t_token **head, char *str, int start, int end);
 void	printstr(t_token *head);
 
@@ -86,7 +82,7 @@ void	printstr(t_token *head);
 
 int		is_operator(char c);
 int		skip_operator(int i, char c1, char c2);
-t_token *create_operator(char *str, int start, int end);
+t_token	*create_operator(char *str, int start, int end);
 void	insert_op(t_token **head, char *str, int start, int end);
 int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 
