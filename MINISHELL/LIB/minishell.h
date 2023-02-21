@@ -7,13 +7,12 @@
 # include <stdio.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 // ========== STRUCTURES ========== //
 
-typedef enum
+typedef enum TYPE
 {
-	START,
 	ARG,
 	FD,
 	LIM,
@@ -22,42 +21,37 @@ typedef enum
 	DRIN,
 	DROUT,
 	PIPE
-} TYPE;
+}	t_TYPE;
 
-typedef enum
+typedef enum STATE
 {
 	DEFAULT,
 	SINGLE,
 	DOUBLE
-} STATE;
+}	t_STATE;
 
-typedef struct s_token		t_token;
-typedef struct s_cmdexec	t_cmdexec;
-typedef	struct s_env		t_env;
-
-struct	s_token
+typedef struct s_token
 {
-	char	*value;
-	int		type;
-	t_token	*next;
-}	;
+	char			*value;
+	int				type;
+	struct s_token	*next;
+}	t_token;
 
-struct	s_cmdexec
+typedef struct s_cmdexec
 {
-	t_token		*arg;
-	t_token		*red;
-	int			fd_in;
-	int			fd_out;
-	t_env		*env;
-	t_cmdexec	*next;
-}	;
+	t_token				*arg;
+	t_token				*red;
+	int					fd_in;
+	int					fd_out;
+	struct s_cmdexec	*next;
+}	t_cmdexec;
 
-struct s_env
+typedef struct s_env
 {
-	char	*name;
-	char	*value;
-	t_env	*next;
-}	;
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 int		main(int ac, char **av, char **envp);
 
@@ -67,15 +61,15 @@ int		main(int ac, char **av, char **envp);
 
 /* [1.0] node_utils.c */
 
-t_token *create(char *str, int start, int end);
+t_token	*create(char *str, int start, int end);
 void	insert(t_token **head, char *str, int start, int end);
-//void	printstr(t_token *head);
+void	printstr(t_token *head);
 
 /* [1.1] split_operators.c */
 
 int		is_operator(char c);
 int		skip_operator(int i, char c1, char c2);
-t_token *create_operator(char *str, int start, int end);
+t_token	*create_operator(char *str, int start, int end);
 void	insert_op(t_token **head, char *str, int start, int end);
 int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 
@@ -87,8 +81,18 @@ int		ft_check_spaces_and_not_operator(char *cmd, int i);
 int		insert_and_init_new_start(char *cmd, t_token **head, int i, int start);
 void	ft_split_test(char *cmd, t_token **head, int i, int start);
 
+/* env_parsing.c */
+
+void	env_parser(char **envp, t_env **head, int i);
+
 // ========================================================================= //
 //                               EXEC                                        //
 // ========================================================================= //
+
+/* BUILT-INS */
+
+int	ft_echo(char **str, int fd);
+int	ft_env(t_env *head, int fd, char **envp);
+int	ft_pwd(int fd);
 
 #endif

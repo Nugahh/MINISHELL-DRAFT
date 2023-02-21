@@ -1,6 +1,6 @@
 #include "../LIB/minishell.h"
 
-int	nb_env(char **envp)
+/*int	nb_env(char **envp)
 {
 	int	i;
 	int	count;
@@ -32,7 +32,7 @@ char **extract_env(char **envp)
 	}
 	copy[i] = NULL;
 	return (copy);
-}
+}*/
 
 t_env *create_env(char *name, char *value)
 {
@@ -73,7 +73,6 @@ void	env_parser(char **envp, t_env **head, int i)
 	bool	equal;
 	char	*name;
 	char	*value;
-	t_env	*env;
 	
 	while (envp[i])
 	{
@@ -96,7 +95,7 @@ void	env_parser(char **envp, t_env **head, int i)
 		i++;
 	}
 }
-
+/*
 void	printstr(t_env *head)
 {
 	t_env	*temp;
@@ -120,4 +119,4 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	env_parser(envp, &env, 0);
 	printstr(env);
-}
+}*/

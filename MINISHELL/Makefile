@@ -1,23 +1,15 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/21 16:45:43 by fwong            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 #------  1.PROJECT FILES VARIABLES
 
 NAME = minishell
 
 MFILES = \
-		PARSING/[1.0]node_utils.c	\
+		PARSING/[1.0]node_utils.c		\
 		PARSING/[1.1]split_operators.c	\
-		PARSING/[1]first_split.c	\
+		PARSING/[1]first_split.c		\
+		PARSING/env_parsing.c			\
+		BUILT-IN/echo.c					\
+		BUILT-IN/pwd.c					\
+		BUILT-IN/env.c					\
 		main.c
 
 

@@ -1,6 +1,6 @@
 #include "../LIB/minishell.h"
 
-int	check_flag(char **str)
+static int	check_flag(char **str)
 {
 	int	i;
 	int	j;
@@ -39,13 +39,13 @@ int	ft_echo(char **str, int fd)
 		n++;
 	while (str[i])
 	{
-		ft_putstr_fd(str, fd);
+		ft_putstr_fd(str[i], fd);
 		if (str[i + 1] && str[i][0] != '\0')
-			ft_putchar_fd(" ", fd);
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (n == 0)
-		ft_putchar_fd("\n", fd);
+		ft_putchar_fd('\n', fd);
 	return (0);
 }
 
