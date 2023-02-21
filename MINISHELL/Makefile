@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
+#    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 20:36:56 by khuynh            #+#    #+#              #
-<<<<<<<<< Temporary merge branch 1
-#    Updated: 2023/02/18 23:52:38 by khuynh           ###   ########.fr        #
-=========
-#    Updated: 2023/02/19 00:11:50 by fwong            ###   ########.fr        #
->>>>>>>>> Temporary merge branch 2
+#    Updated: 2023/02/21 16:42:07 by fwong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +15,9 @@
 NAME = minishell
 
 MFILES = \
-		./PARSING/first_split_index.c		\
+		PARSING/[1.0]node_utils.c	\
+		PARSING/[1.1]split_operators.c	\
+		PARSING/[1]first_split.c	\
 		main.c
 
 
