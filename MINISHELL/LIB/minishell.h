@@ -13,7 +13,6 @@
 
 typedef enum TYPE
 {
-	START,
 	ARG,
 	FD,
 	LIM,
@@ -44,7 +43,6 @@ typedef struct s_cmdexec
 	t_token		*red;
 	int			fd_in;
 	int			fd_out;
-	t_env		*env;
 	t_cmdexec	*next;
 }	t_cmdexec;
 
