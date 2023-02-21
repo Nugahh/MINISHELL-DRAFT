@@ -67,22 +67,23 @@ void	insert_env(t_env **head, char *name, char *value)
 	temp->next = new;
 }
 
-void	env_parser(char **envp, t_env **head)
+void	env_parser(char **envp, t_env **head, int i)
 {
-	int		i;
 	int		j;
+	bool	equal;
 	char	*name;
 	char	*value;
 	t_env	*env;
-
-	i = 0;
+	
 	while (envp[i])
 	{
 		j = 0;
+		equal = false;
 		while (envp[i][j])
 		{
-			if (envp[i][j] == '=')
+			if (envp[i][j] == '=' && equal == false)
 			{
+				equal = true;
 				name = ft_substr(envp[i], 0, j);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
 				break;
@@ -96,10 +97,27 @@ void	env_parser(char **envp, t_env **head)
 	}
 }
 
+void	printstr(t_env *head)
+{
+	t_env	*temp;
+
+	temp = head;
+	while (temp)
+	{
+		printf("%s=", temp->name);
+		printf("    %s\n", temp->value);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
-
-	extract_env(envp);
+	t_env	*env;
+	
+	env = NULL;
+	env_parser(envp, &env, 0);
+	printstr(env);
 }
