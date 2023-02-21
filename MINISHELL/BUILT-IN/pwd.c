@@ -1,11 +1,9 @@
 #include "../LIB/minishell.h"
 
-int	ft_pwd(char **str, int fd)
+int	ft_pwd(int fd)
 {
 	char *pwd;
 
-	if (!str)
-		return (0);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (0);
