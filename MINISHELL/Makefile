@@ -14,8 +14,8 @@ MFILES = \
 		main.c
 
 
-OBJS :=  	${addprefix ./obj/,${MFILES:%.c=%.o}}
-DEP   = 	${addprefix ./obj/,${OBJS:%.o=%.d}}
+OBJS :=  	${addprefix ./OBJ/,${MFILES:%.c=%.o}}
+DEP   = 	${addprefix ./OBJ/,${OBJS:%.o=%.d}}
 
 #------  2.COMPILING VARIABLES
 
@@ -44,7 +44,7 @@ BOLDGREEN=    \033[1m\033[32m
 all: ${NAME}
 -include ${DEP}
 
-./obj/%.o: ./%.c
+./OBJ/%.o: ./%.c
 	@mkdir -p ${@D}
 	@make -C ./LIB/libft/
 	@cc ${CFLAGS} -o $@ -c $<
@@ -83,7 +83,7 @@ ${NAME} : ${OBJS}
 
 
 clean:
-	@rm -rf obj/
+	@rm -rf OBJ/
 	@rm -f ${OBJS}
 	@make $@ -C ./LIB/libft/
 	@echo "${BOLDGREEN}ALL CLEAN: no more obj files ${RS}"
@@ -118,7 +118,7 @@ clean:
 	@echo "⬜⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"
 
 fclean:
-	@rm -rf obj/
+	@rm -rf OBJ/
 	@rm -f ${NAME}
 	@make $@ -C ./LIB/libft/
 	@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜"
