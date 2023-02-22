@@ -34,10 +34,10 @@ char **extract_env(char **envp)
 	return (copy);
 }*/
 
-t_env *create_env(char *name, char *value)
+t_env	*create_env(char *name, char *value)
 {
 	t_env	*new;
-	
+
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return (0);
@@ -73,7 +73,7 @@ void	env_parser(char **envp, t_env **head, int i)
 	bool	equal;
 	char	*name;
 	char	*value;
-	
+
 	while (envp[i])
 	{
 		j = 0;
@@ -85,7 +85,7 @@ void	env_parser(char **envp, t_env **head, int i)
 				equal = true;
 				name = ft_substr(envp[i], 0, j);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
-				break;
+				break ;
 			}
 			j++;
 		}

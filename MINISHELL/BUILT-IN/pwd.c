@@ -2,7 +2,7 @@
 
 int	ft_pwd(int fd)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
