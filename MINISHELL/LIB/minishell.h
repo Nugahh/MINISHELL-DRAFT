@@ -30,6 +30,8 @@ typedef enum STATE
 	DOUBLE
 }	t_STATE;
 
+// extern int	g_error;
+
 typedef struct s_token
 {
 	char			*value;
@@ -81,11 +83,18 @@ int		ft_check_spaces_and_not_operator(char *cmd, int i);
 int		insert_and_init_new_start(char *cmd, t_token **head, int i, int start);
 void	ft_split_test(char *cmd, t_token **head, int i, int start);
 
-/* [2] tokenizer.c */
+/* [2.0] tokenizer.c */
 
 void	assign_type_and_fd(t_token **token);
 void	assign_type_and_lim(t_token **token);
 void	assign_type(t_token **token);
+
+/* [2]check_syntax_error.c */
+void	display_error(t_token **token);
+
+/* [2]check_syntax_error.c */
+
+bool	ft_check_syntax_error(t_token **token);
 
 
 /* env_parsing.c */

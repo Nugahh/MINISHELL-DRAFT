@@ -6,7 +6,9 @@ MFILES = \
 		PARSING/[1.0]node_utils.c		\
 		PARSING/[1.1]split_operators.c	\
 		PARSING/[1]first_split.c		\
-		PARSING/[2]tokenizer.c		\
+		PARSING/[2.0]tokenizer.c		\
+		PARSING/[2.1]syntax_error_utils.c		\
+		PARSING/[2]check_syntax_error.c		\
 		PARSING/env_parsing.c			\
 		BUILT-IN/echo.c					\
 		BUILT-IN/pwd.c					\

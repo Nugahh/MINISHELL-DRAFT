@@ -16,6 +16,7 @@ int	main(int ac, char **av, char **envp)
 		add_history(command);
 		ft_split_test(command, &head, 0, 0);
 		assign_type(&head);
+		ft_check_syntax_error(&head);
 		printstr(head);
 		if (ft_strncmp(command, "echo", 4) == 0)
 			ft_echo(av, 1);
