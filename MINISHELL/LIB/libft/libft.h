@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:12:45 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 23:30:45 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/22 19:45:14 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
+char	*ft_strncat(char *dest, char *src, int nb);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));

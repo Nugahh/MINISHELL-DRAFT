@@ -6,7 +6,7 @@
 #    By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 23:10:17 by khuynh            #+#    #+#              #
-#    Updated: 2022/10/16 14:09:37 by khuynh           ###   ########.fr        #
+#    Updated: 2023/02/22 19:40:23 by khuynh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS =  \
         ft_itoa.c       \
         ft_substr.c     \
         ft_strjoin.c    \
+		ft_strncat.c    \
         ft_strtrim.c    \
         ft_split.c      \
         ft_strmapi.c    \
