@@ -1,5 +1,24 @@
 #include "../LIB/minishell.h"
 
+void	deletenode(t_token *head)
+{
+	t_token	*temp;
+	t_token	*prev;
+
+	temp = head;
+	prev = NULL;
+
+	printf("removing node2\n");
+
+	while (temp)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	prev->next = temp->next;
+	free(temp);
+}
+
 void	env_lookup(t_token **head, t_env **env, char *copy)
 {
 	t_env	*tempv;
@@ -13,8 +32,13 @@ void	env_lookup(t_token **head, t_env **env, char *copy)
 		len = ft_strlen(tempv->value);
 		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
 		{
+			if (ft_strlen(tempv->name) != ft_strlen(copy))
+			{
+				printf("removing node\n");
+				return (deletenode(temp));
+			}
 			temp->value = ft_strncat(temp->value, tempv->value, len);
-			break ;
+			break;
 		}
 		tempv = tempv->next;
 	}
@@ -46,9 +70,7 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 		{
 			if (state == DEFAULT && temp->value[i] == '$')
 			{
-				i++;
-				copy = ft_substr(temp->value, i, ft_strlen(temp->value) - i);
-				i--;
+				copy = ft_substr(temp->value, i + 1, ft_strlen(temp->value) - i);
 				eraser(i, ft_strlen(temp->value), temp->value);
 				env_lookup(&temp, &tempv, copy);
 			}
