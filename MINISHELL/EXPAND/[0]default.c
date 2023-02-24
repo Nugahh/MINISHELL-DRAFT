@@ -11,12 +11,12 @@
 	free(temp);
 }*/
 
-void	deletenode(t_token *head, t_token *todel)
+void	deletenode(t_token **head, t_token *todel)
 {
 	t_token *temp;
 	t_token *prev;
 
-	temp = head;
+	temp = *head;
 	prev = NULL;
 	while (temp && temp != todel)
 	{
@@ -25,8 +25,8 @@ void	deletenode(t_token *head, t_token *todel)
 	}
 	if (todel->next == NULL)
 	{
-		prev->next = NULL;
 		free(todel);
+		prev->next = NULL;
 		return ;
 	}
 	todel->value = temp->next->value;
@@ -49,7 +49,7 @@ void	env_lookup(t_token **head, t_env **env, char *copy)
 		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
 		{
 			if (ft_strlen(tempv->name) != ft_strlen(copy))
-				return (deletenode(*head, temp));
+				return (deletenode(&temp, temp));
 			temp->value = ft_strncat(temp->value, tempv->value, len);
 			break;
 		}
