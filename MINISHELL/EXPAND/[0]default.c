@@ -1,22 +1,38 @@
 #include "../LIB/minishell.h"
 
-void	deletenode(t_token *head)
+/*void	deletenode(t_token *todel)
 {
-	t_token	*temp;
-	t_token	*prev;
+	t_token *temp;
+
+	temp = todel->next;
+	todel->value = temp->value;
+	todel->type = temp->type;
+	todel->next = temp->next;
+	free(temp);
+}*/
+
+void	deletenode(t_token *head, t_token *todel)
+{
+	t_token *temp;
+	t_token *prev;
 
 	temp = head;
 	prev = NULL;
-
-	printf("removing node2\n");
-
-	while (temp)
+	while (temp && temp != todel)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
-	prev->next = temp->next;
-	free(temp);
+	if (todel->next == NULL)
+	{
+		prev->next = NULL;
+		free(todel);
+		return ;
+	}
+	todel->value = temp->next->value;
+	todel->type = temp->next->type;
+	temp->next = temp->next->next;
+	free(temp->next);
 }
 
 void	env_lookup(t_token **head, t_env **env, char *copy)
@@ -33,10 +49,7 @@ void	env_lookup(t_token **head, t_env **env, char *copy)
 		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
 		{
 			if (ft_strlen(tempv->name) != ft_strlen(copy))
-			{
-				printf("removing node\n");
-				return (deletenode(temp));
-			}
+				return (deletenode(*head, temp));
 			temp->value = ft_strncat(temp->value, tempv->value, len);
 			break;
 		}
