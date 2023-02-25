@@ -18,8 +18,11 @@ int	main(int ac, char **av, char **envp)
 		assign_type(&head);
 		ft_check_syntax_error(&head);
 		printstr(head);
-		if (ft_strncmp(command, "echo", 4) == 0)
-			ft_echo(av, 1);
+		env_parser(envp, &env, 0);
+		expand_default(&head, &env, 0, DEFAULT);
+		printstr(head);
+//		if (ft_strncmp(command, "echo", 4) == 0)
+//			ft_echo(av, 1);
 		if (ft_strncmp(command, "pwd", 3) == 0)
 			ft_pwd(1);
 		if (ft_strncmp(command, "env", 3) == 0)

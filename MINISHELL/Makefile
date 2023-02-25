@@ -9,7 +9,8 @@ MFILES = \
 		PARSING/[2.0]tokenizer.c		\
 		PARSING/[2.1]syntax_error_utils.c		\
 		PARSING/[2]check_syntax_error.c		\
-		PARSING/env_parsing.c			\
+		PARSING/[bis]env_parsing.c			\
+    EXPAND/[0]default.c
 		BUILT-IN/echo.c					\
 		BUILT-IN/pwd.c					\
 		BUILT-IN/env.c					\
