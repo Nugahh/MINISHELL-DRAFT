@@ -65,20 +65,21 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 	tempv = *env;
 	while (temp)
 	{
-		state = ft_get_state(temp->value[i], state);
 		i = 0;
+		state = ft_get_state(temp->value[i], state);
 		len = ft_strlen(temp->value);
 		while (temp->value[i])
 		{
-			if (state == DEFAULT && temp->value[i] == '$')
+			if (state == DEFAULT && temp->value[i] == '$'
+				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
 			{
 				copy = ft_substr(temp->value, i + 1, len - i);
 				eraser(i, len, temp->value);
 				env_lookup(head, &tempv, copy, temp);
+				free(copy);
 			}
 			i++;
 		}
 		temp = temp->next;
 	}
-	free(copy);
 }
