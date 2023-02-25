@@ -47,7 +47,6 @@ void	printstr(t_token *head)
 	while (temp)
 	{
 		printf("node:%s+ ", temp->value);
-		// printf("type = %d+\n", temp->type);
 		temp = temp->next;
 	}
 	printf("\n");

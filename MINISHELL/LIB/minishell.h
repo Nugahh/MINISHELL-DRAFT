@@ -106,6 +106,11 @@ void	env_parser(char **envp, t_env **head, int i);
 // ========================================================================= //
 
 void	expand_default(t_token **head, t_env **env, int i, int state);
+void	expand_single(t_token **head, int state);
+
+/* UTILS */
+
+void	deletenode(t_token **head, t_token *todel);
 
 // ========================================================================= //
 //                               EXEC                                        //
