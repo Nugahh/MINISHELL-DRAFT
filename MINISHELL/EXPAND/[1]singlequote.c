@@ -1,37 +1,40 @@
 #include "../LIB/minishell.h"
 
-void	expand_single(t_token **head, int state)
+void	copy_single(t_token *temp, int i, char *copy)
 {
-	t_token	*temp;
-	int		i;
-	char	*copy;
-
-	temp = *head;
-	while (temp)
+	while (copy[i] != '\'')
 	{
-		i = 0;
-		while (temp->value[i])
+		temp->value[i] = copy[i];
+		i++;
+	}
+	temp->value[i] = '\0';
+}
+
+void	expand_single(t_token **head, int s, int i, char *copy)
+{
+	t_token	*t;
+
+	t = *head;
+	while (t)
+	{
+		i = -1;
+		while (t->value[++i])
 		{
-			state = ft_get_state(temp->value[i], state);
-			if (state == SINGLE && temp->value[i] == '\'' && temp->value[i + 1] != '\'')
+			s = ft_get_state(t->value[i], s);
+			if (s == SINGLE && t->value[i] == '\'' && t->value[i + 1] != '\'')
 			{
-				copy = ft_substr(temp->value, i + 1, ft_strlen(temp->value));
+				copy = ft_substr(t->value, i + 1, ft_strlen(t->value));
 				if (!copy)
 					return ;
-				ft_bzero(temp->value, ft_strlen(temp->value));
+				ft_bzero(t->value, ft_strlen(t->value));
 				i = 0;
-				while (copy[i] != '\'')
-				{
-					temp->value[i] = copy[i];
-					i++;
-				}
-				temp->value[i] = '\0';
+				copy_single(t, i, copy);
 				free(copy);
 			}
-			else if (state == SINGLE && temp->value[i] == '\'' && temp->value[i + 1] == '\'')
-				deletenode(head, temp);
-			i++;
+			else if (s == SINGLE && t->value[i] == '\''
+				&& t->value[i + 1] == '\'')
+				deletenode(head, t);
 		}
-		temp = temp->next;
+		t = t->next;
 	}
 }

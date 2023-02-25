@@ -74,8 +74,6 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
 			{
 				copy = ft_substr(temp->value, i + 1, len - i);
-				if (!copy)
-					return ;
 				eraser(i, len, temp->value);
 				env_lookup(head, &tempv, copy, temp);
 				free(copy);

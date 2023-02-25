@@ -106,7 +106,7 @@ void	env_parser(char **envp, t_env **head, int i);
 // ========================================================================= //
 
 void	expand_default(t_token **head, t_env **env, int i, int state);
-void	expand_single(t_token **head, int state);
+void	expand_single(t_token **head, int s, int i, char *copy);
 
 /* UTILS */
 
