@@ -37,8 +37,9 @@ int	ft_echo(char **str, int fd)
 	i = check_flag(str);
 	if (i > 0)
 		n++;
-	while (str[i])
+	while (str[i]) 
 	{
+		printf("CACA");
 		ft_putstr_fd(str[i], fd);
 		if (str[i + 1] && str[i][0] != '\0')
 			ft_putchar_fd(' ', fd);
