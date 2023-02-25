@@ -48,8 +48,12 @@ void	env_lookup(t_token **head, t_env **env, char *copy)
 		len = ft_strlen(tempv->value);
 		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
 		{
-			if (ft_strlen(tempv->name) != ft_strlen(copy))
-				return (deletenode(&temp, temp));
+			while (temp)
+			{
+				if (ft_strcmp(temp->value, copy) == 0)
+					return (deletenode(head , temp));
+				temp = temp->next;
+			}
 			temp->value = ft_strncat(temp->value, tempv->value, len);
 			break;
 		}
@@ -84,8 +88,8 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 			if (state == DEFAULT && temp->value[i] == '$')
 			{
 				copy = ft_substr(temp->value, i + 1, ft_strlen(temp->value) - i);
-				eraser(i, ft_strlen(temp->value), temp->value);
-				env_lookup(&temp, &tempv, copy);
+				// eraser(i, ft_strlen(temp->value), temp->value);
+				env_lookup(head, &tempv, copy);
 			}
 			i++;
 		}
