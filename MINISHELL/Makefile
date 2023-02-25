@@ -7,7 +7,7 @@ MFILES = \
 		PARSING/[1.1]split_operators.c	\
 		PARSING/[1]first_split.c		\
 		PARSING/[2]tokenizer.c			\
-		PARSING/env_parsing.c			\
+		PARSING/[bis]env_parsing.c		\
 		EXPAND/[0]default.c				\
 		BUILT-IN/echo.c					\
 		BUILT-IN/pwd.c					\
