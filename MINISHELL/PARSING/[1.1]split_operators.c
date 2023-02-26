@@ -42,6 +42,8 @@ void	insert_op(t_token **head, char *str, int start, int end)
 	t_token	*temp;
 
 	new = create_operator(str, start, end);
+	if (!new)
+		return (ft_free_list(head));
 	if (!*head)
 	{
 		*head = new;

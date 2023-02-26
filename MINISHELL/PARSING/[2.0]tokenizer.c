@@ -21,11 +21,11 @@ void	assign_type_and_lim(t_token **token)
 	(*token)->next->type = LIM;
 }
 
-void	assign_type(t_token **token)
+int	assign_type(t_token **head)
 {
 	t_token	*temp;
 
-	temp = *token;
+	temp = *head; 
 	while (temp)
 	{
 		if (temp->value[0] == '|')
@@ -40,4 +40,7 @@ void	assign_type(t_token **token)
 			assign_type_and_lim(&temp);
 		temp = temp->next;
 	}
+	if (ft_check_syntax_error(head) == false)
+		return (1);
+	return (0);
 }

@@ -1,27 +1,5 @@
 #include "../LIB/minishell.h"
 
-int	ft_get_state(char c, int state)
-{
-	if (state == DEFAULT)
-	{
-		if (c == '\'')
-			state = SINGLE;
-		else if (c == '\"')
-			state = DOUBLE;
-	}
-	else if (state == SINGLE)
-	{
-		if (c == '\'')
-			state = DEFAULT;
-	}
-	else if (state == DOUBLE)
-	{
-		if (c == '\"')
-			state = DEFAULT;
-	}
-	return (state);
-}
-
 int	ft_skip_spaces(char *cmd, int i)
 {
 	while (cmd[i] == 32)
@@ -44,7 +22,7 @@ int	insert_and_init_new_start(char *cmd, t_token **head, int i, int start)
 	return (start);
 }
 
-void	ft_split_test(char *cmd, t_token **head, int i, int start)
+void	ft_first_split(char *cmd, t_token **head, int i, int start)
 {
 	int	state;
 	int	end;
@@ -72,3 +50,9 @@ void	ft_split_test(char *cmd, t_token **head, int i, int start)
 			insert(head, cmd, start, i - start);
 	}
 }
+
+// int	ft_call_first_split(char *cmd, t_token **head)
+// {
+// 	ft_first_split(cmd, head, 0, 0);
+// 	return (assign_type(head));
+// }

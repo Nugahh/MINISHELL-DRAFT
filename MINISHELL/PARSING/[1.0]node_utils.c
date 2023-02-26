@@ -8,8 +8,8 @@ t_token	*create(char *str, int start, int end)
 	x = 0;
 	yo = malloc(sizeof(t_token));
 	if (!yo)
-		return (0);
-	yo->value = ft_calloc(end + 1, sizeof(char));
+		return (NULL);
+	yo->value = ft_calloc(end + 2, sizeof(char));
 	while (x <= end)
 	{
 		yo->value[x] = str[start];
@@ -28,6 +28,8 @@ void	insert(t_token **head, char *str, int start, int end)
 	t_token	*temp;
 
 	new = create(str, start, end);
+	if (!new)
+		return (free(new));
 	if (!*head)
 	{
 		*head = new;
@@ -50,4 +52,26 @@ void	printstr(t_token *head)
 		temp = temp->next;
 	}
 	printf("\n");
+}
+
+int	ft_get_state(char c, int state)
+{
+	if (state == DEFAULT)
+	{
+		if (c == '\'')
+			state = SINGLE;
+		else if (c == '\"')
+			state = DOUBLE;
+	}
+	else if (state == SINGLE)
+	{
+		if (c == '\'')
+			state = DEFAULT;
+	}
+	else if (state == DOUBLE)
+	{
+		if (c == '\"')
+			state = DEFAULT;
+	}
+	return (state);
 }
