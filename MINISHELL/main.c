@@ -19,8 +19,7 @@ int	main(int ac, char **av, char **envp)
 		ft_check_syntax_error(&head);
 		printstr(head);
 		env_parser(envp, &env, 0);
-		expand_default(&head, &env, 0, DEFAULT);
-		expand_single(&head, DEFAULT, -1, NULL);
+		ft_check_state_and_expand(&head, &env);
 		printstr(head);
 //		if (ft_strncmp(command, "echo", 4) == 0)
 //			ft_echo(av, 1);
