@@ -16,6 +16,8 @@ int	main(int ac, char **av, char **envp)
 		command = readline("minishell$> ");
 		add_history(command);
 		ft_first_split(command, &head, 0, 0);
+		assign_type(&head);
+		ft_check_syntax_error(&head);
 		printstr(head);
 	}
 	ft_free_list(&head);
