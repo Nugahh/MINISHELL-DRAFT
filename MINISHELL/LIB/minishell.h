@@ -112,7 +112,7 @@ void	expand_double(t_token **head, t_env **env, int s, int i);
 
 /* UTILS */
 
-void	deletenode(t_token **head, t_token *todel);
+void	deletenode(t_token **head, t_token *toDel);
 void	eraser(int i, int len, char *str);
 void	env_lookup(t_token **head, t_env **env, char *copy, t_token *temp);
 

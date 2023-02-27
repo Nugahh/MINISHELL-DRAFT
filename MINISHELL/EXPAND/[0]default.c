@@ -1,25 +1,41 @@
 #include "../LIB/minishell.h"
 
-void	deletenode(t_token **head, t_token *todel)
+
+void	delete_first_node(t_token **head, t_token *toDel)
+{
+	t_token *temp;
+
+	temp = *head;
+	if (temp == toDel)
+	{
+		free(temp);
+		temp = NULL;
+		return ;
+	}
+}
+
+void	deletenode(t_token **head, t_token *toDel)
 {
 	t_token	*temp;
 	t_token	*prev;
 
 	temp = *head;
 	prev = NULL;
-	while (temp && temp != todel)
+	while (temp && temp != toDel)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
-	if (todel->next == NULL)
+	if (toDel->next == NULL)
 	{
-		free(todel);
+		free(toDel);
+		if (prev->next == NULL)
+			return ;
 		prev->next = NULL;
 		return ;
 	}
-	todel->value = temp->next->value;
-	todel->type = temp->next->type;
+	toDel->value = temp->next->value;
+	toDel->type = temp->next->type;
 	temp->next = temp->next->next;
 	free(temp->next);
 }
