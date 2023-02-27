@@ -9,14 +9,13 @@ t_token	*create(char *str, int start, int end)
 	yo = malloc(sizeof(t_token));
 	if (!yo)
 		return (0);
-	yo->value = ft_calloc(end + 1, sizeof(char));
+	yo->value = ft_calloc(end + 2, sizeof(char));
 	while (x <= end)
 	{
 		yo->value[x] = str[start];
 		str++;
 		x++;
 	}
-	yo->value[x] = '\0';
 	yo->type = ARG;
 	yo->next = NULL;
 	return (yo);
