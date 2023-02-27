@@ -1,25 +1,41 @@
 #include "../LIB/minishell.h"
 
-void	deletenode(t_token **head, t_token *todel)
+
+void	delete_first_node(t_token **head, t_token *toDel)
+{
+	t_token *temp;
+
+	temp = *head;
+	if (temp == toDel)
+	{
+		free(temp);
+		temp = NULL;
+		return ;
+	}
+}
+
+void	deletenode(t_token **head, t_token *toDel)
 {
 	t_token	*temp;
 	t_token	*prev;
 
 	temp = *head;
 	prev = NULL;
-	while (temp && temp != todel)
+	while (temp && temp != toDel)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
-	if (todel->next == NULL)
+	if (toDel->next == NULL)
 	{
-		free(todel);
+		free(toDel);
+		if (prev->next == NULL)
+			return ;
 		prev->next = NULL;
 		return ;
 	}
-	todel->value = temp->next->value;
-	todel->type = temp->next->type;
+	toDel->value = temp->next->value;
+	toDel->type = temp->next->type;
 	temp->next = temp->next->next;
 	free(temp->next);
 }
@@ -74,6 +90,7 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
 			{
 				copy = ft_substr(temp->value, i + 1, len - i);
+				printf("%s\n", copy);
 				eraser(i, len, temp->value);
 				env_lookup(head, &tempv, copy, temp);
 				free(copy);
@@ -82,4 +99,4 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 		}
 		temp = temp->next;
 	}
-}
+ }
