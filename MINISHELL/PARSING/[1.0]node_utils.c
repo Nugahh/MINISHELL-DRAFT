@@ -16,29 +16,29 @@ t_token	*create(char *str, int start, int end)
 		str++;
 		x++;
 	}
-	yo->value[x] = '\0';
 	yo->type = ARG;
 	yo->next = NULL;
 	return (yo);
 }
 
-void	insert(t_token **head, char *str, int start, int end)
+int	insert(t_token **head, char *str, int start, int end)
 {
 	t_token	*new;
 	t_token	*temp;
 
 	new = create(str, start, end);
 	if (!new)
-		return (free(new));
+		return (1);
 	if (!*head)
 	{
 		*head = new;
-		return ;
+		return (0);
 	}
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+	return (0);
 }
 
 void	printstr(t_token *head)

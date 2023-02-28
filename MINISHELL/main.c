@@ -1,11 +1,12 @@
 #include "./LIB/minishell.h"
 
+int g_error;
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	t_token	*head;
 	t_env	*env;
-
 	(void)ac;
 	(void)av;
 	(void)envp;
@@ -13,15 +14,15 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	while (1)
 	{
+		g_error = 0;
 		command = readline("minishell$> ");
 		add_history(command);
 		ft_first_split(command, &head, 0, 0);
-		assign_type(&head);
-		ft_check_syntax_error(&head);
+		// ft_check_syntax_error(&head);
 		printstr(head);
 	}
-	free(command);
 	ft_free_list(&head);
+	free(command);
 	free(head);
 }
 

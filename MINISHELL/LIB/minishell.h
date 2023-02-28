@@ -68,7 +68,7 @@ void	ft_free_list(t_token **head);
 /* [1.0] node_utils.c */
 
 t_token	*create(char *str, int start, int end);
-void	insert(t_token **head, char *str, int start, int end);
+int		insert(t_token **head, char *str, int start, int end);
 void	printstr(t_token *head);
 
 /* [1.1] split_operators.c */
@@ -82,10 +82,7 @@ int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 /* [1] first_split.c */
 
 int		ft_get_state(char c, int state);
-int		ft_skip_spaces(char *cmd, int i);
-int		ft_check_spaces_and_not_operator(char *cmd, int i);
-int		insert_and_init_new_start(char *cmd, t_token **head, int i, int start);
-void	ft_first_split(char *cmd, t_token **head, int i, int start);
+int		ft_first_split(char *cmd, t_token **head, int i, int start);
 
 /* [2.0] tokenizer.c */
 
