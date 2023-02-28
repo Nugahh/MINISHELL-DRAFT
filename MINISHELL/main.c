@@ -20,7 +20,9 @@ int	main(int ac, char **av, char **envp)
 		ft_check_syntax_error(&head);
 		printstr(head);
 	}
+	free(command);
 	ft_free_list(&head);
+	free(head);
 }
 
 // int	main(int ac, char **av, char **envp)

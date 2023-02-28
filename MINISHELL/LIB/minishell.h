@@ -76,7 +76,7 @@ void	printstr(t_token *head);
 int		is_operator(char c);
 int		skip_operator(int i, char c1, char c2);
 t_token	*create_operator(char *str, int start, int end);
-void	insert_op(t_token **head, char *str, int start, int end);
+int		insert_op(t_token **head, char *str, int start, int end);
 int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 
 /* [1] first_split.c */

@@ -8,8 +8,10 @@ void	ft_free_list(t_token **head)
 	{
 		temp = *head;
 		*head = (*head)->next;
-		if (temp)
-			free(temp);
+		if (temp->value)
+			free(temp->value);
+		temp->value = NULL;
+		free(temp);
 		temp = NULL;
 	}
 }
