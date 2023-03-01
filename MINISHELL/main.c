@@ -6,18 +6,22 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	t_token	*head;
-	t_env	*env;
+	int i;
+	int state;
+	// t_env	*env;
 	(void)ac;
 	(void)av;
 	(void)envp;
 	head = NULL;
-	env = NULL;
+	// env = NULL;
+	i = 0;
+	state = ARG;
 	while (1)
 	{
 		g_error = 0;
 		command = readline("minishell$> ");
 		add_history(command);
-		ft_first_split(command, &head, 0, 0);
+		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 		// ft_check_syntax_error(&head);
 		printstr(head);
 	}

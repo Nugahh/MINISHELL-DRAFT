@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:47:09 by fwong             #+#    #+#             */
-/*   Updated: 2023/02/28 15:52:26 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/01 17:22:31 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,25 @@ static int skip_spaces_and_insert_op(int **arr, char *cmd, t_token **head)
 
 int	ft_first_split(char *cmd, t_token **head, int **s_i, int start)
 {
-	// int	state;
-
-	// state = DEFAULT;
 	while (cmd[*s_i[1]])
 	{
-		state = ft_get_state(cmd[i], state);
-		if (state == DEFAULT && (cmd[i] == ' ' || is_operator(cmd[i])))
+		*s_i[0] = ft_get_state(cmd[*s_i[1]], *s_i[0]);
+		if (*s_i[0] == DEFAULT && (cmd[*s_i[1]] == ' ' || is_operator(cmd[*s_i[1]])))
 		{
-			if (skip_spaces_and_insert_op((int *[2]){&i, &start}, cmd, head))
+			if (skip_spaces_and_insert_op((int *[2]){&*s_i[1], &start}, cmd, head))
 				return (1);
 		}
 		else
-			i++;
-		if (state == DEFAULT && (ft_check_spaces_and_not_operator(cmd, i)))
+			(*s_i[1])++;
+		if (*s_i[0] == DEFAULT && (ft_check_spaces_and_not_operator(cmd, *s_i[1])))
 		{
-			start = insert_and_init_new_start(cmd, head, i, start);
+			start = insert_and_init_new_start(cmd, head, *s_i[1], start);
 			if (start == -1)
 				return (1);
 		}
-		else if (i == ft_strlen(cmd) && !is_operator(cmd[i - 1]) && cmd[i - 1] != ' ')
+		else if (*s_i[1] == ft_strlen(cmd) && !is_operator(cmd[*s_i[1] - 1]) && cmd[*s_i[1] - 1] != ' ')
 		{
-			if (insert(head, cmd, start, i - start))
+			if (insert(head, cmd, start, *s_i[1] - start))
 				return (1);
 		}
 	}

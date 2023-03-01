@@ -82,7 +82,7 @@ int		check_insert_op_and_init(t_token **head, char *cmd, int start, int i);
 /* [1] first_split.c */
 
 int		ft_get_state(char c, int state);
-int		ft_first_split(char *cmd, t_token **head, int i, int start);
+int		ft_first_split(char *cmd, t_token **head, int **s_i, int start);
 
 /* [2.0] tokenizer.c */
 
@@ -95,7 +95,7 @@ void	display_error(t_token **token);
 
 /* [2]check_syntax_error.c */
 
-bool	ft_check_syntax_error(t_token **token);
+int	ft_check_syntax_error(t_token **token);
 
 
 /* env_parsing.c */
