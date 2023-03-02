@@ -2,13 +2,27 @@
 
 int g_error;
 
+void	print_env(t_env *head)
+{
+	t_env	*temp;
+
+	temp = head;
+	while (temp)
+	{
+		printf("%s=", temp->name);
+		printf("%s\n", temp->value);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	t_token	*head;
 	int i;
-	int state;
 	// t_env	*env;
+	int state;
 	(void)ac;
 	(void)av;
 	(void)envp;
@@ -16,18 +30,25 @@ int	main(int ac, char **av, char **envp)
 	// env = NULL;
 	i = 0;
 	state = ARG;
+	// if (env_parser(envp, &env, i) == 1)
+	// 	return (ft_free_env(&env), 1);
 	while (1)
 	{
 		g_error = 0;
 		command = readline("minishell$> ");
 		add_history(command);
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
-		// ft_check_syntax_error(&head);
+		ft_check_syntax_error(&head);
+		// print_env(env);
 		printstr(head);
+		// ft_free_list(&head);
+		free(command);
+		// free(head);
 	}
-	ft_free_list(&head);
-	free(command);
-	free(head);
+	// ft_free_env(&env);
+	// ft_free_list(&head);
+	// free(command);
+	// free(head);
 }
 
 // int	main(int ac, char **av, char **envp)

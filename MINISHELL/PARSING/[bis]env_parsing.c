@@ -40,8 +40,10 @@ t_env	*create_env(char *name, char *value)
 
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
-		return (0);
+		return (NULL);
 	new->name = ft_strdup(name);
+	if (!new->name)
+		return (NULL);
 	if (value)
 		new->value = ft_strdup(value);
 	else

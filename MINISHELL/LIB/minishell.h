@@ -62,7 +62,7 @@ int		main(int ac, char **av, char **envp);
 // ========================================================================= //
 
 /* clean.c */
-
+void	ft_free_env(t_env **head);
 void	ft_free_list(t_token **head);
 
 /* [1.0] node_utils.c */
