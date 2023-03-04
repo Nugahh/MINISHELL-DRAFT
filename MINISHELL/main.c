@@ -26,24 +26,26 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	(void)envp;
-	head = NULL;
 	// env = NULL;
-	i = 0;
-	state = ARG;
 	// if (env_parser(envp, &env, i) == 1)
 	// 	return (ft_free_env(&env), 1);
 	while (1)
 	{
+		i = 0;
+		state = ARG;
 		g_error = 0;
+
+		head = NULL;
 		command = readline("minishell$> ");
 		add_history(command);
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 		ft_check_syntax_error(&head);
 		// print_env(env);
 		printstr(head);
-		// ft_free_list(&head);
-		free(command);
+		ft_free_list(&head);
+		// printstr(head);
 		// free(head);
+		free(command);
 	}
 	// ft_free_env(&env);
 	// ft_free_list(&head);

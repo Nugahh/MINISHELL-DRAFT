@@ -6,15 +6,15 @@ void	ft_free_list(t_token **head)
 
 	if (!(*head))
 		return ;
-	while (*head)
+	temp = *head;
+	while (temp)
 	{
-		temp = *head;
-		*head = (*head)->next;
 		if (temp->value)
 			free(temp->value);
 		temp->value = NULL;
-		free(temp);
-		temp = NULL;
+		if (temp->next == NULL)
+			return(free(temp));
+		temp = temp->next;
 	}
 }
 
