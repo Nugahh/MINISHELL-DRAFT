@@ -29,7 +29,7 @@ void	deletenode(t_token **head, t_token *toDel)
 	if (toDel->next == NULL)
 	{
 		free(toDel);
-		if (prev->next == NULL)
+		if (prev == NULL)
 			return ;
 		prev->next = NULL;
 		return ;
@@ -58,7 +58,7 @@ void	env_lookup(t_token **head, t_env **env, char *copy, t_token *temp)
 		}
 		else if (tempv->next == NULL && ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) != 0)
 		{
-			printf("oui\n");
+			// printf("oui\n");
 			return (deletenode(head, temp));
 		}			
 		tempv = tempv->next;
@@ -99,7 +99,7 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 	t_token	*temp;
 	t_env	*tempv;
 	char	*copy;
-	int		len;
+	// int		len;
 
 	temp = *head;
 	tempv = *env;
@@ -107,17 +107,19 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 	{
 		i = 0;
 		state = ft_get_state(temp->value[i], state);
-		len = ft_strlen(temp->value);
+		// len = ft_strlen(temp->value);
 		while (temp->value[i])
 		{
 			if (state == DEFAULT && temp->value[i] == '$'
 				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
 			{
 				copy = ft_strdup_env(i + 1, temp->value);
-				printf("%s\n", copy);
+				// printf("%s\n", copy);
 				env_lookup(head, &tempv, copy, temp);
 				free(copy);
 			}
+			if (temp->next == NULL)
+				break ;
 			i++;
 		}
 		temp = temp->next;

@@ -159,7 +159,7 @@ void	expand_double(t_token **head, t_env **env, int s, int i)
 				copy_double(t, i, copy);
 				printf("copy = %s\n", copy);
 				free(copy);
-				expand_in_double(&t, env, 0, DEFAULT);
+				expand_in_double(&t, &tempv, 0, DEFAULT);
 			}
 			else if (s == DOUBLE && t->value[i] == '\"'
 				&& t->value[i + 1] == '\"' && t->value[i + 2] == '\0')
