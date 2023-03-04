@@ -29,7 +29,10 @@ void	deletenode(t_token **head, t_token *toDel)
 	if (toDel->next == NULL)
 	{
 		free(toDel);
+		if (prev->next == NULL)
 			return ;
+		prev->next = NULL;
+		return ;
 	}
 	toDel->value = temp->next->value;
 	toDel->type = temp->next->type;

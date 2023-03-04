@@ -23,6 +23,7 @@ int	main(int ac, char **av, char **envp)
 		expand_default(&head, &env, 0, DEFAULT);
 		// expand_single(&head, DEFAULT, -1, NULL);
 		printstr(head);
+		free(command);
 /*		if (ft_strncmp(command, "echo", 4) == 0)
 			ft_echo(av, 1);
 		if (ft_strncmp(command, "pwd", 3) == 0)
@@ -30,6 +31,5 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(command, "env", 3) == 0)
 			ft_env(env, 1, envp);*/
 	}
-//	free(command);
 //	free(head);
 }
