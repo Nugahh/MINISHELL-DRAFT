@@ -19,17 +19,17 @@ int	main(int ac, char **av, char **envp)
 		ft_check_syntax_error(&head);
 		printstr(head);
 		env_parser(envp, &env, 0);
-		// ft_check_state_and_expand(&head, &env);
-		// expand_default(&head, &env, 0, DEFAULT);
+		//ft_check_state_and_expand(&head, &env);
+		expand_default(&head, &env, 0, DEFAULT);
 		// expand_single(&head, DEFAULT, -1, NULL);
 		printstr(head);
-//		if (ft_strncmp(command, "echo", 4) == 0)
-//			ft_echo(av, 1);
+/*		if (ft_strncmp(command, "echo", 4) == 0)
+			ft_echo(av, 1);
 		if (ft_strncmp(command, "pwd", 3) == 0)
 			ft_pwd(1);
 		if (ft_strncmp(command, "env", 3) == 0)
-			ft_env(env, 1, envp);
+			ft_env(env, 1, envp);*/
 	}
-	free(command);
-	free(head);
+//	free(command);
+//	free(head);
 }

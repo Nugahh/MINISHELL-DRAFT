@@ -122,7 +122,7 @@ void	expand_in_double(t_token **head, t_env **env, int i, int state)
 
 				copy = ft_substr(temp->value, i + 1, len - i - 2);
 				// printf("TEST %s\n", copy);
-				eraser(i, len, temp->value);
+				//eraser(i, len, temp->value);
 				env_lookup(head, &tempv, copy, temp);
 				free(copy);
 			}

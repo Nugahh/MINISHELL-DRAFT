@@ -43,6 +43,11 @@ void	printstr(t_token *head)
 	t_token	*temp;
 
 	temp = head;
+	if (!temp)
+	{
+		printf("oui\n");
+		return ;
+	}
 	while (temp)
 	{
 		printf("node:%s+ ", temp->value);

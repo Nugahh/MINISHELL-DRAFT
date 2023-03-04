@@ -1,7 +1,7 @@
 #include "../LIB/minishell.h"
 
 
-void	delete_first_node(t_token **head, t_token *toDel)
+/*void	delete_first_node(t_token **head, t_token *toDel)
 {
 	t_token *temp;
 
@@ -12,7 +12,7 @@ void	delete_first_node(t_token **head, t_token *toDel)
 		temp = NULL;
 		return ;
 	}
-}
+}*/
 
 void	deletenode(t_token **head, t_token *toDel)
 {
@@ -29,10 +29,7 @@ void	deletenode(t_token **head, t_token *toDel)
 	if (toDel->next == NULL)
 	{
 		free(toDel);
-		if (prev->next == NULL)
 			return ;
-		prev->next = NULL;
-		return ;
 	}
 	toDel->value = temp->next->value;
 	toDel->type = temp->next->type;
@@ -56,18 +53,42 @@ void	env_lookup(t_token **head, t_env **env, char *copy, t_token *temp)
 			temp->value = ft_strncat(temp->value, tempv->value, len);
 			break ;
 		}
+		else if (tempv->next == NULL && ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) != 0)
+		{
+			printf("oui\n");
+			return (deletenode(head, temp));
+		}			
 		tempv = tempv->next;
 	}
 }
 
-void	eraser(int i, int len, char *str)
+char	*ft_strdup_env(int i, char *str)
 {
-	while (i < len)
+	char *copy;
+	int	j;
+	int	start;
+
+	start = i;
+	j = 0;
+	while ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+		|| (str[i] == '_') || ((str[i] >= '0' && str[i] <= '9') && (i != '\0')))
 	{
-		str[i] = '\0';
 		i++;
+		j++;
 	}
-	str[i] = '\0';
+	copy = malloc(sizeof(char) * j + 1);
+	if (!copy)
+		return (NULL);
+	j = 0;
+	while ((str[start] >= 'A' && str[start] <= 'Z') || (str[start] >= 'a' && str[start] <= 'z') 
+		|| (str[start] == '_') || ((str[start] >= '0' && str[start] <= '9') && (start != '\0')))
+	{
+		copy[j] = str[start];
+		j++;
+		start++;
+	}
+	copy[j] = '\0';
+	return (copy);
 }
 
 void	expand_default(t_token **head, t_env **env, int i, int state)
@@ -89,9 +110,8 @@ void	expand_default(t_token **head, t_env **env, int i, int state)
 			if (state == DEFAULT && temp->value[i] == '$'
 				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
 			{
-				copy = ft_substr(temp->value, i + 1, len - i);
+				copy = ft_strdup_env(i + 1, temp->value);
 				printf("%s\n", copy);
-				eraser(i, len, temp->value);
 				env_lookup(head, &tempv, copy, temp);
 				free(copy);
 			}
