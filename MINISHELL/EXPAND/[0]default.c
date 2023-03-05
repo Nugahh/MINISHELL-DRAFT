@@ -74,30 +74,29 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 	char	*final_copy;
 	int	envlookup;
 
-	len = ft_strlen(copy);
 	j = 0;
 	i = 0;
 	first_copy = NULL;
 	final_copy = NULL;
+	len = ft_strlen(copy) +1;
 	envlookup = env_lookup(env, copy);
 	if (envlookup == 1)
-		return (deletenode(head, temp));
+	{
+		if(temp->value[0] == '$')
+			return (deletenode(head, temp));
+		while(temp->value[i] != '$')
+			i++;
+		first_copy = ft_substr(temp->value, 0, i + 1);
+		if (!first_copy)
+			return ;
+		temp->value = NULL;
+		temp->value = ft_strdup(first_copy);
+		return (free(first_copy));
+	}
 	else if (envlookup == 2)
 	{
 		copy = new_envname(env, copy);
-		while (temp->value[i] != '$')
-			i++;
-		printf("i = %d\n", i);
-		if (i != 0)
-		{
-			first_copy = ft_substr(temp->value, 0, i);
-			printf("first_copy = %s\n", first_copy);
-			if (!first_copy)
-				return ;
-		}
-		while (i < len)
-			i++;
-		if (temp->value[i + 1] == '\0')
+		if (temp->value[0] == '$' && ft_strlen(temp->value) == len)
 		{
 			ft_bzero(((char *)temp->value), ft_strlen(temp->value));
 			temp->value = ft_strdup(copy);
@@ -105,14 +104,27 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 				return;
 			return ;
 		}
+		while (temp->value[i] != '$')
+			i++;
+		printf("i = %d\n", i);
+		if (i != 0)
+		{
+			first_copy = ft_substr(temp->value, 0, i);
+			printf("first_copy = %s\n", first_copy);
+			len = ft_strlen(copy) + ft_strlen(first_copy);
+			if (!first_copy)
+				return ;
+		}
+		while (i < len)
+			i++;
 		j = i;
 		while ((!((temp->value[i] >= 'A' && temp->value[i] <= 'Z') && (temp->value[i] >= 'a' && temp->value[i] <= 'z') 
 		&& (temp->value[i] == '_') && (temp->value[i] >= '0' && temp->value[i] <= '9'))) && (temp->value[i + 1] != '\0'))
 			i++;
 		printf("i = %d, j = %d\n", i, j);
-		if (i != (ft_strlen(temp->value) - 1))
+		if (i + 1 != (ft_strlen(temp->value)))
 		{
-			final_copy = ft_substr(temp->value, i, i - j);
+			final_copy = ft_substr(temp->value, j + 1, i - j);
 			printf("final_copy: %s\n", final_copy);
 			if (!final_copy)
 				return ;
@@ -194,9 +206,9 @@ void	expand(t_token **head, t_env **env, int i)
 				free(copy);
 				return ;;
 			}
-			i++;
-			if (temp->next == NULL)
+			if (temp->next == NULL && temp->value[i + 1] == '\0')
 				break;
+			i++;
 		}
 		temp = temp->next;
 	}
