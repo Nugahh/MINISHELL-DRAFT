@@ -106,16 +106,16 @@ void	env_parser(char **envp, t_env **head, int i);
 // ========================================================================= //
 
 void	ft_check_state_and_expand(t_token **head, t_env **env);
-void	expand_default(t_token **head, t_env **env, int i, int state);
-void	expand_single(t_token **head, int s, int i, char *copy);
+void	expand(t_token **head, t_env **env, int i);
+void	expand_single(t_token **head, int s, int i, char *copy, t_env **env);
 void	expand_double(t_token **head, t_env **env, int s, int i);
 
 /* UTILS */
 
 void	deletenode(t_token **head, t_token *toDel);
-void	eraser(int i, int len, char *str);
-void	env_lookup(t_token **head, t_env **env, char *copy, t_token *temp);
-
+char	*ft_strdup_env(int i, char *str);
+void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp);
+int		env_lookup(t_env **env, char *copy);
 // ========================================================================= //
 //                               EXEC                                        //
 // ========================================================================= //

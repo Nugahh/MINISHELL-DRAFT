@@ -20,24 +20,6 @@ void	copy_double(t_token *temp, int i, char *copy)
 	temp->value[i] = '\0';
 }
 
-/*int	modulo_quote(char *str)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"')
-			count += 1;
-		i++;
-	}
-	if (count % 2 == 0)
-		return (1);
-	return (0);
-}*/
-
 void	ft_check_state_and_expand(t_token **head, t_env **env)
 {
 	t_token *temp;
@@ -57,11 +39,11 @@ void	ft_check_state_and_expand(t_token **head, t_env **env)
 			{
 				state = ft_get_state(temp->value[i], state);
 				if (state == SINGLE)
-					expand_single(head, DEFAULT, 0, NULL);
+					expand_single(head, DEFAULT, 0, NULL, &tempv);
 				else if (state == DOUBLE)
 					expand_double(head, &tempv, 0, DEFAULT);
 				else if (state == DEFAULT)
-					expand_default(head, &tempv, 0, DEFAULT);
+					expand(head, &tempv, 0);
 				i++;
 			}
 		}
@@ -69,27 +51,23 @@ void	ft_check_state_and_expand(t_token **head, t_env **env)
 	}
 }
 
-void	expand_single(t_token **head, int s, int i, char *copy)
+void	expand_single(t_token **head, int s, int i, char *copy, t_env **env)
 {
 	t_token	*t;
+	t_env	*e;
 
 	t = *head;
+	e = *env;
 	while (t)
 	{
 		i = -1;
 		while (t->value[++i])
 		{
 			s = ft_get_state(t->value[i], s);
-			printf("t->value[i] = %c\n", t->value[i]);
-			printf("t->value[i + 1] = %c\n", t->value[i + 1]);
 			if (s == SINGLE && t->value[i] == '\'' && t->value[i + 1] != '\'')
 			{
-				copy = ft_substr(t->value, i + 1, ft_strlen(t->value));
-				if (!copy)
-					return ;
-				ft_bzero(t->value, ft_strlen(t->value));
-				i = 0;
-				copy_single(t, i, copy);
+				copy = ft_strdup_env(i + 1, t->value);
+				env_lookup(head, &e, copy, t);
 				free(copy);
 			}
 			else if (s == SINGLE && t->value[i] == '\''
