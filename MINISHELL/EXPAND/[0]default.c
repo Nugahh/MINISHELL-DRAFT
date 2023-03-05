@@ -73,7 +73,6 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 	char 	*first_copy;
 	char	*final_copy;
 	int	envlookup;
-	char *tempy;
 
 	j = 0;
 	i = 0;
@@ -81,14 +80,13 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 	final_copy = NULL;
 	len = ft_strlen(copy) +1;
 	envlookup = env_lookup(env, copy);
-	tempy = ft_calloc(100, sizeof(char));
 	if (envlookup == 1)
 	{
 		if(temp->value[0] == '$')
 			return (deletenode(head, temp));
 		while(temp->value[i] != '$')
 			i++;
-		first_copy = ft_substr(temp->value, 0, i);
+		first_copy = ft_substr(temp->value, 0, i + 1);
 		if (!first_copy)
 			return ;
 		temp->value = NULL;
@@ -108,11 +106,9 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 		}
 		while (temp->value[i] != '$')
 			i++;
-		printf("i = %d\n", i);
 		if (i != 0)
 		{
 			first_copy = ft_substr(temp->value, 0, i);
-			printf("first_copy = %s\n", first_copy);
 			len = ft_strlen(copy) + ft_strlen(first_copy);
 			if (!first_copy)
 				return ;
@@ -123,37 +119,28 @@ void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 		while ((!((temp->value[i] >= 'A' && temp->value[i] <= 'Z') && (temp->value[i] >= 'a' && temp->value[i] <= 'z') 
 		&& (temp->value[i] == '_') && (temp->value[i] >= '0' && temp->value[i] <= '9'))) && (temp->value[i + 1] != '\0'))
 			i++;
-		printf("i = %d, j = %d, lentempval = %d\n", i, j, ft_strlen(temp->value));
 		if (i != (ft_strlen(temp->value)))
 		{
-			final_copy = ft_substr(temp->value, j + 1, i - j);
-			printf("final_copy: %s\n", final_copy);
+			final_copy = ft_substr(temp->value, j, i - j + 1);
 			if (!final_copy)
 				return ;
 		}
 		temp->value = NULL;
 		if (first_copy && !final_copy)
 		{
-			printf("fcpy, no finalcpy\n");
-			printf("copy: %s, first_copy: %s\n", copy, first_copy);
-			temp->value = malloc(sizeof(char) * 1000);
-			tempy = ft_strncat(first_copy, copy, ft_strlen(copy) + ft_strlen(first_copy));
-			temp->value = ft_strdup(tempy);
-			free(first_copy);
+			temp->value = ft_strncat(first_copy, copy, ft_strlen(copy) + ft_strlen(first_copy));
 			return ;
 		}
 		else if (!first_copy && final_copy)
 		{
-			printf("no fcpy, finalcpy\n");
 			temp->value = ft_strncat(copy, final_copy, len + ft_strlen(final_copy));
 			return (free(final_copy));
 		}
 		else if (first_copy && final_copy)
 		{
-			printf("fcpy, finalcpy\n");
 			temp->value = ft_strncat(first_copy, copy, len + ft_strlen(first_copy));
 			temp->value = ft_strncat(temp->value, final_copy, ft_strlen(temp->value) + ft_strlen(final_copy));
-			return (free(first_copy), free(final_copy));
+			return ;
 		}
 		else
 			temp->value = ft_strdup(copy);
@@ -207,7 +194,6 @@ void	expand(t_token **head, t_env **env, int i)
 			{
 				copy = ft_strdup_env(i + 1, temp->value);
 				node_changer(head, &tempv, copy, temp);
-				printf("temp->value - expand: %s\n", temp->value);
 				free(copy);
 				return ;;
 			}

@@ -43,9 +43,9 @@ void	printstr(t_token *head)
 	t_token	*temp;
 
 	temp = head;
-	if (!temp)
+	if (head == NULL)
 	{
-		printf("oui\n");
+		printf("liste vide\n");
 		return ;
 	}
 	while (temp)
