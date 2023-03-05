@@ -1,5 +1,5 @@
 #include "../LIB/minishell.h"
-
+/*
 void	copy_single(t_token *temp, int i, char *copy)
 {
 	while (copy[i] != '\'')
@@ -145,4 +145,4 @@ void	expand_double(t_token **head, t_env **env, int s, int i)
 		}
 		t = t->next;
 	}
-}
+}*/
