@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   first_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:17:41 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/19 22:49:21 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:27:19 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIB/minishell.h"
 
 t_token	*create(char *str, int start, int end)
 {

@@ -40,8 +40,10 @@ t_env	*create_env(char *name, char *value)
 
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
-		return (0);
+		return (NULL);
 	new->name = ft_strdup(name);
+	if (!new->name)
+		return (NULL);
 	if (value)
 		new->value = ft_strdup(value);
 	else
@@ -50,24 +52,27 @@ t_env	*create_env(char *name, char *value)
 	return (new);
 }
 
-void	insert_env(t_env **head, char *name, char *value)
+int	insert_env(t_env **head, char *name, char *value)
 {
 	t_env	*new;
 	t_env	*temp;
 
 	new = create_env(name, value);
+	if (!new)
+		return (1);
 	if (!*head)
 	{
 		*head = new;
-		return ;
+		return (0);
 	}
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+	return (0);
 }
 
-void	env_parser(char **envp, t_env **head, int i)
+int	env_parser(char **envp, t_env **head, int i)
 {
 	int		j;
 	bool	equal;
@@ -84,16 +89,20 @@ void	env_parser(char **envp, t_env **head, int i)
 			{
 				equal = true;
 				name = ft_substr(envp[i], 0, j);
+				if (!name)
+					return (free(name), 1);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
 				break ;
 			}
 			j++;
 		}
-		insert_env(head, name, value);
+		if (insert_env(head, name, value) == 1)
+			return (1);
 		free(name);
 		free(value);
 		i++;
 	}
+	return (0);
 }
 /*
 void	printstr(t_env *head)

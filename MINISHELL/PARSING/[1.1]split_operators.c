@@ -24,6 +24,8 @@ t_token	*create_operator(char *str, int start, int end)
 	x = 0;
 	yo = malloc(sizeof(t_token));
 	yo->value = ft_calloc(end + 1, sizeof(char));
+	if (!yo->value)
+		return (NULL);
 	while (x < end)
 	{
 		yo->value[x] = str[start];
@@ -35,21 +37,24 @@ t_token	*create_operator(char *str, int start, int end)
 	return (yo);
 }
 
-void	insert_op(t_token **head, char *str, int start, int end)
+int	insert_op(t_token **head, char *str, int start, int end)
 {
 	t_token	*new;
 	t_token	*temp;
 
 	new = create_operator(str, start, end);
+	if (!new)
+		return (1);
 	if (!*head)
 	{
 		*head = new;
-		return ;
+		return (0);
 	}
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+	return (0);
 }
 
 int	check_insert_op_and_init(t_token **head, char *cmd, int start, int i)
@@ -59,10 +64,16 @@ int	check_insert_op_and_init(t_token **head, char *cmd, int start, int i)
 	if ((cmd[i] == '>' && cmd[i + 1] != '>')
 		|| (cmd[i] == '<' && cmd[i + 1] != '<')
 		|| cmd[i] == '|')
-		insert_op(head, cmd, start, 1);
+		{
+			if (insert_op(head, cmd, start, 1) == 1)
+				return (-1);
+		}
 	else if ((cmd[i] == '>' && cmd[i + 1] == '>')
 		|| (cmd[i] == '<' && cmd[i + 1] == '<'))
-		insert_op(head, cmd, start, 2);
+		{
+			if (insert_op(head, cmd, start, 2))
+				return (-1);
+		}
 	x = skip_operator(i, cmd[i], cmd[i + 1]);
 	return (x);
 }
