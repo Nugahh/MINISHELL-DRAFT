@@ -8,7 +8,7 @@ t_token	*create(char *str, int start, int end)
 	x = 0;
 	yo = malloc(sizeof(t_token));
 	if (!yo)
-		return (NULL);
+		return (0);
 	yo->value = ft_calloc(end + 2, sizeof(char));
 	while (x <= end)
 	{
