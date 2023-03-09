@@ -1,19 +1,5 @@
 #include "../LIB/minishell.h"
 
-
-void	delete_first_node(t_token **head, t_token *toDel)
-{
-	t_token *temp;
-
-	temp = *head;
-	if (temp == toDel)
-	{
-		free(temp);
-		temp = NULL;
-		return ;
-	}
-}
-
 void	deletenode(t_token **head, t_token *toDel)
 {
 	t_token	*temp;
@@ -29,7 +15,7 @@ void	deletenode(t_token **head, t_token *toDel)
 	if (toDel->next == NULL)
 	{
 		free(toDel);
-		if (prev->next == NULL)
+		if (prev == NULL)
 			return ;
 		prev->next = NULL;
 		return ;
@@ -40,61 +26,179 @@ void	deletenode(t_token **head, t_token *toDel)
 	free(temp->next);
 }
 
-void	env_lookup(t_token **head, t_env **env, char *copy, t_token *temp)
+int	env_lookup(t_env **env, char *copy)
 {
 	t_env	*tempv;
-	int		len;
 
 	tempv = *env;
 	while (tempv)
 	{
-		len = ft_strlen(tempv->value);
 		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
 		{
 			if (ft_strcmp(tempv->name, copy) != 0)
-				return (deletenode(head, temp));
-			temp->value = ft_strncat(temp->value, tempv->value, len);
-			break ;
+				return (1);
+			return (2);
+		}
+		else if (tempv->next == NULL && ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) != 0)
+			return (1);
+		tempv = tempv->next;
+	}
+	return (0);
+}
+
+char	*new_envname(t_env **env, char *copy)
+{
+	t_env	*tempv;
+
+	tempv = *env;
+	while (tempv)
+	{
+		if (ft_strncmp(tempv->name, copy, ft_strlen(tempv->name)) == 0)
+		{
+			ft_bzero((char *)copy, ft_strlen(copy));
+			copy = ft_strdup(tempv->value);
+			if (!copy)
+				return (NULL);
 		}
 		tempv = tempv->next;
 	}
+	return (copy);
 }
 
-void	eraser(int i, int len, char *str)
+void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp)
 {
-	while (i < len)
+	int i;
+	int	j;
+	int len;
+	char 	*first_copy;
+	char	*final_copy;
+	int	envlookup;
+
+	j = 0;
+	i = 0;
+	first_copy = NULL;
+	final_copy = NULL;
+	len = ft_strlen(copy) +1;
+	envlookup = env_lookup(env, copy);
+	if (envlookup == 1)
 	{
-		str[i] = '\0';
-		i++;
+		if(temp->value[0] == '$')
+			return (deletenode(head, temp));
+		while(temp->value[i] != '$')
+			i++;
+		first_copy = ft_substr(temp->value, 0, i + 1);
+		if (!first_copy)
+			return ;
+		temp->value = NULL;
+		temp->value = ft_strdup(first_copy);
+		return (free(first_copy));
 	}
-	str[i] = '\0';
+	else if (envlookup == 2)
+	{
+		copy = new_envname(env, copy);
+		if (temp->value[0] == '$' && ft_strlen(temp->value) == len)
+		{
+			ft_bzero(((char *)temp->value), ft_strlen(temp->value));
+			temp->value = ft_strdup(copy);
+			if (!temp->value)
+				return;
+			return ;
+		}
+		while (temp->value[i] != '$')
+			i++;
+		if (i != 0)
+		{
+			first_copy = ft_substr(temp->value, 0, i);
+			len = ft_strlen(copy) + ft_strlen(first_copy);
+			if (!first_copy)
+				return ;
+		}
+		while (i < len)
+			i++;
+		j = i;
+		while ((!((temp->value[i] >= 'A' && temp->value[i] <= 'Z') && (temp->value[i] >= 'a' && temp->value[i] <= 'z') 
+		&& (temp->value[i] == '_') && (temp->value[i] >= '0' && temp->value[i] <= '9'))) && (temp->value[i + 1] != '\0'))
+			i++;
+		if (i != (ft_strlen(temp->value)))
+		{
+			final_copy = ft_substr(temp->value, j, i - j + 1);
+			if (!final_copy)
+				return ;
+		}
+		temp->value = NULL;
+		if (first_copy && !final_copy)
+		{
+			temp->value = ft_strncat(first_copy, copy, ft_strlen(copy) + ft_strlen(first_copy));
+			return ;
+		}
+		else if (!first_copy && final_copy)
+		{
+			temp->value = ft_strncat(copy, final_copy, len + ft_strlen(final_copy));
+			return (free(final_copy));
+		}
+		else if (first_copy && final_copy)
+		{
+			temp->value = ft_strncat(first_copy, copy, len + ft_strlen(first_copy));
+			temp->value = ft_strncat(temp->value, final_copy, ft_strlen(temp->value) + ft_strlen(final_copy));
+			return ;
+		}
+		else
+			temp->value = ft_strdup(copy);
+	}
 }
 
-void	expand_default(t_token **head, t_env **env, int i, int state)
+
+char	*ft_strdup_env(int i, char *str)
+{
+	char *copy;
+	int	j;
+	int	start;
+
+	start = i;
+	j = 0;
+	while ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+		|| (str[i] == '_') || ((str[i] >= '0' && str[i] <= '9') && (i != '\0')))
+	{
+		i++;
+		j++;
+	}
+	copy = malloc(sizeof(char) * j + 1);
+	if (!copy)
+		return (NULL);
+	j = 0;
+	while ((str[start] >= 'A' && str[start] <= 'Z') || (str[start] >= 'a' && str[start] <= 'z') 
+		|| (str[start] == '_') || ((str[start] >= '0' && str[start] <= '9') && (start != '\0')))
+	{
+		copy[j] = str[start];
+		j++;
+		start++;
+	}
+	copy[j] = '\0';
+	return (copy);
+}
+
+void	expand(t_token **head, t_env **env, int i)
 {
 	t_token	*temp;
 	t_env	*tempv;
 	char	*copy;
-	int		len;
 
 	temp = *head;
 	tempv = *env;
 	while (temp)
 	{
 		i = 0;
-		state = ft_get_state(temp->value[i], state);
-		len = ft_strlen(temp->value);
 		while (temp->value[i])
 		{
-			if (state == DEFAULT && temp->value[i] == '$'
-				&& ft_get_state(temp->value[i + 1], state) == DEFAULT)
+			if (temp->value[i] == '$')
 			{
-				copy = ft_substr(temp->value, i + 1, len - i);
-				printf("%s\n", copy);
-				eraser(i, len, temp->value);
-				env_lookup(head, &tempv, copy, temp);
+				copy = ft_strdup_env(i + 1, temp->value);
+				node_changer(head, &tempv, copy, temp);
 				free(copy);
+				return ;;
 			}
+			if (temp->next == NULL && temp->value[i + 1] == '\0')
+				break;
 			i++;
 		}
 		temp = temp->next;
