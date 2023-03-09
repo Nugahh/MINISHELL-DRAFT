@@ -21,21 +21,24 @@ t_token	*create(char *str, int start, int end)
 	return (yo);
 }
 
-void	insert(t_token **head, char *str, int start, int end)
+int	insert(t_token **head, char *str, int start, int end)
 {
 	t_token	*new;
 	t_token	*temp;
 
 	new = create(str, start, end);
+	if (!new)
+		return (1);
 	if (!*head)
 	{
 		*head = new;
-		return ;
+		return (0);
 	}
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+	return (0);
 }
 
 void	printstr(t_token *head)
@@ -54,4 +57,26 @@ void	printstr(t_token *head)
 		temp = temp->next;
 	}
 	printf("\n");
+}
+
+int	ft_get_state(char c, int state)
+{
+	if (state == DEFAULT)
+	{
+		if (c == '\'')
+			state = SINGLE;
+		else if (c == '\"')
+			state = DOUBLE;
+	}
+	else if (state == SINGLE)
+	{
+		if (c == '\'')
+			state = DEFAULT;
+	}
+	else if (state == DOUBLE)
+	{
+		if (c == '\"')
+			state = DEFAULT;
+	}
+	return (state);
 }

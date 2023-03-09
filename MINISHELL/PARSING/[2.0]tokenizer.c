@@ -18,14 +18,16 @@ void	assign_type_and_fd(t_token **token)
 void	assign_type_and_lim(t_token **token)
 {
 	(*token)->type = DRIN;
+	if (!(*token)->next)
+		return ;
 	(*token)->next->type = LIM;
 }
 
-void	assign_type(t_token **token)
+int	assign_type(t_token **head)
 {
 	t_token	*temp;
 
-	temp = *token;
+	temp = *head; 
 	while (temp)
 	{
 		if (temp->value[0] == '|')
@@ -40,4 +42,5 @@ void	assign_type(t_token **token)
 			assign_type_and_lim(&temp);
 		temp = temp->next;
 	}
+	return (ft_check_syntax_error(head));
 }

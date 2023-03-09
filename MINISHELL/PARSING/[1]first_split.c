@@ -1,35 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   [1]first_split.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 15:47:09 by fwong             #+#    #+#             */
+/*   Updated: 2023/03/04 22:36:56 by fwong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../LIB/minishell.h"
 
-int	ft_get_state(char c, int state)
-{
-	if (state == DEFAULT)
-	{
-		if (c == '\'')
-			state = SINGLE;
-		else if (c == '\"')
-			state = DOUBLE;
-	}
-	else if (state == SINGLE)
-	{
-		if (c == '\'')
-			state = DEFAULT;
-	}
-	else if (state == DOUBLE)
-	{
-		if (c == '\"')
-			state = DEFAULT;
-	}
-	return (state);
-}
-
-int	ft_skip_spaces(char *cmd, int i)
+static int	ft_skip_spaces(char *cmd, int i)
 {
 	while (cmd[i] == 32)
 		i++;
 	return (i);
-}
+} 
 
-int	ft_check_spaces_and_not_operator(char *cmd, int i)
+static int	ft_check_spaces_and_not_operator(char *cmd, int i)
 {
 	if ((cmd[i] == 32 && !is_operator(cmd[i - 1]))
 		|| (is_operator(cmd[i]) && !is_operator(cmd[i - 1])))
@@ -37,38 +27,52 @@ int	ft_check_spaces_and_not_operator(char *cmd, int i)
 	return (0);
 }
 
-int	insert_and_init_new_start(char *cmd, t_token **head, int i, int start)
+static int	insert_and_init_new_start(char *cmd, t_token **head, int i, \
+																int start)
 {
-	insert(head, cmd, start, i - start - 1);
+	if (insert(head, cmd, start, i - start - 1))
+		return (-1);
 	start = i + 1;
 	return (start);
 }
 
-void	ft_split_test(char *cmd, t_token **head, int i, int start)
+static int skip_spaces_and_insert_op(int **arr, char *cmd, t_token **head)
 {
-	int	state;
-	int	end;
-
-	end = ft_strlen(cmd);
-	state = DEFAULT;
-	while (cmd[i])
+	*arr[0] = ft_skip_spaces(cmd, *arr[0]);
+	*arr[1] = *arr[0];
+	if (is_operator(cmd[*arr[0]]))
 	{
-		state = ft_get_state(cmd[i], state);
-		if (state == DEFAULT && (cmd[i] == 32 || is_operator(cmd[i])))
+		*arr[0] = check_insert_op_and_init(head, cmd, *arr[1], *arr[0]);
+		if (*arr[0] == -1)
+			return (1);
+		*arr[1] = *arr[0];
+	}
+	return (0);
+}
+
+int	ft_first_split(char *cmd, t_token **head, int **s_i, int start)
+{
+	while (cmd[*s_i[1]])
+	{
+		*s_i[0] = ft_get_state(cmd[*s_i[1]], *s_i[0]);
+		if (*s_i[0] == DEFAULT && (cmd[*s_i[1]] == ' ' || is_operator(cmd[*s_i[1]])))
 		{
-			i = ft_skip_spaces(cmd, i);
-			start = i;
-			if (is_operator(cmd[i]))
-			{
-				i = check_insert_op_and_init(head, cmd, start, i);
-				start = i;
-			}
+			if (skip_spaces_and_insert_op((int *[2]){&*s_i[1], &start}, cmd, head))
+				return (1);
 		}
 		else
-			i++;
-		if (state == DEFAULT && (ft_check_spaces_and_not_operator(cmd, i)))
-			start = insert_and_init_new_start(cmd, head, i, start);
-		else if (i == end && !is_operator(cmd[i - 1]) && cmd[i - 1] != ' ')
-			insert(head, cmd, start, i - start);
+			(*s_i[1])++;
+		if (*s_i[0] == DEFAULT && (ft_check_spaces_and_not_operator(cmd, *s_i[1])))
+		{
+			start = insert_and_init_new_start(cmd, head, *s_i[1], start);
+			if (start == -1)
+				return (1);
+		}
+		else if (*s_i[1] == ft_strlen(cmd) && !is_operator(cmd[*s_i[1] - 1]) && cmd[*s_i[1] - 1] != ' ')
+		{
+			if (insert(head, cmd, start, *s_i[1] - start))
+				return (1);
+		}
 	}
+	return (assign_type(head));
 }

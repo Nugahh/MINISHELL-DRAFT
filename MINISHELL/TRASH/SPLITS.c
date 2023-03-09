@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   SPLITS.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 21:22:51 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/18 23:20:34 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:27:22 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIB/minishell.h"
 /* void	ft_bzero(void *s, size_t n)
 {
 	size_t	i;
