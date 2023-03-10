@@ -41,8 +41,8 @@ typedef struct s_token
 
 typedef struct s_cmdexec
 {
-	t_token				**arg;
-	t_token				*red;
+	char				*arg;
+	char				*red;
 	int					fd_in;
 	int					fd_out;
 	struct s_cmdexec	*next;

@@ -40,16 +40,11 @@ int	main(int ac, char **av, char **envp)
 		add_history(command);
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 		ft_check_syntax_error(&head);
-		// print_env(env);
 		printstr(head);
 		ft_free_list(&head);
 		// printstr(head);
 		// free(head);
 		free(command);
 	}
-	// ft_free_env(&env);
-	// ft_free_list(&head);
-	// free(command);
-	// free(head);
 }
 
