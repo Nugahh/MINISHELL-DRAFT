@@ -8,6 +8,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <stdlib.h>
+# include <string.h>
 
 // ========== STRUCTURES ========== //
 
@@ -55,7 +58,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-int		main(int ac, char **av, char **envp);
+//int		main(int ac, char **av, char **envp);
 
 // ========================================================================= //
 //                               PARSING                                     //
