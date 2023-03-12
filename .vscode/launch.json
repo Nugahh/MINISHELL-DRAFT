@@ -4,7 +4,7 @@
 		"name": "(gdb) Lancer",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "${workspaceFolder}/MINISHELL/minishell",
+		"program": "${workspaceFolder}/MINISHELL/EXEC/a.out",
 		"args": [],
 		"stopAtEntry": false,
 		"cwd": "${fileDirname}",
