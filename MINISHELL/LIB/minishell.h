@@ -58,7 +58,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-//int		main(int ac, char **av, char **envp);
+int		main(int ac, char **av, char **envp);
 
 // ========================================================================= //
 //                               PARSING                                     //
@@ -126,8 +126,17 @@ int		env_lookup(t_env **env, char *copy);
 
 /* BUILT-INS */
 
+int	ft_cd(char **command);
 int	ft_echo(char **str, int fd);
 int	ft_env(t_env *head, int fd, char **envp);
 int	ft_pwd(int fd);
+int	ft_unset(t_env **env, char **command, int i);
+
+/*EXEC*/
+
+char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
+char	*check_access(char *exe, char *command, char *path);
+void	shellcmd(t_cmdexec **head, char **envp, t_env **env);
+void	ft_builtins(t_cmdexec **head, t_env **env);
 
 #endif

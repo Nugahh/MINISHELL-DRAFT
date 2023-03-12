@@ -15,7 +15,7 @@ void	fill_cmd_test(t_cmdexec **head)
 	temp->fd_out = 1;
 	temp->next = NULL;
 	if (!*head)
-	{
+	{int	ft_unset(t_env **env, char **command, int i)
 		*head = temp;
 		return ;
 	}
