@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 22:50:06 by khuynh            #+#    #+#             */
-/*   Updated: 2023/02/25 20:10:37 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/05 17:37:59 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		j = i - start;
 	if (j > len)
 		j = len;
-	sub = ft_calloc(j + 1, (sizeof(char)));
+	sub = ft_calloc(j + 1, sizeof(char));
 	if (!sub)
 		return (NULL);
 	ft_strlcpy(sub, s + start, j + 1);

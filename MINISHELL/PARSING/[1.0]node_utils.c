@@ -46,6 +46,11 @@ void	printstr(t_token *head)
 	t_token	*temp;
 
 	temp = head;
+	if (head == NULL)
+	{
+		printf("liste vide\n");
+		return ;
+	}
 	while (temp)
 	{
 		printf("node:%s+ ", temp->value);
