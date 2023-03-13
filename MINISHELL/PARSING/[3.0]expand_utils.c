@@ -1,13 +1,5 @@
 #include "../LIB/minishell.h"
 
-int	is_allowed_char(char c)
-{
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'
-		|| (c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
-
 int	len_env(char *str, int i)
 {
 	int	len;
@@ -22,7 +14,15 @@ int	len_env(char *str, int i)
 	}
 	return (len);
 }
+int	len_before_env(char *str, int i)
+{
+	int	len;
 
+	len = 0;
+	while (str[len] && len < i)
+		len++;
+	return (len);
+}
 int	len_status(int status)
 {
 	int	len;
@@ -38,16 +38,48 @@ int	len_status(int status)
 	return (len);
 }
 
-int	len_env_expanded(char *str, int i, int len_env, t_env **env)
+int	len_env_expanded(char *copyToken, int i, int len_env, t_env **env)
 {
-	t_env 		*tempEnv;
-	int			len;
+	t_env	*tempEnv;
+	int		len;
 
 	len = 0;
+	tempEnv = *env;
+	// if (copyToken[i] == '?')
+	// 	return (len_status(g_error));
 	while (tempEnv)
 	{
-		if (ft_strncmp(tempEnv->name))
-		i++;
+		if (ft_strncmpBis(copyToken, tempEnv->name, i, len_env) == 0)
+			break ;
+		tempEnv = tempEnv->next;
+	}
+	if (tempEnv)
+		len += ft_strlen(tempEnv->value);
+	return (len);
+}
+int	len_token_expanded(char *copyToken, t_env **env)
+{
+	int	i;
+	int	state;
+	int	len;
+
+	len = 0;
+	i = 0;
+	state = DEFAULT;
+	while (copyToken[i])
+	{
+		state = ft_get_state(copyToken[i], state);
+		if (copyToken[i] == '$' && is_allowed_char(copyToken[i + 1])
+			&& (state == DEFAULT || state == DOUBLE))
+		{
+			len += len_env_expanded(copyToken, i + 1, len_env(copyToken, i + 1), env);
+			i += len_env(copyToken, i + 1) + 1;
+		}
+		else
+		{
+			len++;
+			i++;
+		}
 	}
 	return (len);
 }

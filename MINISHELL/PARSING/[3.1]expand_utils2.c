@@ -7,47 +7,47 @@ int	is_allowed_char(char c)
 		return (1);
 	return (0);
 }
-
-int	len_env(char *str, int i)
+int	count_deleted_dollar(char *copyToken)
 {
-	int	len;
+	int	i;
+	int	state;
+	int	count;
 
-	len = 0;
-	if (str[i] == '?')
-		return (1);
-	while (str[i] && is_allowed_char(str[i]))
+	i = 0;
+	state = 0;
+	count = 0;
+	while (copyToken[i])
 	{
-		len++;
+		state = ft_get_state(copyToken[i], state);
+		if (copyToken[i] == '$' && copyToken[i + 1] == '?'
+			&& (state == DEFAULT || state == DOUBLE))
+			count++;
+		if (copyToken[i] == '$' && is_allowed_char(copyToken[i + 1]) == 1
+			&& (state == DEFAULT || state == DOUBLE))
+			count++;
 		i++;
 	}
-	return (len);
+	return (count);
 }
-
-int	len_status(int status)
+int	write_env_value(int *len, t_env *env, char *temp, int i)
 {
-	int	len;
+	int		j;
 
-	len = 0;
-	if (status == 0)
-		return (1);
-	while (status)
-	{
-		status /= 10;
-		len++;
-	}
-	return (len);
+	j = 0;
+	*len += ft_strlen(env->value);
+	while (env->value[j])
+		temp[i++] = env->value[j++];
+	return (*len);
 }
+// int	write_status(int i, char *temp, char *copyToken)
+// {
+// 	char	*status;
+// 	int		j;
 
-int	len_env_expanded(char *str, int i, int len_env, t_env **env)
-{
-	t_env 		*tempEnv;
-	int			len;
-
-	len = 0;
-	while (tempEnv)
-	{
-		if (ft_strncmp(tempEnv->name))
-		i++;
-	}
-	return (len);
-}
+// 	j = 0;
+// 	status = ft_itoa(g_error);
+// 	while (status[j])
+// 		temp[i++] = status[j++];
+// 	free(status);
+// 	return (len_status(g_error));
+// }

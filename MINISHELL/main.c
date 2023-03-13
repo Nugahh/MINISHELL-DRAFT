@@ -20,15 +20,17 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	t_token	*head;
+	t_env	*env;
 	int i;
-	// t_env	*env;
+
 	int state;
 	(void)ac;
 	(void)av;
 	(void)envp;
-	// env = NULL;
-	// if (env_parser(envp, &env, i) == 1)
-	// 	return (ft_free_env(&env), 1);
+	i = 0;
+	env = NULL;
+	if (env_parser(envp, &env, i) == 1)
+		return (ft_free_env(&env), 1);
 	while (1)
 	{
 		i = 0;
@@ -40,6 +42,7 @@ int	main(int ac, char **av, char **envp)
 		add_history(command);
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 		ft_check_syntax_error(&head);
+		expand(&head, &env);
 		// print_env(env);
 		printstr(head);
 		ft_free_list(&head);

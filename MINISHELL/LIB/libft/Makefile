@@ -6,7 +6,7 @@
 #    By: fwong <fwong@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 23:10:17 by khuynh            #+#    #+#              #
-#    Updated: 2023/02/25 04:34:35 by fwong            ###   ########.fr        #
+#    Updated: 2023/03/13 16:16:33 by fwong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS =  \
 		ft_striteri.c   \
         ft_strnstr.c    \
         ft_strncmp.c    \
+        ft_strncmpBis.c \
         ft_strcmp.c    \
         ft_atoi.c       \
         ft_isalnum.c    \
