@@ -8,6 +8,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <stdlib.h>
+# include <string.h>
 
 // ========== STRUCTURES ========== //
 
@@ -41,8 +44,8 @@ typedef struct s_token
 
 typedef struct s_cmdexec
 {
-	t_token				**arg;
-	t_token				*red;
+	char				**arg;
+	char				*red;
 	int					fd_in;
 	int					fd_out;
 	struct s_cmdexec	*next;
@@ -95,7 +98,7 @@ void	display_error(t_token **token);
 
 /* [2]check_syntax_error.c */
 
-int	ft_check_syntax_error(t_token **token);
+int		ft_check_syntax_error(t_token **token);
 
 /* [3.0]expand_utils.c */
 
@@ -141,8 +144,21 @@ int	expand(t_token **token, t_env **env);
 
 /* BUILT-INS */
 
-int	ft_echo(char **str, int fd);
-int	ft_env(t_env *head, int fd, char **envp);
-int	ft_pwd(int fd);
+int		ft_cd(char **command);
+int		ft_echo(char **str, int fd);
+int		ft_env(t_env *head, int fd, char **envp);
+int		ft_export(t_env **env, t_cmdexec **head, int i);
+int		ft_pwd(int fd);
+int		ft_unset(t_env **env, char **command, int i);
+
+int		check_equal(char *str);
+int		check_symbolerror(char c);
+
+/*EXEC*/
+
+char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
+char	*check_access(char *exe, char *command, char *path);
+void	shellcmd(t_cmdexec **head, char **envp, t_env **env);
+void	ft_builtins(t_cmdexec **head, t_env **env, char **envp);
 
 #endif
