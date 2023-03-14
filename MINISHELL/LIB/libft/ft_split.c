@@ -6,13 +6,12 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 00:51:19 by khuynh            #+#    #+#             */
-/*   Updated: 2022/05/06 11:49:31 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/03/10 23:24:32 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stddef.h>
-#include "libft.h"
 
 static int	ft_count_words(char const *str, char c)
 {

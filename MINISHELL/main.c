@@ -51,9 +51,5 @@ int	main(int ac, char **av, char **envp)
 		// free(head);
 		free(command);
 	}
-	// ft_free_env(&env);
-	// ft_free_list(&head);
-	// free(command);
-	// free(head);
 }
 
