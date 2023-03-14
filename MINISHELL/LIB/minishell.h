@@ -100,26 +100,44 @@ void	display_error(t_token **token);
 
 int		ft_check_syntax_error(t_token **token);
 
+/* [3.0]expand_utils.c */
+
+int	len_env(char *str, int i);
+int	len_before_env(char *str, int i);
+int	len_status(int status);
+int	len_env_expanded(char *copyToken, int i, int len_env, t_env **env);
+int	len_token_expanded(char *copyToken, t_env **env);
+
+/* [3.1]expand_utils2.c */
+
+int	is_allowed_char(char c);
+int	write_env_value(int *len, t_env *env, char *copyToken, int i);
+
+/* [3.2]expand.c */
+
+int	expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
+
+/* [3.3]expand_final_utils.c */
+
+int	remove_first_quote(t_token *token, int i, int stateBefore);
+int	count_removed_quotes(t_token *token);
+
+/* [3]expand_final.c */
+
+int	count_second_quote(t_token *token, int i, int state);
+int	remove_second_quote(int state, int stateBefore);
+char	*check_node(t_token *token, int i, int j, int state);
+int	remove_quotes(t_token **token);
+int	remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
 
 /* env_parsing.c */
 
-int		env_parser(char **envp, t_env **head, int i);
+int	env_parser(char **envp, t_env **head, int i);
+char	*token_expanded(char *temp, char *copyToken, t_env **env);
+char	*fill_expand(char *copyToken, t_env **env);
+int	call_expand(t_token *token, t_env **env);
+int	expand(t_token **token, t_env **env);
 
-// ========================================================================= //
-//                               EXPAND                                      //
-// ========================================================================= //
-
-void	ft_check_state_and_expand(t_token **head, t_env **env);
-void	expand(t_token **head, t_env **env, int i);
-void	expand_single(t_token **head, int s, int i, char *copy, t_env **env);
-void	expand_double(t_token **head, t_env **env, int s, int i);
-
-/* UTILS */
-
-void	deletenode(t_token **head, t_token *toDel);
-char	*ft_strdup_env(int i, char *str);
-void	node_changer(t_token **head, t_env **env, char *copy, t_token *temp);
-int		env_lookup(t_env **env, char *copy);
 // ========================================================================= //
 //                               EXEC                                        //
 // ========================================================================= //
