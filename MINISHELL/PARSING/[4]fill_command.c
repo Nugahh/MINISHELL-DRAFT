@@ -5,42 +5,108 @@
 size_t	token_argcount(t_token **head)
 {
 	t_token *temp;
-	size_t	i;
+	size_t	count;
 
 	temp = *head;
+	count = 0;
+	while (temp)
+	{
+		if (temp->type == ARG)
+			count++;
+		temp = temp->next;
+	}
+	return (count);
+}
+
+t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
+{
+	t_token		*temp;
+
+	temp = *head;
+	new = malloc(sizeof(t_cmdexec));
+	new->arg = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (temp)
 	{
 		if (temp->type == ARG)
-			i++;
-		temp = temp->next;
-	}
-	return (i);
-}
-
-t_cmdexec *create_command(t_token **head)
-{
-	t_token	*temp;
-	t_cmdexec	*new;
-	size_t	i;
-
-	temp = *head;
-	i = token_argcount(&temp);
-	new = malloc(sizeof(t_cmdexec));
-	new->arg = malloc(sizeof(char *) * (i + 1));
-	while (temp)
-	{
-		if (temp->type == ARG)
+		{
 			new->arg[i] = ft_strdup(temp->value);
+			i++;
+		}
 		else if (temp->type == DRIN)
 			new->fd_in = ft_atoi(temp->value);
 		else if (temp->type == DROUT)
 			new->fd_out = ft_atoi(temp->value);
 		else if (temp->type == RIN || temp->type == ROUT)
 			new->red = ft_strdup(temp->value);
-		i++;
+		else if (temp->type == PIPE)
+			break ;
 		temp = temp->next;
 	}
 	new->next = NULL;
 	return (new);
+}
+int	insert_nodecmd(t_cmdexec **head, t_token **token)
+{
+	t_cmdexec	*new;
+	t_cmdexec	*temp;
+
+	new = create_nodecmd(token, token_argcount(token), NULL);
+	if (!new)
+		return (1);
+	if (!*head)
+	{
+		*head = new;
+		return (0);
+	}
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+	return (0);
+}
+void	printcmdexec(t_cmdexec *head)
+{
+	t_cmdexec	*temp;
+	int			i;	
+
+	i = 0;
+	temp = head;
+	if (head == NULL)
+	{
+		printf("liste vide\n");
+		return ;
+	}
+	while (temp)
+	{
+		while(temp->arg[i])
+		{
+			printf("arg = %s | ", temp->arg[i]);
+			i++;
+		}
+		printf("red = %s | ", temp->red);
+		printf("fd_in = %d | ", temp->fd_in);
+		printf("fd_out = %d | ", temp->fd_out);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+void	ft_free_cmdexec(t_cmdexec *head)
+{
+	t_cmdexec	*temp;
+	int			i;
+
+	i = 0;
+	temp = head;
+	while (temp)
+	{
+		while (temp->arg[i])
+		{
+			free(temp->arg[i]);
+			i++;
+		}
+		free(temp->arg);
+		free(temp->red);
+		temp = temp->next;
+	}
 }

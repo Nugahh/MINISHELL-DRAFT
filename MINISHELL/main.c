@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	t_token	*head;
+	t_cmdexec	*cmd;
 	t_env	*env;
 	int i;
 
@@ -38,6 +39,7 @@ int	main(int ac, char **av, char **envp)
 		g_error = 0;
 
 		head = NULL;
+		cmd = NULL;
 		command = readline("minishell$> ");
 		add_history(command);
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
@@ -45,6 +47,10 @@ int	main(int ac, char **av, char **envp)
 		expand(&head, &env);
 		remove_quotes(&head);
 		printstr(head);
+		insert_nodecmd(cmd, head);
+		printcmdexec(cmd);
+		ft_free_cmdexec(&cmd);
+		free(cmd);
 		ft_free_list(&head);
 		free(command);
 	}

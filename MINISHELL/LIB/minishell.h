@@ -102,41 +102,50 @@ int		ft_check_syntax_error(t_token **token);
 
 /* [3.0]expand_utils.c */
 
-int	len_env(char *str, int i);
-int	len_before_env(char *str, int i);
-int	len_status(int status);
-int	len_env_expanded(char *copyToken, int i, int len_env, t_env **env);
-int	len_token_expanded(char *copyToken, t_env **env);
+int		len_env(char *str, int i);
+int		len_before_env(char *str, int i);
+int		len_status(int status);
+int		len_env_expanded(char *copyToken, int i, int len_env, t_env **env);
+int		len_token_expanded(char *copyToken, t_env **env);
 
 /* [3.1]expand_utils2.c */
 
-int	is_allowed_char(char c);
-int	write_env_value(int *len, t_env *env, char *copyToken, int i);
+int		is_allowed_char(char c);
+int		write_env_value(int *len, t_env *env, char *copyToken, int i);
 
 /* [3.2]expand.c */
 
-int	expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
+int		expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
 
 /* [3.3]expand_final_utils.c */
 
-int	remove_first_quote(t_token *token, int i, int stateBefore);
-int	count_removed_quotes(t_token *token);
+int		remove_first_quote(t_token *token, int i, int stateBefore);
+int		count_removed_quotes(t_token *token);
 
 /* [3]expand_final.c */
 
-int	count_second_quote(t_token *token, int i, int state);
-int	remove_second_quote(int state, int stateBefore);
+int		count_second_quote(t_token *token, int i, int state);
+int		remove_second_quote(int state, int stateBefore);
 char	*check_node(t_token *token, int i, int j, int state);
-int	remove_quotes(t_token **token);
-int	remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
+int		remove_quotes(t_token **token);
+int		remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
+
+/* [4]fill_command.c */
+
+size_t	token_argcount(t_token **head);
+t_cmdexec *create_nodecmd(t_token **head, size_t i);
+int		insert_nodecmd(t_cmdexec **head, t_token **token);
+void	printcmdexec(t_cmdexec *head);
+void	ft_free_cmdexec(t_cmdexec *head);
+
 
 /* env_parsing.c */
 
-int	env_parser(char **envp, t_env **head, int i);
+int		env_parser(char **envp, t_env **head, int i);
 char	*token_expanded(char *temp, char *copyToken, t_env **env);
 char	*fill_expand(char *copyToken, t_env **env);
-int	call_expand(t_token *token, t_env **env);
-int	expand(t_token **token, t_env **env);
+int		call_expand(t_token *token, t_env **env);
+int		expand(t_token **token, t_env **env);
 
 // ========================================================================= //
 //                               EXEC                                        //
