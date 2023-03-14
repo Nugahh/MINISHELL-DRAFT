@@ -43,6 +43,7 @@ int	main(int ac, char **av, char **envp)
 		ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 		ft_check_syntax_error(&head);
 		expand(&head, &env);
+		remove_quotes(&head);
 		// print_env(env);
 		printstr(head);
 		ft_free_list(&head);

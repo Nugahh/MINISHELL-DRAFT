@@ -110,9 +110,22 @@ int	len_token_expanded(char *copyToken, t_env **env);
 int	is_allowed_char(char c);
 int	write_env_value(int *len, t_env *env, char *copyToken, int i);
 
-/* [3]expand.c */
+/* [3.2]expand.c */
 
 int	expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
+
+/* [3.3]expand_final_utils.c */
+
+int	remove_first_quote(t_token *token, int i, int stateBefore);
+int	count_removed_quotes(t_token *token);
+
+/* [3]expand_final.c */
+
+int	count_second_quote(t_token *token, int i, int state);
+int	remove_second_quote(int state, int stateBefore);
+char	*check_node(t_token *token, int i, int j, int state);
+int	remove_quotes(t_token **token);
+int	remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
 
 /* env_parsing.c */
 

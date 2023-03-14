@@ -12,13 +12,14 @@ MFILES = \
 		PARSING/[2]check_syntax_error.c		\
 		PARSING/[3.0]expand_utils.c			\
 		PARSING/[3.1]expand_utils2.c		\
-		PARSING/[3]expand.c					\
+		PARSING/[3.2]expand.c				\
+		PARSING/[3.3]expand_final_utils.c	\
+		PARSING/[3]expand_final.c			\
 		PARSING/[bis]env_parsing.c			\
 		BUILT-IN/echo.c						\
 		BUILT-IN/pwd.c						\
 		BUILT-IN/env.c						\
 		main.c
-
 
 OBJS :=  	${addprefix ./OBJ/,${MFILES:%.c=%.o}}
 DEP   = 	${addprefix ./OBJ/,${OBJS:%.o=%.d}}
