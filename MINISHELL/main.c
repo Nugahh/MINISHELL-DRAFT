@@ -44,11 +44,8 @@ int	main(int ac, char **av, char **envp)
 		ft_check_syntax_error(&head);
 		expand(&head, &env);
 		remove_quotes(&head);
-		// print_env(env);
 		printstr(head);
 		ft_free_list(&head);
-		// printstr(head);
-		// free(head);
 		free(command);
 	}
 }
