@@ -58,7 +58,6 @@ void	printstr(t_token *head)
 	}
 	printf("\n");
 }
-
 int	ft_get_state(char c, int state)
 {
 	if (state == DEFAULT)
