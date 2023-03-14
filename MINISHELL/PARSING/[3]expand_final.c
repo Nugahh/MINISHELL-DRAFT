@@ -6,19 +6,11 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/14 04:26:30 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/14 21:01:55 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
-
-int	count_second_quote(t_token *token, int i, int state)
-{
-	if ((state == SINGLE || state == DOUBLE)
-		&& (ft_get_state(token->value[i + 1], state) == DEFAULT))
-		return (1);
-	return (0);
-}
 
 int	remove_second_quote(int state, int stateBefore)
 {
@@ -35,9 +27,9 @@ int	first_char_is_quote(t_token *token)
 		return (DOUBLE);
 	return (-1);
 }
-int	remove_quotes_in_node(t_token *token, int j, int state, int stateBefore)
+int	remove_quotes_in_node(int state, int stateBefore)
 {
-	if (remove_first_quote(token, j, stateBefore))
+	if (remove_first_quote(stateBefore, state))
 		return (1);
 	else if (remove_second_quote(state, stateBefore))
 		return (1);
@@ -51,16 +43,16 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 	
 	state = DEFAULT;
 	len = ft_strlen(token->value);
-	copyToken = ft_calloc((len - count_removed_quotes(token)) + 2, sizeof(char));
+	copyToken = ft_calloc((len - count_removed_quotes(token, stateBefore)) + 2, sizeof(char));
 	if (token->value[0] == '\'' || token->value[0] == '\"')
 	{
 		state = first_char_is_quote(token);
 		stateBefore = state;
 		j++;
 	}
-	while (i <= len - count_removed_quotes(token))
+	while (i < len)
 	{
-		if (remove_quotes_in_node(token, j, state, stateBefore) == 1)
+		if (remove_quotes_in_node(state, stateBefore) == 1)
 		{
 			stateBefore = ft_get_state(token->value[j], stateBefore);
 			j++;
@@ -87,6 +79,5 @@ int	remove_quotes(t_token **token)
 		free(copyToken);
 		temp = temp->next;
 	}
-
 	return (0);
 }

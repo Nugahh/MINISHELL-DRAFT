@@ -1,6 +1,6 @@
 #include "../LIB/minishell.h"
 
-int	expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp)
+int	expanded_var(char *copyToken, int i, int j, int len_env, t_env **env, char *temp)
 {
 	t_env	*tempEnv;
 	int		len;
@@ -16,7 +16,8 @@ int	expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp)
 		tempEnv = tempEnv->next;
 	}
 	if (tempEnv && len_env > 0)
-		write_env_value(&len, tempEnv, temp, i - 1);
+		write_env_value(&len, tempEnv, temp, j);
+	printf("len = %d\n", len);
 	return (len);
 }
 
@@ -35,7 +36,7 @@ char	*token_expanded(char *temp, char *copyToken, t_env **env)
 		if (copyToken[i] == '$' && is_allowed_char(copyToken[i + 1])
 			&& (state == DEFAULT || state == DOUBLE))
 		{
-			j += expanded_var(copyToken, i + 1, len_before_env(copyToken, i) + len_env(copyToken, i + 1), env, temp);
+			j = j + expanded_var(copyToken, i + 1, j, len_before_env(copyToken, i) + len_env(copyToken, i + 1), env, temp);
 			i += len_env(copyToken, i + 1) + 1;
 		}
 		else
@@ -93,5 +94,5 @@ int	expand(t_token **token, t_env **env)
 			return (1);
 		temp = temp->next;
 	}
-	return (0);
+	return (remove_quotes(token));
 }
