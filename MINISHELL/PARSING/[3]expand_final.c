@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [3]expand_final.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/14 04:26:30 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/15 19:12:25 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	remove_quotes(t_token **token)
 		return (1);
 	while (temp)
 	{
-		copyToken = check_node(temp, 0, 0, -1);
+		copyToken = check_node(temp, 0, 0, DEFAULT);
 		free(temp->value);
 		temp->value = ft_strdup(copyToken);
 		free(copyToken);
