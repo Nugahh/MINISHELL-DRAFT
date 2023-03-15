@@ -133,10 +133,11 @@ int		remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
 /* [4]fill_command.c */
 
 size_t	token_argcount(t_token **head);
-t_cmdexec *create_nodecmd(t_token **head, size_t i);
+t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new);
 int		insert_nodecmd(t_cmdexec **head, t_token **token);
 void	printcmdexec(t_cmdexec *head);
-void	ft_free_cmdexec(t_cmdexec *head);
+void	cmd_final(t_cmdexec **head, t_token **token);
+void	ft_free_cmdexec(t_cmdexec **head);
 
 
 /* env_parsing.c */

@@ -53,10 +53,11 @@ void	printstr(t_token *head)
 	}
 	while (temp)
 	{
-		printf("node:%s+ ", temp->value);
+		printf("node:");
+		printf("%s | type: %d ", temp->value, temp->type);
+		printf("\n");
 		temp = temp->next;
 	}
-	printf("\n");
 }
 int	ft_get_state(char c, int state)
 {

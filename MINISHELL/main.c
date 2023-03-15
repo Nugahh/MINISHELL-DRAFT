@@ -47,11 +47,10 @@ int	main(int ac, char **av, char **envp)
 		expand(&head, &env);
 		remove_quotes(&head);
 		printstr(head);
-		insert_nodecmd(cmd, head);
+		cmd_final(&cmd, &head);
 		printcmdexec(cmd);
 		ft_free_cmdexec(&cmd);
 		free(cmd);
-		ft_free_list(&head);
 		free(command);
 	}
 }

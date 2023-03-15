@@ -13,6 +13,8 @@ size_t	token_argcount(t_token **head)
 	{
 		if (temp->type == ARG)
 			count++;
+		else if (temp->type == PIPE)
+			break ;
 		temp = temp->next;
 	}
 	return (count);
@@ -28,6 +30,7 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	i = 0;
 	while (temp)
 	{
+		new->fd_out = 1;
 		if (temp->type == ARG)
 		{
 			new->arg[i] = ft_strdup(temp->value);
@@ -35,7 +38,7 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 		}
 		else if (temp->type == DRIN)
 			new->fd_in = ft_atoi(temp->value);
-		else if (temp->type == DROUT)
+		else if (temp->type == DROUT && temp->value != NULL)
 			new->fd_out = ft_atoi(temp->value);
 		else if (temp->type == RIN || temp->type == ROUT)
 			new->red = ft_strdup(temp->value);
@@ -65,12 +68,27 @@ int	insert_nodecmd(t_cmdexec **head, t_token **token)
 	temp->next = new;
 	return (0);
 }
+
+void	cmd_final(t_cmdexec **head, t_token **token)
+{
+	insert_nodecmd(head, token);
+	while (*token)
+	{
+		if ((*token)->type == PIPE)
+		{
+			*token = (*token)->next;
+			insert_nodecmd(head, token);
+		}
+		else if ((*token)->next == NULL)
+			return (ft_free_list(token));
+		(*token) = (*token)->next;
+	}
+}
 void	printcmdexec(t_cmdexec *head)
 {
 	t_cmdexec	*temp;
 	int			i;	
 
-	i = 0;
 	temp = head;
 	if (head == NULL)
 	{
@@ -79,6 +97,8 @@ void	printcmdexec(t_cmdexec *head)
 	}
 	while (temp)
 	{
+		i = 0;
+		printf("command: ");
 		while(temp->arg[i])
 		{
 			printf("arg = %s | ", temp->arg[i]);
@@ -86,18 +106,18 @@ void	printcmdexec(t_cmdexec *head)
 		}
 		printf("red = %s | ", temp->red);
 		printf("fd_in = %d | ", temp->fd_in);
-		printf("fd_out = %d | ", temp->fd_out);
+		printf("fd_out = %d\n", temp->fd_out);
 		temp = temp->next;
 	}
-	printf("\n");
 }
-void	ft_free_cmdexec(t_cmdexec *head)
+
+void	ft_free_cmdexec(t_cmdexec **head)
 {
 	t_cmdexec	*temp;
 	int			i;
 
 	i = 0;
-	temp = head;
+	temp = *head;
 	while (temp)
 	{
 		while (temp->arg[i])
