@@ -6,20 +6,13 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/14 21:01:55 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/17 00:45:13 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../LIB/minishell.h"
 
-int	remove_second_quote(int state, int stateBefore)
-{
-	if ((stateBefore == SINGLE || stateBefore == DOUBLE)
-		&& state == DEFAULT)
-		return (1);
-	return (0);
-}
-int	first_char_is_quote(t_token *token)
+static int	first_char_is_quote(t_token *token)
 {
 	if (token->value[0] == '\'')
 		return (SINGLE);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   [3.3]expand_final_utils.c                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/14 20:50:37 by fwong            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../LIB/minishell.h"
 
 int	remove_first_quote(int stateBefore, int state)
@@ -19,12 +7,33 @@ int	remove_first_quote(int stateBefore, int state)
 		return (1);
 	return (0);
 }
-int	count_second_quote(int state, int stateBefore)
+int	remove_second_quote(int state, int stateBefore)
 {
 	if (state == DEFAULT
 		&& (stateBefore == SINGLE || stateBefore == DOUBLE))
 		return (1);
 	return (0);
+}
+
+static void	check_first_value(t_token *token, int **i_count, int *state, int *stateBefore)
+{
+	if (token->value[0] == '\'' || token->value[0] == '\"')
+	{
+		if (token->value[0] == '\'')
+		{
+			*state = SINGLE;
+			*stateBefore = SINGLE;
+			(*i_count[0])++;
+			(*i_count[1])++;
+		}
+		else if (token->value[0] == '\"')
+		{
+			*state = DOUBLE;
+			*stateBefore = DOUBLE;
+			(*i_count[0])++;
+			(*i_count[1])++;
+		}
+	}
 }
 int	count_removed_quotes(t_token *token, int stateBefore)
 {
@@ -35,23 +44,7 @@ int	count_removed_quotes(t_token *token, int stateBefore)
 	i = 0;
 	count = 0;
 	state = DEFAULT;
-	if (token->value[0] == '\'' || token->value[0] == '\"')
-	{
-		if (token->value[0] == '\'')
-		{
-			state = SINGLE;
-			stateBefore = SINGLE;
-			i++;
-			count++;
-		}
-		else if (token->value[0] == '\"')
-		{
-			state = DOUBLE;
-			stateBefore = DOUBLE;
-			i++;
-			count++;
-		}
-	}
+	check_first_value(token, (int *[2]){&i, &count}, &state, &stateBefore);
 	while (token->value[i])
 	{
 		state = ft_get_state(token->value[i], state);
@@ -60,14 +53,13 @@ int	count_removed_quotes(t_token *token, int stateBefore)
 			stateBefore = ft_get_state(token->value[i], stateBefore);
 			count++;
 		}
-		else if (count_second_quote(state, stateBefore))
+		else if (remove_second_quote(state, stateBefore))
 		{
 			stateBefore = ft_get_state(token->value[i], stateBefore);
 			count++;
 		}
 		i++;
 	}
-	printf("count: %d\n", count);
 	return (count);
 }
 
