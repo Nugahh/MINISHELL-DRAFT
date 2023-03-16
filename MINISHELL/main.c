@@ -2,42 +2,27 @@
 
 int g_error;
 
-void	print_env(t_env *head)
+void	ft_free(t_cmdexec *cmd, char *command)
 {
-	t_env	*temp;
-
-	temp = head;
-	while (temp)
-	{
-		printf("%s=", temp->name);
-		printf("%s\n", temp->value);
-		temp = temp->next;
-	}
-	printf("\n");
+	ft_free_cmdexec(&cmd);
+	free(command);
+	free(cmd);
 }
-
-int	main(int ac, char **av, char **envp)
+void	parsing(t_token *head, t_cmdexec *cmd, char **envp)
 {
-	char	*command;
-	t_token	*head;
-	t_cmdexec	*cmd;
-	t_env	*env;
 	int i;
+	t_env *env;
+	int	state;
+	char *command;
 
-	int state;
-	(void)ac;
-	(void)av;
-	(void)envp;
-	i = 0;
 	env = NULL;
-	if (env_parser(envp, &env, i) == 1)
-		return (ft_free_env(&env), 1);
+	if (env_parser(envp, &env, 0) == 1)
+		return (ft_free_env(&env));
 	while (1)
 	{
 		i = 0;
 		state = ARG;
 		g_error = 0;
-
 		head = NULL;
 		cmd = NULL;
 		command = readline("minishell$> ");
@@ -46,12 +31,23 @@ int	main(int ac, char **av, char **envp)
 		ft_check_syntax_error(&head);
 		expand(&head, &env);
 		remove_quotes(&head);
-		printstr(head);
 		cmd_final(&cmd, &head);
 		printcmdexec(cmd);
-		ft_free_cmdexec(&cmd);
-		free(cmd);
-		free(command);
+		ft_free(cmd, command);
 	}
+}
+
+
+int	main(int ac, char **av, char **envp)
+{	
+
+	(void)ac;
+	(void)av;
+	t_token		*head;
+	t_cmdexec	*cmd;
+
+	head = NULL;
+	cmd = NULL;
+	parsing(head, cmd, envp);
 }
 

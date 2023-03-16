@@ -64,6 +64,8 @@ int		main(int ac, char **av, char **envp);
 //                               PARSING                                     //
 // ========================================================================= //
 
+void	parsing(t_token *head, t_cmdexec *cmd, char **envp);
+
 /* clean.c */
 void	ft_free_env(t_env **head);
 void	ft_free_list(t_token **head);
@@ -135,6 +137,7 @@ int		remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
 size_t	token_argcount(t_token **head);
 t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new);
 int		insert_nodecmd(t_cmdexec **head, t_token **token);
+void	fill_redir(t_cmdexec *tofill, t_token *src);
 void	printcmdexec(t_cmdexec *head);
 void	cmd_final(t_cmdexec **head, t_token **token);
 void	ft_free_cmdexec(t_cmdexec **head);

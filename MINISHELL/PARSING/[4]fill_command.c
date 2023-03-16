@@ -36,12 +36,8 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 			new->arg[i] = ft_strdup(temp->value);
 			i++;
 		}
-		else if (temp->type == DRIN)
-			new->fd_in = ft_atoi(temp->value);
-		else if (temp->type == DROUT && temp->value != NULL)
-			new->fd_out = ft_atoi(temp->value);
-		else if (temp->type == RIN || temp->type == ROUT)
-			new->red = ft_strdup(temp->value);
+		else if (temp->type != ARG || temp->type != PIPE)
+			fill_redir(new, temp);
 		else if (temp->type == PIPE)
 			break ;
 		temp = temp->next;
@@ -49,6 +45,19 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	new->next = NULL;
 	return (new);
 }
+
+void	fill_redir(t_cmdexec *tofill, t_token *src)
+{
+	if (src->type == RIN)
+		tofill->red = ft_strdup(src->value);
+	else if (src->type == ROUT)
+		tofill->red = ft_strdup(src->value);
+	else if (src->type == DRIN)
+		tofill->fd_in = ft_atoi(src->value);
+	else if (src->type == DROUT)
+		tofill->fd_out = ft_atoi(src->value);
+}
+
 int	insert_nodecmd(t_cmdexec **head, t_token **token)
 {
 	t_cmdexec	*new;
