@@ -64,16 +64,16 @@ int	check_insert_op_and_init(t_token **head, char *cmd, int start, int i)
 	if ((cmd[i] == '>' && cmd[i + 1] != '>')
 		|| (cmd[i] == '<' && cmd[i + 1] != '<')
 		|| cmd[i] == '|')
-		{
-			if (insert_op(head, cmd, start, 1) == 1)
-				return (-1);
-		}
+	{
+		if (insert_op(head, cmd, start, 1) == 1)
+			return (-1);
+	}
 	else if ((cmd[i] == '>' && cmd[i + 1] == '>')
 		|| (cmd[i] == '<' && cmd[i + 1] == '<'))
-		{
-			if (insert_op(head, cmd, start, 2))
-				return (-1);
-		}
+	{
+		if (insert_op(head, cmd, start, 2))
+			return (-1);
+	}
 	x = skip_operator(i, cmd[i], cmd[i + 1]);
 	return (x);
 }

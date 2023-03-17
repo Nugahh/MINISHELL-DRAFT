@@ -7,6 +7,7 @@ int	is_allowed_char(char c)
 		return (1);
 	return (0);
 }
+
 int	write_env_value(int *len, t_env *env, char *temp, int i)
 {
 	int		j;

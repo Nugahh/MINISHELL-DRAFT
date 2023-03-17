@@ -116,7 +116,7 @@ int	write_env_value(int *len, t_env *env, char *copyToken, int i);
 
 /* [3.2]expand.c */
 
-int		expanded_var(char *copyToken, int **i_j, int len_env, t_env **env, char *temp);
+int		expanded_var(char *copyToken, int **i_j, t_env **env, char *temp);
 char	*token_expanded(char *temp, int **i_j, char *copyToken, t_env **env);
 char	*fill_expand(char *copyToken, t_env **env);
 
@@ -124,7 +124,7 @@ char	*fill_expand(char *copyToken, t_env **env);
 
 int	remove_first_quote(int stateBefore, int state);
 int	remove_second_quote(int state, int stateBefore);
-int	count_removed_quotes(t_token *token, int stateBefore);
+int	c_rq(t_token *token, int stateBefore);
 
 /* [3]expand_final.c */
 

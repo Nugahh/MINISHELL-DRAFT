@@ -6,7 +6,7 @@
 /*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/17 00:45:13 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/17 01:12:21 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	first_char_is_quote(t_token *token)
 		return (DOUBLE);
 	return (-1);
 }
+
 int	remove_quotes_in_node(int state, int stateBefore)
 {
 	if (remove_first_quote(stateBefore, state))
@@ -28,15 +29,16 @@ int	remove_quotes_in_node(int state, int stateBefore)
 		return (1);
 	return (0);
 }
+
 char	*check_node(t_token *token, int i, int j, int stateBefore)
 {
 	int		state;
 	int		len;
-	char	*copyToken;
+	char	*copy_token;
 	
 	state = DEFAULT;
 	len = ft_strlen(token->value);
-	copyToken = ft_calloc((len - count_removed_quotes(token, stateBefore)) + 2, sizeof(char));
+	copy_token = ft_calloc((len - c_rq(token, stateBefore)) + 2, sizeof(char));
 	if (token->value[0] == '\'' || token->value[0] == '\"')
 	{
 		state = first_char_is_quote(token);
@@ -51,25 +53,26 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 			j++;
 		}
 		else
-			copyToken[i++] = token->value[j++];
+			copy_token[i++] = token->value[j++];
 		state = ft_get_state(token->value[j], state);
 	}
-	return (copyToken);
+	return (copy_token);
 }
+
 int	remove_quotes(t_token **token)
 {
 	t_token	*temp;
-	char	*copyToken;
+	char	*copy_token;
 
 	temp = *token;
 	if (!temp)
 		return (1);
 	while (temp)
 	{
-		copyToken = check_node(temp, 0, 0, -1);
+		copy_token = check_node(temp, 0, 0, -1);
 		free(temp->value);
-		temp->value = ft_strdup(copyToken);
-		free(copyToken);
+		temp->value = ft_strdup(copy_token);
+		free(copy_token);
 		temp = temp->next;
 	}
 	return (0);
