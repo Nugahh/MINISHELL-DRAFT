@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   [3]expand_final.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 00:52:49 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/17 01:36:39 by fwong            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../LIB/minishell.h"
 
 static int	first_char_is_quote(t_token *token)
@@ -69,7 +57,7 @@ int	remove_quotes(t_token **token)
 		return (1);
 	while (temp)
 	{
-		copy_token = check_node(temp, 0, 0, -1);
+		copyToken = check_node(temp, 0, 0, DEFAULT);
 		free(temp->value);
 		temp->value = ft_strdup(copy_token);
 		free(copy_token);
