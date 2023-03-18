@@ -27,7 +27,7 @@ int	assign_type(t_token **head)
 {
 	t_token	*temp;
 
-	temp = *head; 
+	temp = *head;
 	while (temp)
 	{
 		if (temp->value[0] == '|')

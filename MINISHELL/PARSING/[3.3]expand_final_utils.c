@@ -2,11 +2,12 @@
 
 int	remove_first_quote(int stateBefore, int state)
 {
-	if ((state == SINGLE || state == DOUBLE)	
+	if ((state == SINGLE || state == DOUBLE)
 		&& stateBefore == DEFAULT)
 		return (1);
 	return (0);
 }
+
 int	remove_second_quote(int state, int stateBefore)
 {
 	if (state == DEFAULT
@@ -15,7 +16,8 @@ int	remove_second_quote(int state, int stateBefore)
 	return (0);
 }
 
-static void	check_first_value(t_token *token, int **i_count, int *state, int *stateBefore)
+static void	check_first_value(t_token *token, int **i_count, \
+										int *state, int *stateBefore)
 {
 	if (token->value[0] == '\'' || token->value[0] == '\"')
 	{
@@ -35,7 +37,8 @@ static void	check_first_value(t_token *token, int **i_count, int *state, int *st
 		}
 	}
 }
-int	count_removed_quotes(t_token *token, int stateBefore)
+
+int	c_rq(t_token *token, int stateBefore)
 {
 	int	i;
 	int	count;
@@ -62,4 +65,3 @@ int	count_removed_quotes(t_token *token, int stateBefore)
 	}
 	return (count);
 }
-

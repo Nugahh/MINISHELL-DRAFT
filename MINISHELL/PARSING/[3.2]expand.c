@@ -1,21 +1,24 @@
 #include "../LIB/minishell.h"
 
-int	expanded_var(char *copyToken, int **i_j, int len_env, t_env **env, char *temp)
+int	expanded_var(char *copyToken, int **i_j, t_env **env, char *temp)
 {
 	t_env	*tempEnv;
 	int		len;
+	int		len_e;
 
 	len = 0;
 	tempEnv = *env;
+	len_e = len_before_env(copyToken, *i_j[0]) + len_env(copyToken, i_j);
 	// if (copyToken[i] == '?')
 	// 	return (write_status(i, temp, copyToken));
-	while (tempEnv && len_env > 0)
+	while (tempEnv && len_e > 0)
 	{
-		if (ft_strncmpBis(copyToken, tempEnv->name, *i_j[0] + 1, len_env + 1) == 0)
+		if (ft_strncmpBis(copyToken, tempEnv->name, \
+		*i_j[0] + 1, len_e + 1) == 0)
 			break ;
 		tempEnv = tempEnv->next;
 	}
-	if (tempEnv && len_env > 0)
+	if (tempEnv && len_e > 0)
 		write_env_value(&len, tempEnv, temp, *i_j[1]);
 	return (len);
 }
@@ -28,10 +31,10 @@ char	*token_expanded(char *temp, int **i_j, char *copyToken, t_env **env)
 	while (copyToken[*i_j[0]])
 	{
 		state = ft_get_state(copyToken[*i_j[0]], state);
-		if (copyToken[*i_j[0]] == '$' && is_allowed_char(copyToken[*i_j[0] + 1] )
+		if (copyToken[*i_j[0]] == '$' && is_allowed_char(copyToken[*i_j[0] + 1])
 			&& (state == DEFAULT || state == DOUBLE))
 		{
-			*i_j[1] += expanded_var(copyToken, i_j, len_before_env(copyToken, *i_j[0]) + len_env(copyToken, i_j), env, temp);
+			*i_j[1] += expanded_var(copyToken, i_j, env, temp);
 			*i_j[0] += len_env(copyToken, i_j) + 1;
 		}
 		else
@@ -40,11 +43,12 @@ char	*token_expanded(char *temp, int **i_j, char *copyToken, t_env **env)
 	temp[*i_j[1]] = '\0';
 	return (temp);
 }
+
 char	*fill_expand(char *copyToken, t_env **env)
 {
-	char *temp;
+	char	*temp;
 	int		i;
-	int 	k;
+	int		k;
 	int		j;
 
 	k = 0;
@@ -56,11 +60,12 @@ char	*fill_expand(char *copyToken, t_env **env)
 	temp = token_expanded(temp, (int *[2]){&k, &j}, copyToken, env);
 	return (temp);
 }
+
 int	call_expand(t_token *token, t_env **env)
 {
 	int		i;
 	int		state;
-	char	*copyToken;
+	char	*copy_token;
 
 	i = -1;
 	state = DEFAULT;
@@ -70,12 +75,12 @@ int	call_expand(t_token *token, t_env **env)
 		if (token->value[i] == '$' && is_allowed_char(token->value[i + 1])
 			&& (state == DEFAULT || state == DOUBLE))
 		{
-			copyToken = ft_strdup(token->value);
+			copy_token = ft_strdup(token->value);
 			free(token->value);
-			token->value = fill_expand(copyToken, env);
+			token->value = fill_expand(copy_token, env);
 			if (!token->value)
-				return (free(copyToken), 1);
-			free(copyToken);
+				return (free(copy_token), 1);
+			free(copy_token);
 			break ;
 		}
 	}
