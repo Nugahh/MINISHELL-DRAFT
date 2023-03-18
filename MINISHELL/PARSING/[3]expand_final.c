@@ -1,22 +1,6 @@
-
 #include "../LIB/minishell.h"
 
-int	count_second_quote(t_token *token, int i, int state)
-{
-	if ((state == SINGLE || state == DOUBLE)
-		&& (ft_get_state(token->value[i + 1], state) == DEFAULT))
-		return (1);
-	return (0);
-}
-
-int	remove_second_quote(int state, int stateBefore)
-{
-	if ((stateBefore == SINGLE || stateBefore == DOUBLE)
-		&& state == DEFAULT)
-		return (1);
-	return (0);
-}
-int	first_char_is_quote(t_token *token)
+static int	first_char_is_quote(t_token *token)
 {
 	if (token->value[0] == '\'')
 		return (SINGLE);
@@ -24,46 +8,49 @@ int	first_char_is_quote(t_token *token)
 		return (DOUBLE);
 	return (-1);
 }
-int	remove_quotes_in_node(t_token *token, int j, int state, int stateBefore)
+
+int	remove_quotes_in_node(int state, int stateBefore)
 {
-	if (remove_first_quote(token, j, stateBefore))
+	if (remove_first_quote(stateBefore, state))
 		return (1);
 	else if (remove_second_quote(state, stateBefore))
 		return (1);
 	return (0);
 }
+
 char	*check_node(t_token *token, int i, int j, int stateBefore)
 {
 	int		state;
 	int		len;
-	char	*copyToken;
+	char	*copy_token;
 	
 	state = DEFAULT;
 	len = ft_strlen(token->value);
-	copyToken = ft_calloc((len - count_removed_quotes(token)) + 2, sizeof(char));
+	copy_token = ft_calloc((len - c_rq(token, stateBefore)) + 2, sizeof(char));
 	if (token->value[0] == '\'' || token->value[0] == '\"')
 	{
 		state = first_char_is_quote(token);
 		stateBefore = state;
 		j++;
 	}
-	while (i <= len - count_removed_quotes(token))
+	while (token->value[j])
 	{
-		if (remove_quotes_in_node(token, j, state, stateBefore) == 1)
+		state = ft_get_state(token->value[j], state);
+		if (remove_quotes_in_node(state, stateBefore) == 1)
 		{
 			stateBefore = ft_get_state(token->value[j], stateBefore);
 			j++;
 		}
 		else
-			copyToken[i++] = token->value[j++];
-		state = ft_get_state(token->value[j], state);
+			copy_token[i++] = token->value[j++];
 	}
-	return (copyToken);
+	return (copy_token);
 }
+
 int	remove_quotes(t_token **token)
 {
 	t_token	*temp;
-	char	*copyToken;
+	char	*copy_token;
 
 	temp = *token;
 	if (!temp)
@@ -72,10 +59,9 @@ int	remove_quotes(t_token **token)
 	{
 		copyToken = check_node(temp, 0, 0, DEFAULT);
 		free(temp->value);
-		temp->value = ft_strdup(copyToken);
-		free(copyToken);
+		temp->value = ft_strdup(copy_token);
+		free(copy_token);
 		temp = temp->next;
 	}
-
 	return (0);
 }

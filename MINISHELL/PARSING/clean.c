@@ -17,7 +17,6 @@ void	ft_free_list(t_token **head)
 		temp = temp->next;
 	}
 }
-
 void	ft_free_env(t_env **head)
 {
 	t_env	*temp;

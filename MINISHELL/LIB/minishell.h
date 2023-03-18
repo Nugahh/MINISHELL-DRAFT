@@ -97,12 +97,10 @@ int		assign_type(t_token **head);
 
 /* [2]check_syntax_error.c */
 void	display_error(t_token **token);
-
-/* [2]check_syntax_error.c */
-
 int		ft_check_syntax_error(t_token **token);
 
 /* [3.0]expand_utils.c */
+
 
 int		len_env(char *str, int i);
 int		len_before_env(char *str, int i);
@@ -131,6 +129,9 @@ int		remove_second_quote(int state, int stateBefore);
 char	*check_node(t_token *token, int i, int j, int state);
 int		remove_quotes(t_token **token);
 int		remove_quotes_in_node(t_token *token, int j, int state, int stateBefore);
+char	*fill_expand(char *copyToken, t_env **env);
+int		call_expand(t_token *token, t_env **env);
+int		expand(t_token **token, t_env **env);
 
 /* [4]fill_command.c */
 
@@ -142,14 +143,6 @@ void	printcmdexec(t_cmdexec *head);
 void	cmd_final(t_cmdexec **head, t_token **token);
 void	ft_free_cmdexec(t_cmdexec **head);
 
-
-/* env_parsing.c */
-
-int		env_parser(char **envp, t_env **head, int i);
-char	*token_expanded(char *temp, char *copyToken, t_env **env);
-char	*fill_expand(char *copyToken, t_env **env);
-int		call_expand(t_token *token, t_env **env);
-int		expand(t_token **token, t_env **env);
 
 // ========================================================================= //
 //                               EXEC                                        //

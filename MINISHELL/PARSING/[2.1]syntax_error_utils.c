@@ -1,6 +1,6 @@
 #include "../LIB/minishell.h"
 
-extern int g_error;
+extern int	g_error;
 
 void	display_error(t_token **token)
 {
