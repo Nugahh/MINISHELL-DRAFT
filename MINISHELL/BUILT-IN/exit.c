@@ -1,0 +1,2 @@
+#include "../LIB/minishell.h"
+
