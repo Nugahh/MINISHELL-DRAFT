@@ -25,8 +25,8 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	t_token		*temp;
 
 	temp = *head;
-	new = malloc(sizeof(t_cmdexec));
-	new->arg = malloc(sizeof(char *) * (i + 1));
+	new = ft_calloc(1, sizeof(t_cmdexec));
+	new->arg = ft_calloc(i + 1, sizeof(char *));
 	i = -1;
 	while (temp)
 	{
@@ -130,7 +130,7 @@ void	ft_free_cmdexec(t_cmdexec **head)
 	temp = *head;
 	while (temp)
 	{
-		if (temp->arg[0])
+		if (temp->arg[i])
 		{
 			while (temp->arg[i])
 			{
