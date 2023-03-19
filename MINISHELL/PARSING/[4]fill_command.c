@@ -30,6 +30,7 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	i = -1;
 	while (temp)
 	{
+		new->fd_out = 1;
 		if (temp->type == ARG)
 			new->arg[++i] = ft_strdup(temp->value);
 		else if (temp->type == DRIN)
@@ -48,7 +49,6 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 }
 void	fill_redir(t_cmdexec *tofill, t_token *src)
 {
-	tofill->fd_out = 1;
 	tofill->lim = NULL;
 	if (src->type == RIN || DRIN)
 		rin_file(&tofill, &src);
@@ -114,7 +114,7 @@ void	printcmdexec(t_cmdexec *head)
 				i++;
 			}
 		}
-		printf("red = %s | ", temp->lim);
+		printf("lim = %s | ", temp->lim);
 		printf("fd_in = %d | ", temp->fd_in);
 		printf("fd_out = %d\n", temp->fd_out);
 		temp = temp->next;
@@ -130,10 +130,13 @@ void	ft_free_cmdexec(t_cmdexec **head)
 	temp = *head;
 	while (temp)
 	{
-		while (temp->arg[i])
+		if (temp->arg[0])
 		{
-			free(temp->arg[i]);
-			i++;
+			while (temp->arg[i])
+			{
+				free(temp->arg[i]);
+				i++;
+			}
 		}
 		free(temp->arg);
 		free(temp->lim);
