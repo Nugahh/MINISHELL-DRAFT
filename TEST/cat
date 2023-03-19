@@ -1,0 +1,28 @@
+void	ft_heredoc(t_data *data)
+{
+	int		tmp_fd;
+	int		stdin_fd;
+	char	*line;
+
+	if (g_var.g_stop == 1)
+		return ;
+	tmp_fd = setup_heredoc(data);
+	stdin_fd = dup(STDIN_FILENO);
+	ft_putstr_fd("> ", 1);
+	line = get_next_line(stdin_fd);
+	while (line)
+	{
+		if (!ft_strncmp(line, data->is_heredoc, ft_strlen(data->is_heredoc))
+			&& ft_strlen(data->is_heredoc) + 1 == ft_strlen(line))
+			break ;
+		ft_putstr_fd("> ", 1);
+		ft_putstr_fd(line, tmp_fd);
+		free(line);
+		line = get_next_line(stdin_fd);
+	}
+	if (line)
+		free(line);
+	close (stdin_fd);
+	close (tmp_fd);
+	setup_sigint_handler();
+}

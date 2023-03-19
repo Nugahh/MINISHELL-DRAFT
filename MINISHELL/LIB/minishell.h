@@ -45,7 +45,7 @@ typedef struct s_token
 typedef struct s_cmdexec
 {
 	char				**arg;
-	char				*red;
+	char				*lim;
 	int					fd_in;
 	int					fd_out;
 	struct s_cmdexec	*next;
@@ -144,8 +144,9 @@ void	ft_free_cmdexec(t_cmdexec **head);
 
 /*	[4.1]open_fd.c */
 
-int	rin_file(t_cmdexec **head, t_token **src);
-int	rout_file(t_cmdexec **head, t_token **src);
+int		rin_file(t_cmdexec **head, t_token **src);
+int		rout_file(t_cmdexec **head, t_token **src);
+int		open_temp();
 
 /*[bis]env_parsing.c*/
 

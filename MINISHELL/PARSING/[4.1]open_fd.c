@@ -10,11 +10,12 @@ int	rin_file(t_cmdexec **head, t_token **src)
 		if ((*head)->fd_in == -1)
 			return (-1);
 	}
-	else if ((*src)->type == LIM)
+	else if ((*src)->type == DRIN)
 	{
 		if ((*head)->fd_in != 0)
 			close((*head)->fd_in);
-//		(*head)->fd_in = HEREDOC FUNCTION head, src);
+		(*head)->lim = ft_strdup((*src)->next->value);
+		(*head)->fd_in = open_temp();
 		if ((*head)->fd_in == -1)
 			return (-1);
 	}
