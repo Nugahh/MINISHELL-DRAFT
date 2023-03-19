@@ -44,20 +44,13 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	new->next = NULL;
 	return (new);
 }
-
 void	fill_redir(t_cmdexec *tofill, t_token *src)
 {
 	tofill->fd_out = 1;
-	if (src->type == RIN)
-	{
-		tofill->red = ft_strdup(src->value);
-		tofill->fd_in = ft_atoi(src->next->value);
-	}
+	if (src->type == RIN || LIM)
+		rin_file(tofill, src);
 	else if (src->type == ROUT || DROUT)
-	{
-		tofill->red = ft_strdup(src->value);
-		tofill->fd_out = ft_atoi(src->next->value);
-	}
+		rout_file(tofill, src);
 }
 
 int	insert_nodecmd(t_cmdexec **head, t_token **token)

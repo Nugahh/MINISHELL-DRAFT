@@ -142,6 +142,13 @@ void	printcmdexec(t_cmdexec *head);
 void	cmd_final(t_cmdexec **head, t_token **token);
 void	ft_free_cmdexec(t_cmdexec **head);
 
+/*	[4.1]open_fd.c */
+
+int	rin_file(t_cmdexec **head, t_token **src);
+int	rout_file(t_cmdexec **head, t_token **src);
+
+/*[bis]env_parsing.c*/
+
 int		env_parser(char **envp, t_env **head, int i);
 
 // ========================================================================= //
