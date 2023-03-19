@@ -16,6 +16,7 @@ MFILES = \
 		PARSING/[3.3]expand_final_utils.c	\
 		PARSING/[3]expand_final.c			\
 		PARSING/[4]fill_command.c			\
+		PARSING/[4.1]open_fd.c				\
 		PARSING/[bis]env_parsing.c			\
 		BUILT-IN/echo.c						\
 		BUILT-IN/pwd.c						\
