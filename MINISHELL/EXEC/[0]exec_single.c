@@ -10,7 +10,7 @@ void	fill_cmd_test(t_cmdexec **head)
 	temp->arg = malloc(sizeof(char *) * 2);
 	temp->arg[0] = ft_strdup("ls");
 	temp->arg[1] = ft_strdup("-la");
-	temp->red = NULL;
+	temp->lim = NULL;
 	temp->fd_in = 0;
 	temp->fd_out = 1;
 	temp->next = NULL;
