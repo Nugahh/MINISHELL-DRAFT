@@ -19,6 +19,6 @@ void	ft_builtins(t_cmdexec **head, t_env **env, char **envp)
 		ft_unset(temp_env, temp->arg, 1);
 	else if (ft_strcmp(temp->arg[0], "env") == 0)
 		ft_env(temp, 1, envp);
-//	else if (ft_strcmp(temp->arg[0], "exit") == 0)
-//		ft_exit(temp->arg);
+	else if (ft_strcmp(temp->arg[0], "exit") == 0)
+		ft_exit(temp->arg);
 }

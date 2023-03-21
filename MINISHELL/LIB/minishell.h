@@ -33,7 +33,7 @@ typedef enum STATE
 	DOUBLE
 }	t_STATE;
 
-// extern	int	g_error;
+extern	int	g_error;
 
 typedef struct s_token
 {
@@ -161,6 +161,7 @@ int		env_parser(char **envp, t_env **head, int i);
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env *head, int fd, char **envp);
+int		ft_exit(char **cmd);
 int		ft_export(t_env **env, t_cmdexec **head, int i);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
