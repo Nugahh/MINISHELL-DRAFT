@@ -11,7 +11,7 @@ int	open_temp()
 		return (1);
 	return (fd);
 }
-/*
+
 int	heredoc(t_cmdexec **head)
 {
 	int		temp;
@@ -24,6 +24,17 @@ int	heredoc(t_cmdexec **head)
 	line = get_next_line(fd_in);
 	while (line)
 	{
-		if(!ft_strncmp(line, ))
+		if(!ft_strncmp(line, (*head)->lim, ft_strlen((*head)->lim))
+			&& ft_strlen((*head)->lim) + 1 == ft_strlen(line))
+			break ;
+		ft_putstr_fd("> ", 1);
+		ft_putstr_fd(line, temp);
+		free(line);
+		line = get_next_line(fd_in);
 	}
-}*/
+	if (line)
+		free(line);
+	close (fd_in);
+	close (temp);
+	return (0);
+}
