@@ -162,13 +162,14 @@ int		env_parser(char **envp, t_env **head, int i);
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env *head, int fd, char **envp);
-int		ft_exit(char **cmd);
+void	ft_exit(t_cmdexec *head, t_env *env);
 int		ft_export(t_env **env, t_cmdexec **head, int i);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
 
 int		check_equal(char *str);
 int		check_symbolerror(char c);
+void	all_clean(t_cmdexec **head, t_env *env);
 
 /*EXEC*/
 

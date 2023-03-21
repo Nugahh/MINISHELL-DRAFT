@@ -43,6 +43,7 @@ int	main(int ac, char **av, char **envp)
 		return (ft_free_env(&env), 1);
 	while (1)
 		parsing(NULL, NULL, env);
+	ft_free_env(&env);
 	return (0);
 }
 
