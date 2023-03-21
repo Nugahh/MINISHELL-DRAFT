@@ -27,6 +27,7 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	remove_quotes(&head);
 	printstr(head);
 	cmd_final(&cmd, &head);
+	fill_fd(&cmd);
 	printcmdexec(cmd);
 	ft_free(cmd, command);
 }

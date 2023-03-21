@@ -41,3 +41,28 @@ int	rout_file(t_cmdexec **head, t_token **src)
 	}
 	return (0);
 }
+
+void	fill_fd(t_cmdexec **head)
+{
+	t_cmdexec *temp;
+
+	temp = *head;
+	if (temp && temp->next == NULL)
+		return ;
+	else if (temp && temp->next)
+	{
+		temp->fd_out = 1;
+		temp = temp->next;
+	}
+	while (temp)
+	{
+		if (temp->next == NULL)
+			temp->fd_in = 1;
+		else
+		{
+			temp->fd_in = 1;
+			temp->fd_out = 1;
+		}
+		temp = temp->next;
+	}
+}

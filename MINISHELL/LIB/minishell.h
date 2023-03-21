@@ -147,6 +147,7 @@ void	ft_free_cmdexec(t_cmdexec **head);
 int		rin_file(t_cmdexec **head, t_token **src);
 int		rout_file(t_cmdexec **head, t_token **src);
 int		open_temp();
+void	fill_fd(t_cmdexec **head);
 
 /*[bis]env_parsing.c*/
 

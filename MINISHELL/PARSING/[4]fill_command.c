@@ -30,7 +30,8 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	i = -1;
 	while (temp)
 	{
-		new->fd_out = 1;
+		new->fd_in = 0;
+		new->fd_out = 0;
 		if (temp->type == ARG)
 			new->arg[++i] = ft_strdup(temp->value);
 		else if (temp->type == DRIN)
