@@ -26,7 +26,7 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 	
 	state = DEFAULT;
 	len = ft_strlen(token->value);
-	copy_token = ft_calloc((len - c_rq(token)) + 2, sizeof(char));
+	copy_token = ft_calloc((len - c_rq(token, stateBefore)) + 2, sizeof(char));
 	if (token->value[0] == '\'' || token->value[0] == '\"')
 	{
 		state = first_char_is_quote(token);
