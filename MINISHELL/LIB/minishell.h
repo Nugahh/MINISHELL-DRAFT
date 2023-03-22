@@ -33,7 +33,7 @@ typedef enum STATE
 	DOUBLE
 }	t_STATE;
 
-// extern	int	g_error;
+extern	int	g_error;
 
 typedef struct s_token
 {
@@ -45,7 +45,7 @@ typedef struct s_token
 typedef struct s_cmdexec
 {
 	char				**arg;
-	char				*red;
+	char				*lim;
 	int					fd_in;
 	int					fd_out;
 	struct s_cmdexec	*next;
@@ -144,8 +144,10 @@ void	ft_free_cmdexec(t_cmdexec **head);
 
 /*	[4.1]open_fd.c */
 
-int	rin_file(t_cmdexec **head, t_token **src);
-int	rout_file(t_cmdexec **head, t_token **src);
+int		rin_file(t_cmdexec **head, t_token **src);
+int		rout_file(t_cmdexec **head, t_token **src);
+int		open_temp();
+void	fill_fd(t_cmdexec **head);
 
 /*[bis]env_parsing.c*/
 
@@ -160,12 +162,14 @@ int		env_parser(char **envp, t_env **head, int i);
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env *head, int fd, char **envp);
+void	ft_exit(t_cmdexec *head, t_env *env);
 int		ft_export(t_env **env, t_cmdexec **head, int i);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
 
 int		check_equal(char *str);
 int		check_symbolerror(char c);
+void	all_clean(t_cmdexec **head, t_env *env);
 
 /*EXEC*/
 
