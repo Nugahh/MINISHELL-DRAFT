@@ -33,8 +33,9 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 		stateBefore = state;
 		j++;
 	}
-	while (i < len)
+	while (token->value[j])
 	{
+		state = ft_get_state(token->value[j], state);
 		if (remove_quotes_in_node(state, stateBefore) == 1)
 		{
 			stateBefore = ft_get_state(token->value[j], stateBefore);
@@ -42,7 +43,6 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 		}
 		else
 			copy_token[i++] = token->value[j++];
-		state = ft_get_state(token->value[j], state);
 	}
 	return (copy_token);
 }

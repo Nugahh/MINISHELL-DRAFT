@@ -24,7 +24,7 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
-	remove_quotes(&head);
+	// remove_quotes(&head);
 	printstr(head);
 	cmd_final(&cmd, &head);
 	fill_fd(&cmd);
