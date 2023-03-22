@@ -4,7 +4,7 @@ NAME = minishell
 
 MFILES = \
 		PARSING/clean.c						\
-		EXEC/[0.1]heredoc.c					\
+		EXEC/[0.2]heredoc.c					\
 		PARSING/[1.0]node_utils.c			\
 		PARSING/[1.1]split_operators.c		\
 		PARSING/[1]first_split.c			\

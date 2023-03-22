@@ -10,17 +10,12 @@ int	rin_file(t_cmdexec *head, t_token *src)
 		if (head->fd_in == -1)
 			return (-1);
 	}
-	else if ((*src)->type == DRIN)
-	else if (src->type == LIM)
+	else if (src->type == DRIN)
 	{
-		if ((*head)->fd_in != 0)
-			close((*head)->fd_in);
-		(*head)->lim = ft_strdup((*src)->next->value);
-		(*head)->fd_in = open_temp();
-		if ((*head)->fd_in == -1)
 		if (head->fd_in != 0)
 			close(head->fd_in);
-//		head->fd_in = HEREDOC FUNCTION head, src);
+		head->lim = ft_strdup(src->next->value);
+		head->fd_in = open_temp();
 		if (head->fd_in == -1)
 			return (-1);
 	}
@@ -45,29 +40,4 @@ int	rout_file(t_cmdexec *head, t_token *src)
 			return (-1);
 	}
 	return (0);
-}
-
-void	fill_fd(t_cmdexec **head)
-{
-	t_cmdexec *temp;
-
-	temp = *head;
-	if (temp && temp->next == NULL)
-		return ;
-	else if (temp && temp->next)
-	{
-		temp->fd_out = 1;
-		temp = temp->next;
-	}
-	while (temp)
-	{
-		if (temp->next == NULL)
-			temp->fd_in = 1;
-		else
-		{
-			temp->fd_in = 1;
-			temp->fd_out = 1;
-		}
-		temp = temp->next;
-	}
 }
