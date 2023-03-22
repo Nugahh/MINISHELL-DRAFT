@@ -119,12 +119,11 @@ int		expanded_var(char *copyToken, int **i_j, t_env **env, char *temp);
 /* [3.3]expand_final_utils.c */
 
 int		remove_first_quote(int stateBefore, int state);
+int		remove_second_quote(int state, int stateBefore);
 int		c_rq(t_token *token, int stateBefore);
 
 /* [3]expand_final.c */
 
-int		count_second_quote(t_token *token, int i, int state);
-int		remove_second_quote(int state, int stateBefore);
 char	*check_node(t_token *token, int i, int j, int state);
 int		remove_quotes(t_token **token);
 int		remove_quotes_in_node(int state, int stateBefore);
@@ -144,10 +143,8 @@ void	ft_free_cmdexec(t_cmdexec **head);
 
 /*	[4.1]open_fd.c */
 
-int		rin_file(t_cmdexec **head, t_token **src);
-int		rout_file(t_cmdexec **head, t_token **src);
-int		open_temp();
-void	fill_fd(t_cmdexec **head);
+int	rin_file(t_cmdexec **head, t_token **src);
+int	rout_file(t_cmdexec **head, t_token **src);
 
 /*[bis]env_parsing.c*/
 
