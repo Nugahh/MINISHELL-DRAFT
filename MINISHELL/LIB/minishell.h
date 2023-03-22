@@ -143,8 +143,8 @@ void	ft_free_cmdexec(t_cmdexec **head);
 
 /*	[4.1]open_fd.c */
 
-int	rin_file(t_cmdexec **head, t_token **src);
-int	rout_file(t_cmdexec **head, t_token **src);
+int	rin_file(t_cmdexec *head, t_token *src);
+int	rout_file(t_cmdexec *head, t_token *src);
 
 /*[bis]env_parsing.c*/
 
@@ -167,6 +167,7 @@ int		ft_unset(t_env **env, char **command, int i);
 int		check_equal(char *str);
 int		check_symbolerror(char c);
 void	all_clean(t_cmdexec **head, t_env *env);
+int		open_temp();
 
 /*EXEC*/
 

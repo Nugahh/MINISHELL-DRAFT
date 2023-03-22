@@ -1,4 +1,4 @@
-#include "../LIB/minishell.h"
+//#include "../LIB/minishell.h"
 
 char	**get_path_and_split(t_env **env)
 {
