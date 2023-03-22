@@ -33,7 +33,7 @@ typedef enum STATE
 	DOUBLE
 }	t_STATE;
 
-// extern	int	g_error;
+extern	int	g_error;
 
 typedef struct s_token
 {
@@ -45,7 +45,7 @@ typedef struct s_token
 typedef struct s_cmdexec
 {
 	char				**arg;
-	char				*red;
+	char				*lim;
 	int					fd_in;
 	int					fd_out;
 	struct s_cmdexec	*next;
@@ -101,10 +101,10 @@ int		ft_check_syntax_error(t_token **token);
 
 /* [3.0]expand_utils.c */
 
-int		len_env(char *str, int i);
+int		len_env(char *str, int **i_j);
 int		len_before_env(char *str, int i);
 int		len_status(int status);
-int		len_env_expanded(char *copyToken, int i, int len_env, t_env **env);
+int		len_env_expanded(char *copyToken, int **i_j, int len_env, t_env **env);
 int		len_token_expanded(char *copyToken, t_env **env);
 
 /* [3.1]expand_utils2.c */
@@ -114,7 +114,7 @@ int		write_env_value(int *len, t_env *env, char *copyToken, int i);
 
 /* [3.2]expand.c */
 
-int		expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
+int		expanded_var(char *copyToken, int **i_j, t_env **env, char *temp);
 
 /* [3.3]expand_final_utils.c */
 
@@ -143,8 +143,8 @@ void	ft_free_cmdexec(t_cmdexec **head);
 
 /*	[4.1]open_fd.c */
 
-int	rin_file(t_cmdexec *head, t_token *src);
-int	rout_file(t_cmdexec *head, t_token *src);
+int	rin_file(t_cmdexec **head, t_token **src);
+int	rout_file(t_cmdexec **head, t_token **src);
 
 /*[bis]env_parsing.c*/
 
@@ -159,12 +159,14 @@ int		env_parser(char **envp, t_env **head, int i);
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env *head, int fd, char **envp);
+void	ft_exit(t_cmdexec *head, t_env *env);
 int		ft_export(t_env **env, t_cmdexec **head, int i);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
 
 int		check_equal(char *str);
 int		check_symbolerror(char c);
+void	all_clean(t_cmdexec **head, t_env *env);
 
 /*EXEC*/
 
