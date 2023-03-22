@@ -119,7 +119,7 @@ int		expanded_var(char *copyToken, int i, int len_env, t_env **env, char *temp);
 /* [3.3]expand_final_utils.c */
 
 int		remove_first_quote(t_token *token, int i, int stateBefore);
-int		count_removed_quotes(t_token *token);
+int		c_rq(t_token *token);
 
 /* [3]expand_final.c */
 
