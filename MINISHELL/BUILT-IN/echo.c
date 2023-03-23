@@ -39,7 +39,7 @@ int	ft_echo(char **str, int fd)
 		n++;
 	while (str[i]) 
 	{
-		if (str[0] == "$" && str[1] == "?")
+		if (str[i][0] == '$' && str[i][1] == '?')
 			return (ft_itoa(g_error), 0);
 		ft_putstr_fd(str[i], fd);
 		if (str[i + 1] && str[i][0] != '\0')

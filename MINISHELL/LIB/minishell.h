@@ -148,7 +148,7 @@ int	rout_file(t_cmdexec *head, t_token *src);
 
 /*[bis]env_parsing.c*/
 
-int		env_parser(char **envp, t_env **head, int i);
+int	env_parser(char **envp, t_env **head, int i, int j);
 
 // ========================================================================= //
 //                               EXEC                                        //

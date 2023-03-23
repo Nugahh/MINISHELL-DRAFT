@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **envp)
 	t_env *env;
 
 	env = NULL;
-	if (env_parser(envp, &env, 0) == 1)
+	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
 	while (1)
 		parsing(NULL, NULL, env);
