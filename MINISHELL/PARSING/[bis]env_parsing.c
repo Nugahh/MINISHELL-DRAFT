@@ -72,9 +72,8 @@ int	insert_env(t_env **head, char *name, char *value)
 	return (0);
 }
 
-int	env_parser(char **envp, t_env **head, int i)
+int	env_parser(char **envp, t_env **head, int i, int j)
 {
-	int		j;
 	bool	equal;
 	char	*name;
 	char	*value;

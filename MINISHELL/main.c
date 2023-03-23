@@ -23,8 +23,8 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	add_history(command);
 	ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 	ft_check_syntax_error(&head);
-	expand(&head, &env);
 	printstr(head);
+	expand(&head, &env);
 	// ft_count_redir(&head);
 	// cmd_final(&cmd, &head);
 	// printcmdexec(cmd);
@@ -38,7 +38,7 @@ int	main(int ac, char **av, char **envp)
 	t_env *env;
 
 	env = NULL;
-	if (env_parser(envp, &env, 0) == 1)
+	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
 	while (1)
 		parsing(NULL, NULL, env);
