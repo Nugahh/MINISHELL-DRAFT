@@ -25,8 +25,9 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
 	printstr(head);
-	cmd_final(&cmd, &head);
-	printcmdexec(cmd);
+	// ft_count_redir(&head);
+	// cmd_final(&cmd, &head);
+	// printcmdexec(cmd);
 	ft_free(cmd, command);
 }
 

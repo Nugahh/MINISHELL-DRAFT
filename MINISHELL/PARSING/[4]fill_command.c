@@ -48,13 +48,14 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	new->next = NULL;
 	return (new);
 }
+
 void	fill_redir(t_cmdexec *tofill, t_token *src)
 {
 	tofill->lim = NULL;
-	if (src->type == RIN || DRIN)
-		rin_file(&tofill, &src);
-	else if (src->type == ROUT || DROUT)
-		rout_file(&tofill, &src);
+	if (src->type == RIN || src->type == DRIN)
+		rin_file(tofill, src);
+	else if (src->type == ROUT || src->type == DROUT)
+		rout_file(tofill, src);
 }
 
 int	insert_nodecmd(t_cmdexec **head, t_token **token)

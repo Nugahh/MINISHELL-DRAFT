@@ -11,6 +11,14 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <signal.h>
 
 // ========== STRUCTURES ========== //
 
@@ -39,6 +47,7 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
+	struct stat		*stat;
 	struct s_token	*next;
 }	t_token;
 
