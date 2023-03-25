@@ -24,7 +24,8 @@ MFILES = \
 		PARSING/[4.0]check_redir.c			\
 		PARSING/[4.1]check_redir_clean.c	\
 		PARSING/[4.2]open_fd.c				\
-		PARSING/[bis]env_parsing.c			\
+		PARSING/[5]env_parsing.c			\
+		PARSING/[5]env_utils.c 				\
 		main.c
 
 OBJS :=  	${addprefix ./OBJ/,${MFILES:%.c=%.o}}

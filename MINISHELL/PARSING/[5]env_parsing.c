@@ -72,30 +72,5 @@ int	env_parser(char **envp, t_env **head, int i, int j)
 			return (1);
 		i++;
 	}
-	return (0);
+	return (add_env_struct(head));
 }
-/*
-void	printstr(t_env *head)
-{
-	t_env	*temp;
-
-	temp = head;
-	while (temp)
-	{
-		printf("%s=", temp->name);
-		printf("    %s\n", temp->value);
-		temp = temp->next;
-	}
-	printf("\n");
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	(void)ac;
-	(void)av;
-	t_env	*env;
-	
-	env = NULL;
-	env_parser(envp, &env, 0);
-	printstr(env);
-}*/

@@ -8,7 +8,7 @@ void	ft_free(t_cmdexec *cmd, char *command)
 	free(command);
 	free(cmd);
 }
-void	parsing(t_token *head, t_cmdexec *cmd, t_env *env, char **envp)
+void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 {
 	int i;
 	int	state;
@@ -25,15 +25,15 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env, char **envp)
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
 	ft_count_redir(&head);
-	printstr(head);
+//	printstr(head);
 	cmd_final(&cmd, &head);
 	printcmdexec(cmd);
-	return (exec_main(cmd, env, envp, command));
+	return (exec_main(cmd, env, command));
 }
 
-void	exec_main(t_cmdexec *cmd, t_env *env, char **envp, char *command)
+void	exec_main(t_cmdexec *cmd, t_env *env, char *command)
 {
-	ft_exec(cmd, &env, envp);
+	ft_exec(cmd, &env);
 	ft_free(cmd, command);
 }
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
 	while (1)
-		parsing(NULL, NULL, env, envp);
+		parsing(NULL, NULL, env);
 	ft_free_env(&env);
 	return (0);
 }

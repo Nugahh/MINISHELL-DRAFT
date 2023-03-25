@@ -47,6 +47,7 @@ int	ft_export(t_env **env, char **str, int i)
 			insert_env(tempv, new_env[0], new_env[1]);
 		else if (env_lookup(env, str) == 2)
 			update_env(tempv, new_env[1]);
+		add_env_struct(env);
 	}
 	return (0);
 }
