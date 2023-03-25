@@ -51,14 +51,14 @@ int	ft_export(t_env **env, char **str)
 	char		**new_env;
 
 	tempv = *env;
-	if (!check_varexp(*str))
+	if (check_varexp(str[1]) == 0)
 	{
 		new_env = ft_split(*str, '=');
 		if (!new_env)
 			return (1);
-		if (env_lookup(env, *str) == 1)
+		if (env_lookup(env, new_env[0]) == 0)
 			insert_env(env, new_env[0], new_env[1]);
-		else if (env_lookup(env, *str) == 0)
+		else if (env_lookup(env, new_env[0]) == 1)
 			update_env(tempv, new_env[1]);
 		add_env_struct(env);
 	}
