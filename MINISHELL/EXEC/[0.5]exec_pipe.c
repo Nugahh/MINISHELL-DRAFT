@@ -46,13 +46,13 @@ void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
 	wait(&status);
 }
 
-int	ft_exec(t_cmdexec *head, t_env **env)
+int	ft_exec(t_cmdexec *cmd, t_env **env)
 {
 	pid_t		pid;
-	t_cmdexec	*cmd;
+	t_cmdexec	**head;
 	char		**paths;
 
-	cmd = head;
+	head = NULL;
 	pid = 0;
 	paths = get_path_and_split((*env)->envy);
 	if (cmd && cmd->next == NULL)
@@ -64,9 +64,11 @@ int	ft_exec(t_cmdexec *head, t_env **env)
 		ft_first(cmd, paths, (*env)->envy);
 	while (cmd)
 	{
-	
-			ft_fork(head, env, paths, (*env)->envy);
-			cmd = cmd->next;
+		if (ft_is_builtins(cmd))
+			ft_builtins(head, cmd, env);
+		else
+			ft_fork(cmd, env, paths, (*env)->envy);
+		cmd = cmd->next;
 	}
 	return (0);
 }

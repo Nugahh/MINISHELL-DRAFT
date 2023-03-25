@@ -4,11 +4,6 @@ NAME = minishell
 
 MFILES = \
 		PARSING/clean.c						\
-		EXEC/[0.1]exec_utils.c				\
-		EXEC/[0.2]heredoc.c					\
-		EXEC/[0.3]find_cmd.c				\
-		EXEC/[0.4]exec_child.c				\
-		EXEC/[0.5]exec_pipe.c				\
 		PARSING/[1.0]node_utils.c			\
 		PARSING/[1.1]split_operators.c		\
 		PARSING/[1]first_split.c			\
@@ -26,6 +21,20 @@ MFILES = \
 		PARSING/[4.2]open_fd.c				\
 		PARSING/[5]env_parsing.c			\
 		PARSING/[5]env_utils.c 				\
+		BUILT-IN/cd.c 						\
+		BUILT-IN/echo.c 					\
+		BUILT-IN/env.c 						\
+		BUILT-IN/exit.c 					\
+		BUILT-IN/pwd.c 						\
+		BUILT-IN/export.c 					\
+		BUILT-IN/export_bis.c 				\
+		BUILT-IN/unset.c 					\
+		EXEC/[0.1]exec_utils.c				\
+		EXEC/[0.2]heredoc.c					\
+		EXEC/[0.3]find_cmd.c				\
+		EXEC/[0.4]exec_child.c				\
+		EXEC/[0.5]exec_pipe.c				\
+		EXEC/[1]exec_builtins.c 			\
 		main.c
 
 OBJS :=  	${addprefix ./OBJ/,${MFILES:%.c=%.o}}
