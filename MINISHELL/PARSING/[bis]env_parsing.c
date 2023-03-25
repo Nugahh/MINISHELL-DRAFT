@@ -1,39 +1,5 @@
 #include "../LIB/minishell.h"
 
-/*int	nb_env(char **envp)
-{
-	int	i;
-	int	count;
-	
-	i = 0;
-	count = 0;
-	while (envp[i++])
-		count++;
-	return (count);
-}
-
-char **extract_env(char **envp)
-{
-	int		count;
-	int		i;
-	char	**copy;
-
-	i = 0;
-	count = nb_env(envp);
-	copy = malloc(sizeof(char *) * count);
-	if (!copy)
-		return (0);
-	while (envp[i])	
-	{
-		copy[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		ft_strlcpy(copy[i], envp[i], ft_strlen(envp[i]) + 1);
-//		printf("%s\n", copy[i]);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}*/
-
 t_env	*create_env(char *name, char *value)
 {
 	t_env	*new;
@@ -72,18 +38,25 @@ int	insert_env(t_env **head, char *name, char *value)
 	return (0);
 }
 
-int	env_parser(char **envp, t_env **head, int i)
+int	ft_insert_env_and_free(t_env **head, char *name, char *value)
 {
-	int		j;
+	if (insert_env(head, name, value) == 1)
+		return (1);
+	free(name);
+	free(value);
+	return (0);
+}
+int	env_parser(char **envp, t_env **head, int i, int j)
+{
 	bool	equal;
 	char	*name;
 	char	*value;
 
 	while (envp[i])
 	{
-		j = 0;
+		j = -1;
 		equal = false;
-		while (envp[i][j])
+		while (envp[i][++j])
 		{
 			if (envp[i][j] == '=' && equal == false)
 			{
@@ -94,12 +67,9 @@ int	env_parser(char **envp, t_env **head, int i)
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
 				break ;
 			}
-			j++;
 		}
-		if (insert_env(head, name, value) == 1)
+		if (ft_insert_env_and_free(head, name, value) == 1)
 			return (1);
-		free(name);
-		free(value);
 		i++;
 	}
 	return (0);

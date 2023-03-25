@@ -23,7 +23,7 @@ char	*check_node(t_token *token, int i, int j, int stateBefore)
 	int		state;
 	int		len;
 	char	*copy_token;
-	
+
 	state = DEFAULT;
 	len = ft_strlen(token->value);
 	copy_token = ft_calloc((len - c_rq(token, stateBefore)) + 2, sizeof(char));

@@ -9,6 +9,8 @@ int	rin_file(t_cmdexec *head, t_token *src)
 		head->fd_in = open(src->next->value, O_RDONLY);
 		if (head->fd_in == -1)
 			return (-1);
+		dup2(head->fd_in, STDIN_FILENO);
+		close(head->fd_in);
 	}
 	else if (src->type == DRIN)
 	{
@@ -30,6 +32,8 @@ int	rout_file(t_cmdexec *head, t_token *src)
 		head->fd_out = open(src->next->value, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (head->fd_out == -1)
 			return (-1);
+		dup2(head->fd_out, STDOUT_FILENO);
+		close(head->fd_out);
 	}
 	else if (src->type == DROUT)
 	{
@@ -38,6 +42,8 @@ int	rout_file(t_cmdexec *head, t_token *src)
 		head->fd_out = open(src->next->value, O_CREAT | O_RDWR | O_APPEND, 0644);
 		if (head->fd_out == -1)
 			return (-1);
+		dup2(head->fd_out, STDOUT_FILENO);
+		close(head->fd_out);
 	}
 	return (0);
 }
