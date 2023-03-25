@@ -19,7 +19,7 @@ int	ft_is_builtins(t_cmdexec *cmd)
 	else
 		return (0);
 }
-void	ft_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env)
+void	ft_builtins(t_cmdexec *cmd, t_env **env)
 {
 	if (ft_strcmp(cmd->arg[0], "echo") == 0)
 		ft_echo(cmd->arg, 1);
@@ -34,5 +34,5 @@ void	ft_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env)
 	else if (ft_strcmp(cmd->arg[0], "env") == 0)
 		ft_env(env, 1);
 	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
-		ft_exit(head, cmd, *env);
+		ft_exit(cmd, *env);
 }

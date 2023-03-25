@@ -178,14 +178,14 @@ void	exec_main(t_cmdexec *cmd, t_env *env, char *command);
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env **head, int fd);
-void	ft_exit(t_cmdexec **head, t_cmdexec *cmd,  t_env *env);
+void	ft_exit(t_cmdexec *cmd, t_env *env);
 int		ft_export(t_env **env, char **str);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
 
 int		check_equal(char *str);
 int		check_symbolerror(char c);
-void	all_clean(t_cmdexec **head, t_env *env);
+void	all_clean(t_cmdexec *head, t_env *env);
 int		open_temp();
 
 /*EXEC*/
@@ -219,7 +219,7 @@ int		ft_exec(t_cmdexec *cmd, t_env **env);
 char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
 char	*check_access(char *exe, char *command, char *path);
 void	shellcmd(t_cmdexec **head, char **envp, t_env **env);
-void	ft_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
+void	ft_builtins(t_cmdexec *cmd, t_env **env);
 int		ft_is_builtins(t_cmdexec *cmd);
 
 

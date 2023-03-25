@@ -43,39 +43,41 @@ void	ft_free_list(t_token **head)
 		temp = temp->next;
 	}
 }
-void	ft_free_env(t_env **head)
+void	ft_free_env(t_env **env)
 {
 	t_env	*temp;
 
-	if (!(*head))
+	if (!(*env))
 		return ;
-	while (*head)
+	temp = *env;
+	if (temp->envy)
+		ft_free_array(temp->envy);
+	while (temp)
 	{
-		temp = *head;
-		*head = (*head)->next;
 		if (temp->name)
+		{
+			temp->name = NULL;
 			free(temp->name);
+		}
 		if (temp->value)
+		{
+			temp->value = NULL;
 			free(temp->value);
-		temp->value = NULL;
-		temp->name = NULL;
-		free(temp);
-		temp = NULL;
+		}
+		if (temp->next == NULL)
+			return (free(temp));
+		temp = temp->next;
 	}
+	free(temp);
 }
 void	ft_free_array(char **array)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (!array)
 		return ;
-	while (array[i])
-	{
+	while (array[++i])
 		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
 	free(array);
-	array = NULL;
 }
