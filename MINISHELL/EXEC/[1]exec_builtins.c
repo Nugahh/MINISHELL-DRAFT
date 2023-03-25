@@ -27,8 +27,8 @@ void	ft_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env)
 		ft_cd(cmd->arg);
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
 		ft_pwd(1);
-	// else if (ft_strcmp(cmd->arg[0], "export") == 0)
-	// 	ft_export(env, cmd, 0);
+	else if (ft_strcmp(cmd->arg[0], "export") == 0)
+		ft_export(env, cmd->arg);
 	else if (ft_strcmp(cmd->arg[0], "unset") == 0)
 		ft_unset(env, cmd->arg, 1);
 	else if (ft_strcmp(cmd->arg[0], "env") == 0)

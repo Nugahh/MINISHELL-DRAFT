@@ -47,7 +47,6 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
-	// struct stat		*stat;
 	struct s_token	*next;
 }	t_token;
 
@@ -65,6 +64,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	char			**envy;
 	struct s_env	*next;
 }	t_env;
 
@@ -74,13 +74,14 @@ int	main(int ac, char **av, char **envp);
 //                               PARSING                                     //
 // ========================================================================= //
 
-void	parsing(t_token *head, t_cmdexec *cmd, t_env *env, char **envp);
+void	parsing(t_token *head, t_cmdexec *cmd, t_env *env);
 
 /* clean.c */
 
 void    deletenode(t_token **head, t_token *toDel);
 void	ft_free_env(t_env **head);
 void	ft_free_list(t_token **head);
+void	ft_free_array(char **array);
 
 /* [1.0] node_utils.c */
 
@@ -160,23 +161,25 @@ int	ft_count_redir(t_token **token);
 int	rin_file(t_cmdexec *head, t_token *src);
 int	rout_file(t_cmdexec *head, t_token *src);
 
-/*[bis]env_parsing.c*/
-
-int	env_parser(char **envp, t_env **head, int i, int j);
+/*env*/
+int		insert_env(t_env **head, char *name, char *value);
+int		env_parser(char **envp, t_env **head, int i, int j);
+char	**ft_env_to_array(t_env **head, int i, int j);
+int		add_env_struct(t_env **head);
 
 // ========================================================================= //
 //                               EXEC                                        //
 // ========================================================================= //
 
-void	exec_main(t_cmdexec *cmd, t_env *env, char **envp, char *command);
+void	exec_main(t_cmdexec *cmd, t_env *env, char *command);
 
 /* BUILT-INS */
 
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
 int		ft_env(t_env **head, int fd);
-void	ft_exit(t_cmdexec **head, t_cmdexec *cmd, t_env *env);
-int		ft_export(t_env **env, char **str, int i);
+void	ft_exit(t_cmdexec **head, t_cmdexec *cmd,  t_env *env);
+int		ft_export(t_env **env, char **str);
 int		ft_pwd(int fd);
 int		ft_unset(t_env **env, char **command, int i);
 
@@ -197,12 +200,12 @@ int	heredoc(t_cmdexec **head);
 
 /* [0.3]find_cmd.c */
 
-char	**get_path_and_split(t_env **env);
+char	**get_path_and_split(char **envy);
 char	*check_cmd(char *cmd, char **paths);
 
 /* [0.4]exec_child.c */
 
-void	ft_single(t_cmdexec *cmd, t_env **env, char **paths, char **envp);
+void	ft_single(t_cmdexec *cmd, t_env **env, char **paths);
 void	ft_first(t_cmdexec *cmd, char **paths, char **envp);
 void	ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
 void	ft_between_pipes(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
@@ -211,7 +214,7 @@ void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
 /* [0.5]exec_pipe.c */
 
 void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp);
-int		ft_exec(t_cmdexec *cmd, t_env **env, char **envp);
+int		ft_exec(t_cmdexec *cmd, t_env **env);
 
 char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
 char	*check_access(char *exe, char *command, char *path);

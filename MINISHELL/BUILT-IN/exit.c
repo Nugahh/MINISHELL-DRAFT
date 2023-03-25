@@ -15,7 +15,9 @@ int	ft_strisnum(char *str)
 	}
 	return (1);
 }
+
 void	ft_exit(t_cmdexec **head, t_cmdexec *cmd, t_env *env)
+
 {
 	ft_putendl_fd("exit\n", 2);
 	if (cmd->arg[1] && ft_strisnum(cmd->arg[1]) == 0)

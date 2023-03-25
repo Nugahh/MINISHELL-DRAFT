@@ -1,12 +1,11 @@
 #include "../LIB/minishell.h"
 
-void	ft_single(t_cmdexec *cmd, t_env **env, char **paths, char **envp)
+void	ft_single(t_cmdexec *cmd, t_env **env, char **paths)
 {
 	pid_t	pid;
 	int		status;
 	char	*path_cmd;
 
-	(void)env;
 	pid = fork();
 	if (pid == -1)
 		return (perror("Fork "));
@@ -15,7 +14,7 @@ void	ft_single(t_cmdexec *cmd, t_env **env, char **paths, char **envp)
 		path_cmd = check_cmd(cmd->arg[0], paths);
 		if (path_cmd == NULL)
 			return (perror("Command not found: "));
-		if (execve(path_cmd, cmd->arg, envp) == -1)
+		if (execve(path_cmd, cmd->arg, (*env)->envy) == -1)
 			return (perror("Execve "));
 	}
 	wait(&status);
