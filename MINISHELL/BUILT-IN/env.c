@@ -1,11 +1,11 @@
 #include "../LIB/minishell.h"
 
-int	ft_env(t_env *head, int fd, char **envp)
+int	ft_env(t_env **head, int fd, char **envp)
 {
 	t_env	*temp;
 
-	temp = head;
-	env_parser(envp, &temp, 0);
+	temp = *head;
+	env_parser(envp, &temp, 0, 0);
 	while (temp)
 	{
 		ft_putstr_fd(temp->name, fd);

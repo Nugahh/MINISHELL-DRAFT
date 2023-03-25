@@ -11,7 +11,10 @@ int	ft_check_syntax_error(t_token **token)
 		return (0);
 	while (temp)
 	{
-		if (temp->type >= 3 && (!temp->next || temp->next->type >= 3))
+		if (temp->type == 7 && (!temp->next || temp->next->type == 7))
+			return (display_error(&temp), 1);
+		else if (temp->type >= 3 && temp->type != 7
+			&& (!temp->next || temp->next->type >= 3))
 			return (display_error(&temp), 1);
 		temp = temp->next;
 	}

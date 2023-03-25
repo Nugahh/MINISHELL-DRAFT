@@ -1,4 +1,4 @@
-//#include "../LIB/minishell.h"
+#include "../LIB/minishell.h"
 
 char	**get_path_and_split(t_env **env)
 {
@@ -7,8 +7,13 @@ char	**get_path_and_split(t_env **env)
 	t_env	*temp_env;
 
 	path = NULL;
+	temp_env = *env;
 	while (temp_env && !path)
-		path = ft_strncmp(temp_env->name, "PATH", 4) == 0;
+	{
+		if (ft_strncmp(temp_env->name, "PATH", 4) == 0)
+			path = ft_strdup(temp_env->value);
+		temp_env = temp_env->next;
+	}
 	paths = ft_split(path, ':');
 	if (path)
 		free(path);
@@ -30,7 +35,7 @@ char	*check_cmd(char *cmd, char **paths)
 		if (!tmp)
 			return (NULL);
 		cmd_path = ft_strjoin(tmp, cmd);
-		free(tmp);
+		// free(tmp);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
