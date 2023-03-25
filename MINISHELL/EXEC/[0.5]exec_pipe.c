@@ -39,7 +39,7 @@ void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
 		pid = fork();
 		if (pid == -1)
 			return (perror("Fork "));
-		else if (pid > 0)
+		else if (pid == 0)
 			ft_child(cmd, paths, fd_pipe, envp);
 		cmd = cmd->next;
 	}
@@ -53,14 +53,14 @@ int	ft_exec(t_cmdexec *head, t_env **env, char **envp)
 	char		**paths;
 
 	cmd = head;
+	pid = 0;
 	paths = get_path_and_split(env);
-	// printf("cmd->arg[0] = %s\n, cmd->next->arg[0] = %s\n", cmd->arg[0], cmd->next->arg[0]);
 	if (cmd && cmd->next == NULL)
 		return (ft_single(cmd, env, paths, envp), free_paths(paths), 0);
 	pid = fork();
 	if (pid == -1)
 		return (perror("Fork "), 1);
-	else if (pid > 0)
+	else if (pid == 0)
 		ft_first(cmd, paths, envp);
 	while (cmd)
 	{
