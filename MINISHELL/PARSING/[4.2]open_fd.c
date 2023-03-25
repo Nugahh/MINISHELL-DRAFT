@@ -17,6 +17,7 @@ int	rin_file(t_cmdexec *head, t_token *src)
 		if (head->fd_in != 0)
 			close(head->fd_in);
 		head->lim = ft_strdup(src->next->value);
+		printf("lim = %s\n", head->lim);
 		head->fd_in = open_temp();
 		if (head->fd_in == -1)
 			return (-1);
