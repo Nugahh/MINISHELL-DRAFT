@@ -28,6 +28,11 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env, char **envp)
 	printstr(head);
 	cmd_final(&cmd, &head);
 	printcmdexec(cmd);
+	return (exec_main(cmd, env, envp, command));
+}
+
+void	exec_main(t_cmdexec *cmd, t_env *env, char **envp, char *command)
+{
 	ft_exec(cmd, &env, envp);
 	ft_free(cmd, command);
 }

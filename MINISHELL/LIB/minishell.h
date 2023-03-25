@@ -168,6 +168,8 @@ int	env_parser(char **envp, t_env **head, int i, int j);
 //                               EXEC                                        //
 // ========================================================================= //
 
+void	exec_main(t_cmdexec *cmd, t_env *env, char **envp, char *command);
+
 /* BUILT-INS */
 
 int		ft_cd(char **command);
