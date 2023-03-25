@@ -3,7 +3,6 @@
 int	ft_cd(char **command)
 {
 	char	*path;
-	char	*pwd;
 
 	if (command[1] == NULL)
 	{
