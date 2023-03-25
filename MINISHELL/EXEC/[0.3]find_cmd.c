@@ -1,22 +1,23 @@
 #include "../LIB/minishell.h"
 
-char	**get_path_and_split(t_env **env)
+char	**get_path_and_split(char **envy)
 {
 	char	*path;
 	char	**paths;
-	t_env	*temp_env;
+	int		i;
 
 	path = NULL;
-	temp_env = *env;
-	while (temp_env && !path)
-	{
-		if (ft_strncmp(temp_env->name, "PATH", 4) == 0)
-			path = ft_strdup(temp_env->value);
-		temp_env = temp_env->next;
-	}
-	paths = ft_split(path, ':');
+	i = -1;
+	while (envy[++i] && !path)
+		path = ft_strnstr(envy[i], "PATH=", 5);
+	if (!path)
+		return (NULL);
 	if (path)
+	{
+		path = ft_substr(path, 5, ft_strlen(path) -5);
+		paths = ft_split(path, ':');
 		free(path);
+	}
 	return (paths);
 }
 

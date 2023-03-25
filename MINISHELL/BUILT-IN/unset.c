@@ -35,5 +35,5 @@ int	ft_unset(t_env **env, char **command, int i)
 		}
 		i++;
 	}
-	return (0);
+	return (add_env_struct(env), 0);
 }

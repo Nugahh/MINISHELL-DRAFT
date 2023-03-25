@@ -43,7 +43,6 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 			break ;
 		else if (temp->type >= 0 && temp->type <= 6)
 			fill_redir(new, temp);
-		printf("new->fd_in: %d | new->fd_out: %d\n", new->fd_in, new->fd_out);
 		temp = temp->next;
 	}
 	new->next = NULL;
