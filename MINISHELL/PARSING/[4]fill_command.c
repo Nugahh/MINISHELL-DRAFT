@@ -28,10 +28,10 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	new = ft_calloc(1, sizeof(t_cmdexec));
 	new->arg = ft_calloc(i + 1, sizeof(char *));
 	i = -1;
+	new->fd_in = 0;
+	new->fd_out = 0;
 	while (temp)
 	{
-		new->fd_in = 0;
-		new->fd_out = 0;
 		if (temp->type == ARG)
 			new->arg[++i] = ft_strdup(temp->value);
 		else if (temp->type == DRIN)
@@ -41,8 +41,9 @@ t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 		}
 		else if (temp->type == PIPE)
 			break ;
-		else
+		else if (temp->type >= 0 && temp->type <= 6)
 			fill_redir(new, temp);
+		printf("new->fd_in: %d | new->fd_out: %d\n", new->fd_in, new->fd_out);
 		temp = temp->next;
 	}
 	new->next = NULL;

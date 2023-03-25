@@ -7,10 +7,12 @@ void	ft_delete_redir(t_token *token, int count)
 	temp = token;
 	while (temp && count > 1)
 	{
+		printf("temp->type: %d\n", temp->type);
 		if (temp->type == RIN || temp->type == ROUT || temp->type == DROUT)
 		{
-			free(temp->value);
-			free(temp->next->value);
+			temp->type = -1;
+			temp->next->type = -1;
+		printf("temp->type: %d\n", temp->type);
 			count--;
 		}
 		temp = temp->next;
@@ -26,15 +28,16 @@ int	ft_count_redir(t_token **token)
 	temp2 = *token;
 	while (temp)
 	{
+		count = 0;
 		while (temp2)
 		{
-			count = 0;
-			if (temp2->type == RIN || temp->type == ROUT || temp->type == DROUT)
+			if (temp2->type == RIN || temp2->type == ROUT || temp2->type == DROUT)
 				count++;
 			if (temp2->type == PIPE)
 			{
 				ft_delete_redir(temp, count);
 				temp = temp2;
+				temp2 = temp2->next;
 				break ;
 			}
 			temp2 = temp2->next;

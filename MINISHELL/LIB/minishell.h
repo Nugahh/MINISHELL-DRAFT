@@ -47,7 +47,7 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
-	struct stat		*stat;
+	// struct stat		*stat;
 	struct s_token	*next;
 }	t_token;
 
@@ -57,6 +57,7 @@ typedef struct s_cmdexec
 	char				*lim;
 	int					fd_in;
 	int					fd_out;
+	int					fd_pipe[2];
 	struct s_cmdexec	*next;
 }	t_cmdexec;
 
@@ -73,9 +74,11 @@ int	main(int ac, char **av, char **envp);
 //                               PARSING                                     //
 // ========================================================================= //
 
-void	parsing(t_token *head, t_cmdexec *cmd, t_env *env);
+void	parsing(t_token *head, t_cmdexec *cmd, t_env *env, char **envp);
 
 /* clean.c */
+
+void    deletenode(t_token **head, t_token *toDel);
 void	ft_free_env(t_env **head);
 void	ft_free_list(t_token **head);
 
@@ -150,7 +153,9 @@ void	printcmdexec(t_cmdexec *head);
 void	cmd_final(t_cmdexec **head, t_token **token);
 void	ft_free_cmdexec(t_cmdexec **head);
 
-/*	[4.1]open_fd.c */
+int	ft_count_redir(t_token **token);
+
+/* [4.1]open_fd.c */
 
 int	rin_file(t_cmdexec *head, t_token *src);
 int	rout_file(t_cmdexec *head, t_token *src);
@@ -167,7 +172,7 @@ int	env_parser(char **envp, t_env **head, int i, int j);
 
 int		ft_cd(char **command);
 int		ft_echo(char **str, int fd);
-int		ft_env(t_env *head, int fd, char **envp);
+int		ft_env(t_env **head, int fd, char **envp);
 void	ft_exit(t_cmdexec *head, t_env *env);
 int		ft_export(t_env **env, t_cmdexec **head, int i);
 int		ft_pwd(int fd);
@@ -180,9 +185,37 @@ int		open_temp();
 
 /*EXEC*/
 
+/* [0.1]exec_utils.c */
+
+void	free_paths(char **paths);
+
+/* [0.2]heredoc.c */
+
+int	heredoc(t_cmdexec **head);
+
+/* [0.3]find_cmd.c */
+
+char	**get_path_and_split(t_env **env);
+char	*check_cmd(char *cmd, char **paths);
+
+/* [0.4]exec_child.c */
+
+void	ft_single(t_cmdexec *cmd, t_env **env, char **paths, char **envp);
+void	ft_first(t_cmdexec *cmd, char **paths, char **envp);
+void	ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
+void	ft_between_pipes(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
+void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
+
+/* [0.5]exec_pipe.c */
+
+void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp);
+int		ft_exec(t_cmdexec *head, t_env **env, char **envp);
+
 char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
 char	*check_access(char *exe, char *command, char *path);
 void	shellcmd(t_cmdexec **head, char **envp, t_env **env);
-void	ft_builtins(t_cmdexec **head, t_env **env, char **envp);
+void	ft_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env, char **envp);
+int		ft_is_builtins(t_cmdexec *cmd);
+
 
 #endif

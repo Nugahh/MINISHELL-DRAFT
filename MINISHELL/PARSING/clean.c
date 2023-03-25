@@ -1,5 +1,31 @@
 #include "../LIB/minishell.h"
 
+void    deletenode(t_token **head, t_token *toDel)
+{
+    t_token    *temp;
+    t_token    *prev;
+
+    temp = *head;
+    prev = NULL;
+    while (temp && temp != toDel)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (toDel->next == NULL)
+    {
+        free(toDel);
+        if (prev == NULL)
+            return ;
+        prev->next = NULL;
+        return ;
+    }
+    toDel->value = temp->next->value;
+    toDel->type = temp->next->type;
+    temp->next = temp->next->next;
+    free(temp->next);
+}
+
 void	ft_free_list(t_token **head)
 {
 	t_token	*temp;
