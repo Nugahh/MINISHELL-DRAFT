@@ -128,18 +128,12 @@ void	ft_free_cmdexec(t_cmdexec **head)
 	t_cmdexec	*temp;
 	int			i;
 
-	i = 0;
+	i = -1;
 	temp = *head;
 	while (temp)
 	{
-		if (temp->arg[i])
-		{
-			while (temp->arg[i])
-			{
-				free(temp->arg[i]);
-				i++;
-			}
-		}
+		while (temp->arg[++i])
+			free(temp->arg[i]);
 		free(temp->arg);
 		free(temp->lim);
 		temp = temp->next;
