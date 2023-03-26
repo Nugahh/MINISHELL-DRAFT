@@ -131,15 +131,14 @@ char		*check_cmd(char *cmd, char **paths);
 
 /* [0.4]exec_child.c */
 void		ft_single(t_cmdexec *cmd, t_env **env, char **paths);
-void		ft_first(t_cmdexec *cmd, char **paths, t_env **env);
-void		ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], t_env **env);
-void		ft_between_pipes(t_cmdexec *cmd, char **paths, \
-	int fd_pipe[2], t_env **env);
-void		ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], t_env **env);
+void		ft_first(t_cmdexec *cmd, char **paths, char **env);
+void		ft_last(t_cmdexec *cmd, char **paths, char **env);
+void		ft_between_pipes(t_cmdexec *cmd, char **paths, char **env);
+void		ft_child(t_cmdexec *cmd, char **paths, t_env **env);
 
 /* [0.5]exec_pipe.c */
-void		ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp);
-int			ft_exec(t_cmdexec *cmd, t_env **env);
+void		ft_fork(t_cmdexec **head, t_env **env, char **paths);
+int			ft_exec(t_cmdexec **head, t_env **env);
 
 void		ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
