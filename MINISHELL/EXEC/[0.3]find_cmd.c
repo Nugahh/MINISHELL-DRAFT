@@ -15,7 +15,7 @@ char	**get_path_and_split(char **envy)
 		return (NULL);
 	if (path)
 	{
-		path = ft_substr(path, 5, ft_strlen(path) -5);
+		path = ft_substr(path, 5, ft_strlen(path) - 5);
 		paths = ft_split(path, ':');
 		free(path);
 	}

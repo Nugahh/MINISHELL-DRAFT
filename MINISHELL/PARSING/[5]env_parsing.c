@@ -46,6 +46,7 @@ int	ft_insert_env_and_free(t_env **head, char *name, char *value)
 	free(value);
 	return (0);
 }
+
 int	env_parser(char **envp, t_env **head, int i, int j)
 {
 	bool	equal;

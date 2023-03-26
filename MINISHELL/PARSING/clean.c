@@ -1,29 +1,29 @@
 #include "../LIB/minishell.h"
 
-void    deletenode(t_token **head, t_token *toDel)
+void	deletenode(t_token **head, t_token *toDel)
 {
-    t_token    *temp;
-    t_token    *prev;
+	t_token	*temp;
+	t_token	*prev;
 
-    temp = *head;
-    prev = NULL;
-    while (temp && temp != toDel)
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-    if (toDel->next == NULL)
-    {
-        free(toDel);
-        if (prev == NULL)
-            return ;
-        prev->next = NULL;
-        return ;
-    }
-    toDel->value = temp->next->value;
-    toDel->type = temp->next->type;
-    temp->next = temp->next->next;
-    free(temp->next);
+	temp = *head;
+	prev = NULL;
+	while (temp && temp != toDel)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	if (toDel->next == NULL)
+	{
+		free(toDel);
+		if (prev == NULL)
+			return ;
+		prev->next = NULL;
+		return ;
+	}
+	toDel->value = temp->next->value;
+	toDel->type = temp->next->type;
+	temp->next = temp->next->next;
+	free(temp->next);
 }
 
 void	ft_free_list(t_token **head)
@@ -43,6 +43,7 @@ void	ft_free_list(t_token **head)
 		temp = temp->next;
 	}
 }
+
 void	ft_free_env(t_env **env)
 {
 	t_env	*temp;
@@ -70,6 +71,7 @@ void	ft_free_env(t_env **env)
 	}
 	free(temp);
 }
+
 void	ft_free_array(char **array)
 {
 	int	i;
@@ -80,4 +82,21 @@ void	ft_free_array(char **array)
 	while (array[++i])
 		free(array[i]);
 	free(array);
+}
+
+void	ft_free_cmdexec(t_cmdexec **head)
+{
+	t_cmdexec	*temp;
+	int			i;
+
+	i = -1;
+	temp = *head;
+	while (temp)
+	{
+		while (temp->arg[++i])
+			free(temp->arg[i]);
+		free(temp->arg);
+		free(temp->lim);
+		temp = temp->next;
+	}
 }

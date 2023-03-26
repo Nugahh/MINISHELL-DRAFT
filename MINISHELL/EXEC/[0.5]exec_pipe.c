@@ -48,9 +48,8 @@ void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
 
 int	ft_exec(t_cmdexec *cmd, t_env **env)
 {
-//	pid_t		pid;
 	char		**paths;
-
+//	pid_t		pid;
 //	pid = 0;
 	paths = get_path_and_split((*env)->envy);
 //	if (cmd && cmd->next == NULL)

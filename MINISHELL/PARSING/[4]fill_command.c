@@ -4,7 +4,7 @@
 
 size_t	token_argcount(t_token **head)
 {
-	t_token *temp;
+	t_token	*temp;
 	size_t	count;
 
 	temp = *head;
@@ -20,7 +20,7 @@ size_t	token_argcount(t_token **head)
 	return (count);
 }
 
-t_cmdexec *create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
+t_cmdexec	*create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 {
 	t_token		*temp;
 
@@ -91,51 +91,5 @@ void	cmd_final(t_cmdexec **head, t_token **token)
 		else if ((*token)->next == NULL)
 			return (ft_free_list(token));
 		(*token) = (*token)->next;
-	}
-}
-void	printcmdexec(t_cmdexec *head)
-{
-	t_cmdexec	*temp;
-	int			i;	
-
-	temp = head;
-	if (head == NULL)
-	{
-		printf("liste vide\n");
-		return ;
-	}
-	while (temp)
-	{
-		printf("command: ");
-		i = 0;
-		if (temp->arg[0])
-		{	
-			while(temp->arg[i])
-			{
-				printf("arg = %s | ", temp->arg[i]);
-				i++;
-			}
-		}
-		printf("lim = %s | ", temp->lim);
-		printf("fd_in = %d | ", temp->fd_in);
-		printf("fd_out = %d\n", temp->fd_out);
-		temp = temp->next;
-	}
-}
-
-void	ft_free_cmdexec(t_cmdexec **head)
-{
-	t_cmdexec	*temp;
-	int			i;
-
-	i = -1;
-	temp = *head;
-	while (temp)
-	{
-		while (temp->arg[++i])
-			free(temp->arg[i]);
-		free(temp->arg);
-		free(temp->lim);
-		temp = temp->next;
 	}
 }

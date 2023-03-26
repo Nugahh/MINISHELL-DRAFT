@@ -19,6 +19,7 @@ int	ft_is_builtins(t_cmdexec *cmd)
 	else
 		return (0);
 }
+
 void	ft_builtins(t_cmdexec *cmd, t_env **env)
 {
 	if (ft_strcmp(cmd->arg[0], "echo") == 0)

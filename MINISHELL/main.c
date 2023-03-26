@@ -1,6 +1,6 @@
 #include "./LIB/minishell.h"
 
-int g_error;
+int	g_error;
 
 void	ft_free(t_cmdexec *cmd, char *command)
 {
@@ -8,11 +8,12 @@ void	ft_free(t_cmdexec *cmd, char *command)
 	free(command);
 	free(cmd);
 }
+
 void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 {
-	int i;
-	int	state;
-	char *command;
+	int		i;
+	int		state;
+	char	*command;
 
 	i = 0;
 	state = ARG;
@@ -24,7 +25,7 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
-	ft_count_redir(&head);
+	ft_count_redir(&head, 0);
 	printstr(head);
 	cmd_final(&cmd, &head);
 	printcmdexec(cmd);
@@ -39,10 +40,10 @@ void	exec_main(t_cmdexec *cmd, t_env *env, char *command)
 
 int	main(int ac, char **av, char **envp)
 {	
+	t_env	*env;
+
 	(void)ac;
 	(void)av;
-	t_env *env;
-
 	env = NULL;
 	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
@@ -51,4 +52,3 @@ int	main(int ac, char **av, char **envp)
 	ft_free_env(&env);
 	return (0);
 }
-

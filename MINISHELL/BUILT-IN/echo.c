@@ -37,7 +37,7 @@ int	ft_echo(char **str, int fd)
 	i = check_flag(str);
 	if (i > 0)
 		n++;
-	while (str[i]) 
+	while (str[i])
 	{
 		if (str[i][0] == '$' && str[i][1] == '?')
 			return (ft_itoa(g_error), 0);

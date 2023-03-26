@@ -7,7 +7,7 @@ void	export_error(char *str)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-int		check_varexp(char *str)
+int	check_varexp(char *str)
 {
 	int	i;
 
@@ -25,11 +25,11 @@ int		check_varexp(char *str)
 
 void	update_env(t_env *tempv, char *value)
 {
-		if (tempv->value)
-			free(tempv->value);
-		tempv->value = ft_strdup(value);
-		if (!tempv->value)
-			return ;
+	if (tempv->value)
+		free(tempv->value);
+	tempv->value = ft_strdup(value);
+	if (!tempv->value)
+		return ;
 }
 
 int	env_lookup(t_env **env, char *str)
@@ -45,6 +45,7 @@ int	env_lookup(t_env **env, char *str)
 	}
 	return (0);
 }
+
 int	ft_export(t_env **env, char **str)
 {
 	t_env		*tempv;

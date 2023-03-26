@@ -19,7 +19,8 @@ void	ft_single(t_cmdexec *cmd, t_env **env, char **paths)
 	}
 	wait(&status);
 }
-void	ft_first(t_cmdexec *cmd, char **paths, char **envp)
+
+void	ft_first(t_cmdexec *cmd, char **paths, t_env **env)
 {
 	int		status;
 	char	*path_cmd;
@@ -30,12 +31,12 @@ void	ft_first(t_cmdexec *cmd, char **paths, char **envp)
 	path_cmd = check_cmd(cmd->arg[0], paths);
 	if (path_cmd == NULL)
 		return (perror("Command not found: "));
-	if (execve(path_cmd, cmd->arg, envp) == -1)
+	if (execve(path_cmd, cmd->arg, (*env)->envy) == -1)
 		return (perror("Execve "));
 	wait(&status);
 }
 
-void	ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp)
+void	ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], t_env **env)
 {
 	int		status;
 	char	*path_cmd;
@@ -46,11 +47,13 @@ void	ft_last(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp)
 	path_cmd = check_cmd(cmd->arg[0], paths);
 	if (path_cmd == NULL)
 		return (perror("Command not found: "));
-	if (execve(path_cmd, cmd->arg, envp) == -1)
+	if (execve(path_cmd, cmd->arg, (*env)->envy) == -1)
 		return (perror("Execve "));
 	wait(&status);
 }
-void	ft_between_pipes(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp)
+
+void	ft_between_pipes(t_cmdexec *cmd, char **paths, \
+	int fd_pipe[2], t_env **env)
 {
 	int		status;
 	char	*path_cmd;
@@ -62,14 +65,15 @@ void	ft_between_pipes(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp)
 	path_cmd = check_cmd(cmd->arg[0], paths);
 	if (path_cmd == NULL)
 		return (perror("Command not found: "));
-	if (execve(path_cmd, cmd->arg, envp) == -1)
+	if (execve(path_cmd, cmd->arg, (*env)->envy) == -1)
 		return (perror("Execve "));
 	wait(&status);
 }
-void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp)
+
+void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], t_env **env)
 {
 	if (cmd->next == NULL)
-		ft_last(cmd, paths, fd_pipe, envp);
+		ft_last(cmd, paths, fd_pipe, (*env)->envy);
 	else if (cmd->next != NULL)
-		ft_between_pipes(cmd, paths, fd_pipe, envp);
+		ft_between_pipes(cmd, paths, fd_pipe, (*env)->envy);
 }
