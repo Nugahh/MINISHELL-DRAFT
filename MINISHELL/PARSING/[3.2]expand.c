@@ -2,24 +2,24 @@
 
 int	expanded_var(char *copyToken, int **i_j, t_env **env, char *temp)
 {
-	t_env	*tempEnv;
+	t_env	*temp_env;
 	int		len;
 	int		len_e;
 
 	len = 0;
-	tempEnv = *env;
+	temp_env = *env;
 	len_e = len_before_env(copyToken, *i_j[0]) + len_env(copyToken, i_j);
 	// if (copyToken[i] == '?')
 	// 	return (write_status(i, temp, copyToken));
-	while (tempEnv && len_e > 0)
+	while (temp_env && len_e > 0)
 	{
-		if (ft_strncmpBis(copyToken, tempEnv->name, \
+		if (ft_strncmpBis(copyToken, temp_env->name, \
 		*i_j[0] + 1, len_e + 1) == 0)
 			break ;
-		tempEnv = tempEnv->next;
+		temp_env = temp_env->next;
 	}
-	if (tempEnv && len_e > 0)
-		write_env_value(&len, tempEnv, temp, *i_j[1]);
+	if (temp_env && len_e > 0)
+		write_env_value(&len, temp_env, temp, *i_j[1]);
 	return (len);
 }
 

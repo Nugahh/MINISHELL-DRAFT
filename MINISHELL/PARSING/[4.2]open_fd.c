@@ -24,6 +24,7 @@ int	rin_file(t_cmdexec *head, t_token *src)
 	}
 	return (0);
 }
+
 int	rout_file(t_cmdexec *head, t_token *src)
 {
 	if (src->type == ROUT)
@@ -40,7 +41,8 @@ int	rout_file(t_cmdexec *head, t_token *src)
 	{
 		if (head->fd_out != 1)
 			close(head->fd_out);
-		head->fd_out = open(src->next->value, O_CREAT | O_RDWR | O_APPEND, 0644);
+		head->fd_out = open(src->next->value, \
+			O_CREAT | O_RDWR | O_APPEND, 0644);
 		if (head->fd_out == -1)
 			return (-1);
 		dup2(head->fd_out, STDOUT_FILENO);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   [1]first_split.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 15:47:09 by fwong             #+#    #+#             */
-/*   Updated: 2023/03/17 00:54:14 by fwong            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../LIB/minishell.h"
 
 static int	ft_skip_spaces(char *cmd, int i)
@@ -56,7 +44,7 @@ int	ft_first_split(char *cmd, t_token **head, int **s_i, int start)
 	{
 		*s_i[0] = ft_get_state(cmd[*s_i[1]], *s_i[0]);
 		if (*s_i[0] == DEFAULT && (cmd[*s_i[1]] == ' '
-			|| is_operator(cmd[*s_i[1]])))
+				|| is_operator(cmd[*s_i[1]])))
 		{
 			if (skip_spaces_and_insert((int *[2]){&*s_i[1], &start}, cmd, head))
 				return (1);

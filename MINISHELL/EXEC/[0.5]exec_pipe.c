@@ -64,7 +64,7 @@ int	ft_exec(t_cmdexec **head, t_env **env)
 	while (cmd)
 	{
 		if (ft_is_builtins(cmd))
-			ft_builtins(head, cmd, env);
+			ft_builtins(cmd, env);
 		else
 			ft_fork(head, env, paths, (*env)->envy);
 		cmd = cmd->next;

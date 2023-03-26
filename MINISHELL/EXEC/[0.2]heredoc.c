@@ -1,8 +1,7 @@
 #include "../LIB/minishell.h"
 
 // instead of return (1), put a cleaner function
-
-int	open_temp()
+int	open_temp(void)
 {
 	int		fd;
 
@@ -24,7 +23,7 @@ int	heredoc(t_cmdexec **head)
 	line = get_next_line(fd_in);
 	while (line)
 	{
-		if(!ft_strncmp(line, (*head)->lim, ft_strlen((*head)->lim))
+		if (!ft_strncmp(line, (*head)->lim, ft_strlen((*head)->lim))
 			&& ft_strlen((*head)->lim) + 1 == ft_strlen(line))
 			break ;
 		ft_putstr_fd("> ", 1);

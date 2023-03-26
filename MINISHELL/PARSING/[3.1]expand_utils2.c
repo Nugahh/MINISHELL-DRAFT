@@ -18,15 +18,3 @@ int	write_env_value(int *len, t_env *env, char *temp, int i)
 		temp[i++] = env->value[j++];
 	return (*len);
 }
-// int	write_status(int i, char *temp, char *copyToken)
-// {
-// 	char	*status;
-// 	int		j;
-
-// 	j = 0;
-// 	status = ft_itoa(g_error);
-// 	while (status[j])
-// 		temp[i++] = status[j++];
-// 	free(status);
-// 	return (len_status(g_error));
-// }

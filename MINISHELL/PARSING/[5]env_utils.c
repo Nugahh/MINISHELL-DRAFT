@@ -28,6 +28,7 @@ char	**ft_env_to_array(t_env **head, int i, int j)
 	}
 	return (envy);
 }
+
 int	add_env_struct(t_env **head)
 {
 	t_env	*temp;

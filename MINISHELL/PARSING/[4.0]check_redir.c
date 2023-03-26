@@ -48,7 +48,7 @@ int	ft_check_outfile(t_token *token)
 
 int	ft_check_redir(t_token **token)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	temp = *token;
 	while (temp)

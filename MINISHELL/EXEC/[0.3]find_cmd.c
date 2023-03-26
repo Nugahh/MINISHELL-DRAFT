@@ -7,6 +7,7 @@ char	**get_path_and_split(char **envy)
 	int		i;
 
 	path = NULL;
+	paths = NULL;
 	i = -1;
 	while (envy[++i] && !path)
 		path = ft_strnstr(envy[i], "PATH=", 5);
@@ -14,7 +15,7 @@ char	**get_path_and_split(char **envy)
 		return (NULL);
 	if (path)
 	{
-		path = ft_substr(path, 5, ft_strlen(path) -5);
+		path = ft_substr(path, 5, ft_strlen(path) - 5);
 		paths = ft_split(path, ':');
 		free(path);
 	}
