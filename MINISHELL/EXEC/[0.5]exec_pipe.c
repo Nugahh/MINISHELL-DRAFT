@@ -21,7 +21,7 @@
 // 	return (0);
 // }
 
-void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
+void	ft_fork(t_cmdexec **head, t_env **env, char **paths, char **envp)
 {
 	pid_t		pid;
 	t_cmdexec	*cmd;
@@ -29,7 +29,7 @@ void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
 	int			fd_pipe[2];
 
 	(void)env;
-	cmd = head;
+	cmd = *head;
 	while (cmd)
 	{
 		if (cmd->next == NULL)
@@ -46,16 +46,15 @@ void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp)
 	wait(&status);
 }
 
-int	ft_exec(t_cmdexec *cmd, t_env **env)
+int	ft_exec(t_cmdexec **head, t_env **env)
 {
-	pid_t		pid;
-	t_cmdexec	**head;
 	char		**paths;
+	pid_t		pid;
+	t_cmdexec	*cmd;
 
-	head = NULL;
-	pid = 0;
+	cmd = *head;
 	paths = get_path_and_split((*env)->envy);
-	if (cmd && cmd->next == NULL)
+	if (cmd && !cmd->next)
 		return (ft_single(cmd, env, paths), free_paths(paths), 0);
 	pid = fork();
 	if (pid == -1)
@@ -67,7 +66,7 @@ int	ft_exec(t_cmdexec *cmd, t_env **env)
 		if (ft_is_builtins(cmd))
 			ft_builtins(head, cmd, env);
 		else
-			ft_fork(cmd, env, paths, (*env)->envy);
+			ft_fork(head, env, paths, (*env)->envy);
 		cmd = cmd->next;
 	}
 	return (0);

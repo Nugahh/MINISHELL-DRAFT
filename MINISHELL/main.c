@@ -2,11 +2,11 @@
 
 int g_error;
 
-void	ft_free(t_cmdexec *cmd, char *command)
+void	ft_free(t_cmdexec **head, char *command)
 {
-	ft_free_cmdexec(&cmd);
+	ft_free_cmdexec(head);
 	free(command);
-	free(cmd);
+	// free(head);
 }
 void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 {
@@ -28,13 +28,13 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 //	printstr(head);
 	cmd_final(&cmd, &head);
 	printcmdexec(cmd);
-	return (exec_main(cmd, env, command));
+	return (exec_main(&cmd, env, command));
 }
 
-void	exec_main(t_cmdexec *cmd, t_env *env, char *command)
+void	exec_main(t_cmdexec **head, t_env *env, char *command)
 {
-	ft_exec(cmd, &env);
-	ft_free(cmd, command);
+	ft_exec(head, &env);
+	ft_free(head, command);
 }
 
 int	main(int ac, char **av, char **envp)

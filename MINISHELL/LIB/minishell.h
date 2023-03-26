@@ -171,7 +171,7 @@ int		add_env_struct(t_env **head);
 //                               EXEC                                        //
 // ========================================================================= //
 
-void	exec_main(t_cmdexec *cmd, t_env *env, char *command);
+void	exec_main(t_cmdexec **head, t_env *env, char *command);
 
 /* BUILT-INS */
 
@@ -213,8 +213,8 @@ void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], char **envp);
 
 /* [0.5]exec_pipe.c */
 
-void	ft_fork(t_cmdexec *head, t_env **env, char **paths, char **envp);
-int		ft_exec(t_cmdexec *cmd, t_env **env);
+void	ft_fork(t_cmdexec **head, t_env **env, char **paths, char **envp);
+int		ft_exec(t_cmdexec **head, t_env **env);
 
 char	*get_path(t_env **env, t_cmdexec **head, int i, char *path);
 char	*check_access(char *exe, char *command, char *path);
