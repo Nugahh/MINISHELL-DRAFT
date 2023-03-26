@@ -53,7 +53,7 @@ int	ft_export(t_env **env, char **str)
 	tempv = *env;
 	if (check_varexp(str[1]) == 0)
 	{
-		new_env = ft_split(*str, '=');
+		new_env = ft_split(str[1], '=');
 		if (!new_env)
 			return (1);
 		if (env_lookup(env, new_env[0]) == 0)
