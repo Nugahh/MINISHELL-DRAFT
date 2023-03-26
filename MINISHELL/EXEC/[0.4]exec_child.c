@@ -73,7 +73,7 @@ void	ft_between_pipes(t_cmdexec *cmd, char **paths, \
 void	ft_child(t_cmdexec *cmd, char **paths, int fd_pipe[2], t_env **env)
 {
 	if (cmd->next == NULL)
-		ft_last(cmd, paths, fd_pipe, (*env)->envy);
+		ft_last(cmd, paths, fd_pipe, env);
 	else if (cmd->next != NULL)
-		ft_between_pipes(cmd, paths, fd_pipe, (*env)->envy);
+		ft_between_pipes(cmd, paths, fd_pipe, env);
 }
