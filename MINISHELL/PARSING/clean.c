@@ -1,29 +1,29 @@
 #include "../LIB/minishell.h"
 
-void    deletenode(t_token **head, t_token *toDel)
+void	deletenode(t_token **head, t_token *toDel)
 {
-    t_token    *temp;
-    t_token    *prev;
+	t_token	*temp;
+	t_token	*prev;
 
-    temp = *head;
-    prev = NULL;
-    while (temp && temp != toDel)
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-    if (toDel->next == NULL)
-    {
-        free(toDel);
-        if (prev == NULL)
-            return ;
-        prev->next = NULL;
-        return ;
-    }
-    toDel->value = temp->next->value;
-    toDel->type = temp->next->type;
-    temp->next = temp->next->next;
-    free(temp->next);
+	temp = *head;
+	prev = NULL;
+	while (temp && temp != toDel)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	if (toDel->next == NULL)
+	{
+		free(toDel);
+		if (prev == NULL)
+			return ;
+		prev->next = NULL;
+		return ;
+	}
+	toDel->value = temp->next->value;
+	toDel->type = temp->next->type;
+	temp->next = temp->next->next;
+	free(temp->next);
 }
 
 void	ft_free_list(t_token **head)
@@ -43,39 +43,60 @@ void	ft_free_list(t_token **head)
 		temp = temp->next;
 	}
 }
-void	ft_free_env(t_env **head)
+
+void	ft_free_env(t_env **env)
 {
 	t_env	*temp;
 
-	if (!(*head))
+	if (!(*env))
 		return ;
-	while (*head)
+	temp = *env;
+	if (temp->envy)
+		ft_free_array(temp->envy);
+	while (temp)
 	{
-		temp = *head;
-		*head = (*head)->next;
 		if (temp->name)
+		{
+			temp->name = NULL;
 			free(temp->name);
+		}
 		if (temp->value)
+		{
+			temp->value = NULL;
 			free(temp->value);
-		temp->value = NULL;
-		temp->name = NULL;
-		free(temp);
-		temp = NULL;
+		}
+		if (temp->next == NULL)
+			return (free(temp));
+		temp = temp->next;
 	}
+	free(temp);
 }
+
 void	ft_free_array(char **array)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (!array)
 		return ;
-	while (array[i])
-	{
+	while (array[++i])
 		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
 	free(array);
-	array = NULL;
+}
+
+void	ft_free_cmdexec(t_cmdexec **head)
+{
+	t_cmdexec	*temp;
+	int			i;
+
+	i = -1;
+	temp = *head;
+	while (temp)
+	{
+		while (temp->arg[++i])
+			free(temp->arg[i]);
+		free(temp->arg);
+		free(temp->lim);
+		temp = temp->next;
+	}
 }

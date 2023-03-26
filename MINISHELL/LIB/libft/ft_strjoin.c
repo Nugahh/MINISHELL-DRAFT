@@ -6,7 +6,7 @@
 /*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:38:24 by khuynh            #+#    #+#             */
-/*   Updated: 2022/09/03 19:04:50 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/03/26 12:43:27 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		joiny[i++] = s2[j++];
 	joiny[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	free(s1);
+	//free(s1);
 	return (joiny);
 }
 

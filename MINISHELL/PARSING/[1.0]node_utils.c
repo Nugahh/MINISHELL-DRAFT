@@ -41,25 +41,6 @@ int	insert(t_token **head, char *str, int start, int end)
 	return (0);
 }
 
-void	printstr(t_token *head)
-{
-	t_token	*temp;
-
-	temp = head;
-	if (head == NULL)
-	{
-		printf("liste vide\n");
-		return ;
-	}
-	while (temp)
-	{
-		printf("node:");
-		printf("%s | type: %d ", temp->value, temp->type);
-		printf("\n");
-		temp = temp->next;
-	}
-}
-
 int	ft_get_state(char c, int state)
 {
 	if (state == DEFAULT)

@@ -3,6 +3,7 @@
 int	ft_cd(char **command)
 {
 	char	*path;
+	int		dir;
 
 	if (command[1] == NULL)
 	{
@@ -18,7 +19,8 @@ int	ft_cd(char **command)
 	}
 	else
 		path = command[1];
-	if (chdir(path) == -1)
-		printf("cd: %s: No such file or directory", path);
-	return (free(path), 0);
+	dir = chdir(path);
+	if (dir == -1)
+		printf("cd: %s: No such file or directory\n", path);
+	return (0);
 }
