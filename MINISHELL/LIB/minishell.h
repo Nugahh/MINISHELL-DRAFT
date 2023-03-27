@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
+# include <termio.h>
 
 // ========== STRUCTURES ========== //
 
@@ -40,8 +41,6 @@ typedef enum STATE
 	SINGLE,
 	DOUBLE
 }	t_STATE;
-
-extern int	g_error;
 
 typedef struct s_token
 {
@@ -67,6 +66,8 @@ typedef struct s_env
 	char			**envy;
 	struct s_env	*next;
 }	t_env;
+
+extern int	g_error;
 
 int			main(int ac, char **av, char **envp);
 
@@ -134,14 +135,15 @@ void		ft_single(t_cmdexec *cmd, t_env **env, char **paths);
 void		ft_first(t_cmdexec *cmd, char **paths, char **env);
 void		ft_last(t_cmdexec *cmd, char **paths, char **env);
 void		ft_between_pipes(t_cmdexec *cmd, char **paths, char **env);
-void		ft_child(t_cmdexec *cmd, char **paths, t_env **env);
+void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
 
 /* [0.5]exec_pipe.c */
 void		ft_fork(t_cmdexec **head, t_env **env, char **paths);
 int			ft_exec(t_cmdexec **head, t_env **env);
 
-void		ft_builtins(t_cmdexec *cmd, t_env **env);
+int			ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
+void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
 
 // ========================================================================= //
 //                                 UTILS	                                 //

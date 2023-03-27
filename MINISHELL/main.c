@@ -17,6 +17,7 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
+	
 	while (1)
 	{
 		i = 0;
