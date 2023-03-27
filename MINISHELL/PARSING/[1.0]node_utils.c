@@ -6,7 +6,7 @@ t_token	*create(char *str, int start, int end)
 	int		x;
 
 	x = 0;
-	yo = malloc(sizeof(t_token));
+	yo = ft_calloc(1, sizeof(t_token));
 	if (!yo)
 		return (0);
 	yo->value = ft_calloc(end + 2, sizeof(char));
