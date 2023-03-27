@@ -33,7 +33,6 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 
 void	exec_main(t_cmdexec **head, t_env *env, char *command)
 {
-	signal(SIGINT, SIG_DFL);
 	ft_exec(head, &env);
 	ft_free(head, command);
 }
@@ -51,7 +50,8 @@ int	main(int ac, char **av, char **envp)
 		return (ft_free_env(&env), 1);
 	while (1)
 		parsing(NULL, NULL, env);
-	ft_free_env(&env);
-//rl_clear_history();
+	if (env)
+		ft_free_env(&env);
+	rl_clear_history();
 	return (0);
 }
