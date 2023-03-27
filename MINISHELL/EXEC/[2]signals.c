@@ -9,3 +9,9 @@ void	signal_handler(int signal)
 	rl_redisplay();
 	g_error = 130;
 }
+
+void	signal_quit(int signal)
+{
+	(void)signal;
+	exit(EXIT_SUCCESS);
+}

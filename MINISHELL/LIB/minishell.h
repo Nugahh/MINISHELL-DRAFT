@@ -70,6 +70,7 @@ extern int	g_error;
 
 int			main(int ac, char **av, char **envp);
 void		signal_handler(int signal);
+void		signal_quit(int signal);
 
 // ========================================================================= //
 //                               PARSING                                     //
