@@ -87,15 +87,11 @@ void	ft_free_array(char **array)
 void	ft_free_cmdexec(t_cmdexec **head)
 {
 	t_cmdexec	*temp;
-	int			i;
 
-	i = -1;
 	temp = *head;
 	while (temp)
 	{
-		while (temp->arg[++i])
-			free(temp->arg[i]);
-		free(temp->arg);
+		ft_free_array(temp->arg);
 		free(temp->lim);
 		temp = temp->next;
 	}

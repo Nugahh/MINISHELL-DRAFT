@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:22:42 by khuynh            #+#    #+#             */
-/*   Updated: 2022/04/13 20:56:18 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:15:40 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 static size_t	ft_nlen(int n)
 {
@@ -37,7 +38,7 @@ char	*ft_itoa(int n)
 
 	len = ft_nlen(n);
 	a = n;
-	dest = malloc(sizeof(char) *(len + 1));
+	dest = ft_calloc((len + 1), sizeof(char));
 	if (!dest)
 		return (0);
 	if (a < 0)

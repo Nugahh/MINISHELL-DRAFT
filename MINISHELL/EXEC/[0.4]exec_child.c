@@ -1,5 +1,6 @@
 #include "../LIB/minishell.h"
 
+
 void	ft_single(t_cmdexec *cmd, t_env **env, char **paths)
 {
 	pid_t	pid;

@@ -112,7 +112,7 @@ int			add_env_struct(t_env **head);
 //                               EXEC                                        //
 // ========================================================================= //
 
-void		exec_main(t_cmdexec *cmd, t_env *env, char *command);
+void		exec_main(t_cmdexec **head, t_env *env, char *command);
 
 /* BUILT-INS */
 int			ft_cd(char **command);
