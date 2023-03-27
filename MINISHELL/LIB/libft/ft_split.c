@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 00:51:19 by khuynh            #+#    #+#             */
-/*   Updated: 2023/03/10 23:24:32 by khuynh           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:15:56 by fwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stddef.h>
+#include "libft.h"
 
 static int	ft_count_words(char const *str, char c)
 {
@@ -67,7 +68,7 @@ static char	**ft_split_words(char const *s, char c, char **s2, int num_words)
 			i++;
 			word_len++;
 		}
-		s2[word] = (char *)malloc(sizeof(char) * (word_len + 1));
+		s2[word] = (char *)ft_calloc((word_len + 1), sizeof(char));
 		if (!s2)
 			return (0);
 		ft_putword(s2[word], s, i, word_len);
@@ -86,7 +87,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (0);
 	num_words = ft_count_words(s, c);
-	s2 = (char **)malloc(sizeof(char *) * (num_words + 1));
+	s2 = (char **)ft_calloc((num_words + 1), sizeof(char *));
 	if (!s2)
 		return (0);
 	ft_split_words(s, c, s2, num_words);

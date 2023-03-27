@@ -1,6 +1,6 @@
 #include "./LIB/minishell.h"
 
-int	g_error;
+
 
 void	ft_free(t_cmdexec **head, char *command)
 {
@@ -17,7 +17,7 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 
 	i = 0;
 	state = ARG;
-	g_error = 0;
+	// g_error = 0;
 	head = NULL;
 	cmd = NULL;
 	command = readline("minishell$> ");
@@ -26,9 +26,9 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
 	ft_count_redir(&head, 0);
-	printstr(head);
+	// printstr(head);
 	cmd_final(&cmd, &head);
-	printcmdexec(cmd);
+	// printcmdexec(cmd);
 	return (exec_main(&cmd, env, command));
 }
 
