@@ -67,10 +67,12 @@ int	ft_exec(t_cmdexec **head, t_env **env)
 	else if (cmd && !cmd->next && ft_is_builtins(cmd))
 		return (ft_builtins(cmd, env));
 	ft_fork(head, env, paths);
+	signal(SIGINT, SIG_IGN);
 	while (cmd)
 	{
 		wait(&status);
 		cmd = cmd->next;
 	}
+	signal(SIGINT, signal_handler);
 	return (0);
 }
