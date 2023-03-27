@@ -144,7 +144,7 @@ int			ft_exec(t_cmdexec **head, t_env **env);
 
 int			ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
-void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
+void		ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
 
 // ========================================================================= //
 //                                 UTILS	                                 //
