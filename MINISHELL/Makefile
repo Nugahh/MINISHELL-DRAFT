@@ -3,7 +3,7 @@
 NAME = minishell
 
 MFILES = \
-		TO-DELETE/delete.c 				\
+		TO-DELETE/delete.c 					\
 		PARSING/clean.c						\
 		PARSING/[1.0]node_utils.c			\
 		PARSING/[1.1]split_operators.c		\
@@ -37,6 +37,7 @@ MFILES = \
 		EXEC/[0.5]exec_child2.c				\
 		EXEC/[0.6]exec_pipe.c				\
 		EXEC/[1]exec_builtins.c 			\
+		EXEC/[2]signals.c 					\
 		main.c
 
 OBJS :=  	${addprefix ./OBJ/,${MFILES:%.c=%.o}}
