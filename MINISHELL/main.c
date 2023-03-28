@@ -20,14 +20,15 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	// g_error = 0;
 	head = NULL;
 	cmd = NULL;
+	command = NULL;
 	command = readline("minishell$> ");
 	add_history(command);
 	ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 	ft_check_syntax_error(&head);
 	expand(&head, &env);
 	ft_count_redir(&head, 0);
-	// printstr(head);
 	cmd_final(&cmd, &head);
+	// printstr(head);
 	// printcmdexec(cmd);
 	return (exec_main(&cmd, env, command));
 }
@@ -35,7 +36,8 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 void	exec_main(t_cmdexec **head, t_env *env, char *command)
 {
 	ft_exec(head, &env);
-	ft_free(head, command);
+	if (*head != NULL)
+		ft_free(head, command);
 }
 
 int	main(int ac, char **av, char **envp)
