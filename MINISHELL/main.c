@@ -1,6 +1,6 @@
 #include "./LIB/minishell.h"
 
-
+int	g_error = 0;
 
 void	ft_free(t_cmdexec **head, char *command)
 {
@@ -17,7 +17,6 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 
 	i = 0;
 	state = ARG;
-	// g_error = 0;
 	head = NULL;
 	cmd = NULL;
 	command = NULL;
@@ -47,10 +46,14 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	env = NULL;
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_quit);
 	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
 	while (1)
 		parsing(NULL, NULL, env);
-	ft_free_env(&env);
+	if (env)
+		ft_free_env(&env);
+	rl_clear_history();
 	return (0);
 }

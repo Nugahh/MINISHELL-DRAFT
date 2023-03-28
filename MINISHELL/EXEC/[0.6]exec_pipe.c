@@ -67,15 +67,18 @@ int	ft_exec(t_cmdexec **head, t_env **env)
 
 	cmd = *head;
 	paths = get_path_and_split((*env)->envy);
+	signal(SIGINT, signal_handler);
 	if (cmd && !cmd->next && !ft_is_builtins(cmd))
 		return (ft_single(cmd, env, paths), free_paths(paths), 0);
 	else if (cmd && !cmd->next && ft_is_builtins(cmd))
 		return (ft_single_builtin(cmd, env), free_paths(paths), 0);
 	ft_fork(head, env, paths);
+	signal(SIGINT, signal_handler);
 	while (cmd)
 	{
 		wait(&status);
 		cmd = cmd->next;
 	}
+	signal(SIGINT, signal_handler);
 	return (0);
 }
