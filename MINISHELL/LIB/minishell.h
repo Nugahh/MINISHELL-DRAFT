@@ -137,14 +137,19 @@ void		ft_last(t_cmdexec *cmd, char **paths, char **env);
 void		ft_between_pipes(t_cmdexec *cmd, char **paths, char **env);
 void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
 
-/* [0.5]exec_pipe.c */
+/* [0.5]exec_child2.c */
+
+void	ft_dup_fd(t_cmdexec *cmd);
+void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
+
+/* [0.6]exec_pipe.c */
 void		ft_fork(t_cmdexec **head, t_env **env, char **paths);
 int			ft_exec(t_cmdexec **head, t_env **env);
 
 int			ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
 void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
-
+void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
 // ========================================================================= //
 //                                 UTILS	                                 //
 // ========================================================================= //

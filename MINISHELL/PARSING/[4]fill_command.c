@@ -28,8 +28,8 @@ t_cmdexec	*create_nodecmd(t_token **head, size_t i, t_cmdexec *new)
 	new = ft_calloc(1, sizeof(t_cmdexec));
 	new->arg = ft_calloc(i + 1, sizeof(char *));
 	i = -1;
-	new->fd_in = 0;
-	new->fd_out = 0;
+	new->fd_in = -1;
+	new->fd_out = -1;
 	while (temp)
 	{
 		if (temp->type == ARG)
