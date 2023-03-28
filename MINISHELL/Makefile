@@ -34,7 +34,8 @@ MFILES = \
 		EXEC/[0.2]heredoc.c					\
 		EXEC/[0.3]find_cmd.c				\
 		EXEC/[0.4]exec_child.c				\
-		EXEC/[0.5]exec_pipe.c				\
+		EXEC/[0.5]exec_child2.c				\
+		EXEC/[0.6]exec_pipe.c				\
 		EXEC/[1]exec_builtins.c 			\
 		EXEC/[2]signals.c 					\
 		main.c
