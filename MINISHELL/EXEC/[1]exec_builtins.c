@@ -34,7 +34,7 @@ int	ft_builtins(t_cmdexec *cmd, t_env **env)
 		ft_unset(env, cmd->arg, 1);
 	else if (ft_strcmp(cmd->arg[0], "env") == 0)
 		ft_env(env, 1);
-	// else if (ft_strcmp(cmd->arg[0], "exit") == 0)
-	// 	ft_exit(cmd, *env);
+	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
+		ft_exit(cmd, *env);
 	return (0);
 }

@@ -76,7 +76,7 @@ void		signal_quit(int signal);
 //                               PARSING                                     //
 // ========================================================================= //
 
-void		parsing(t_token *head, t_cmdexec *cmd, t_env *env);
+int		parsing(t_token *head, t_cmdexec *cmd, t_env *env);
 
 /* [1] first_split.c */
 int			ft_get_state(char c, int state);
@@ -113,7 +113,7 @@ int			add_env_struct(t_env **head);
 //                               EXEC                                        //
 // ========================================================================= //
 
-void		exec_main(t_cmdexec **head, t_env *env, char *command);
+int		exec_main(t_cmdexec **head, t_env *env, char *command);
 
 /* BUILT-INS */
 int			ft_cd(char **command);
