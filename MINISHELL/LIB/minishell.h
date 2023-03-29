@@ -113,7 +113,7 @@ int			add_env_struct(t_env **head);
 //                               EXEC                                        //
 // ========================================================================= //
 
-int		exec_main(t_cmdexec **head, t_env *env, char *command);
+int			exec_main(t_cmdexec **head, t_env *env, char *command);
 
 /* BUILT-INS */
 int			ft_cd(char **command);
@@ -122,6 +122,7 @@ int			ft_env(t_env **head, int fd);
 void		ft_exit(t_cmdexec *cmd, t_env *env);
 int			ft_export(t_env **env, char **str);
 int			ft_pwd(int fd);
+int			ft_disp_error();
 int			ft_unset(t_env **env, char **command, int i);
 
 /* [0.2]heredoc.c */

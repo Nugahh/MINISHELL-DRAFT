@@ -8,6 +8,8 @@ int	ft_is_builtins(t_cmdexec *cmd)
 		return (1);
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
 		return (1);
+	else if (ft_strcmp(cmd->arg[0], "$?") == 0)
+		return (1);
 	else if (ft_strcmp(cmd->arg[0], "export") == 0)
 		return (1);
 	else if (ft_strcmp(cmd->arg[0], "unset") == 0)
@@ -36,5 +38,7 @@ int	ft_builtins(t_cmdexec *cmd, t_env **env)
 		ft_env(env, 1);
 	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
 		ft_exit(cmd, *env);
+	else if (ft_strcmp(cmd->arg[0], "$?") == 0)
+		ft_disp_error();
 	return (0);
 }
