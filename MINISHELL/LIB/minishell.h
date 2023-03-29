@@ -140,7 +140,7 @@ void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
 
 /* [0.5]exec_child2.c */
 
-void	ft_dup_fd(t_cmdexec *cmd);
+void		ft_dup_fd(t_cmdexec *cmd);
 void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
 
 /* [0.6]exec_pipe.c */
