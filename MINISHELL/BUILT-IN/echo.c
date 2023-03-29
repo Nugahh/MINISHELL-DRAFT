@@ -51,8 +51,9 @@ int	ft_echo(char **str, int fd)
 	return (0);
 }
 
-/*int main (int ac, char **av)
+int	ft_disp_error(void)
 {
-	(void)ac;
-	ft_echo(av);
-}*/
+	ft_putnbr_fd(g_error, 2);
+	ft_putchar_fd('\n', 2);
+	return (0);
+}

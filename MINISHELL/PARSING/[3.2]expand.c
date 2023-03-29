@@ -9,8 +9,6 @@ int	expanded_var(char *copyToken, int **i_j, t_env **env, char *temp)
 	len = 0;
 	temp_env = *env;
 	len_e = len_before_env(copyToken, *i_j[0]) + len_env(copyToken, i_j);
-	// if (copyToken[i] == '?')
-	// 	return (write_status(i, temp, copyToken));
 	while (temp_env && len_e > 0)
 	{
 		if (ft_strncmpBis(copyToken, temp_env->name, \

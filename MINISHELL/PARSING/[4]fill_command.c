@@ -89,7 +89,8 @@ void	cmd_final(t_cmdexec **head, t_token **token)
 			insert_nodecmd(head, token);
 		}
 		else if ((*token)->next == NULL)
-			return (ft_free_list(token));
+			break;
 		(*token) = (*token)->next;
 	}
+	return(ft_free_list(token));
 }

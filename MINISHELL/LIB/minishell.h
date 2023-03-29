@@ -69,14 +69,12 @@ typedef struct s_env
 extern int	g_error;
 
 int			main(int ac, char **av, char **envp);
-void		signal_handler(int signal);
-void		signal_quit(int signal);
 
 // ========================================================================= //
 //                               PARSING                                     //
 // ========================================================================= //
 
-int		parsing(t_token *head, t_cmdexec *cmd, t_env *env);
+int			parsing(t_token *head, t_cmdexec *cmd, t_env *env);
 
 /* [1] first_split.c */
 int			ft_get_state(char c, int state);
@@ -113,7 +111,7 @@ int			add_env_struct(t_env **head);
 //                               EXEC                                        //
 // ========================================================================= //
 
-int		exec_main(t_cmdexec **head, t_env *env, char *command);
+int			exec_main(t_cmdexec **head, t_env *env, char *command);
 
 /* BUILT-INS */
 int			ft_cd(char **command);
@@ -122,10 +120,11 @@ int			ft_env(t_env **head, int fd);
 void		ft_exit(t_cmdexec *cmd, t_env *env);
 int			ft_export(t_env **env, char **str);
 int			ft_pwd(int fd);
+int			ft_disp_error(void);
 int			ft_unset(t_env **env, char **command, int i);
 
 /* [0.2]heredoc.c */
-int			heredoc(t_cmdexec **head);
+int			heredoc(t_cmdexec *cmd);
 
 /* [0.3]find_cmd.c */
 char		**get_path_and_split(char **envy);
@@ -136,12 +135,13 @@ void		ft_single(t_cmdexec *cmd, t_env **env, char **paths);
 void		ft_first(t_cmdexec *cmd, char **paths, char **env);
 void		ft_last(t_cmdexec *cmd, char **paths, char **env);
 void		ft_between_pipes(t_cmdexec *cmd, char **paths, char **env);
-void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
+void		ft_child(t_cmdexec **head, t_cmdexec *cmd, \
+	char **paths, t_env **env);
 
 /* [0.5]exec_child2.c */
 
 void		ft_dup_fd(t_cmdexec *cmd);
-void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
+void		ft_single_builtin(t_cmdexec *cmd, t_env **env);
 
 /* [0.6]exec_pipe.c */
 void		ft_fork(t_cmdexec **head, t_env **env, char **paths);
@@ -149,8 +149,8 @@ int			ft_exec(t_cmdexec **head, t_env **env);
 
 int			ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
-void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
-void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
+void		ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
+void		ft_single_builtin(t_cmdexec *cmd, t_env **env);
 // ========================================================================= //
 //                                 UTILS	                                 //
 // ========================================================================= //
@@ -213,6 +213,11 @@ int			rout_file(t_cmdexec *head, t_token *src);
 int			check_equal(char *str);
 int			check_symbolerror(char c);
 int			open_temp(void);
+
+/* SIGNAUX */
+void		signal_heredoc(int sig);
+void		signal_handler(int signal);
+void		signal_quit(int signal);
 
 // ========================================================================= //
 //                               TO DELETE                                   //
