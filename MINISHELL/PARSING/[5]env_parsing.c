@@ -41,7 +41,7 @@ int	insert_env(t_env **head, char *name, char *value)
 int	ft_insert_env_and_free(t_env **head, char *name, char *value)
 {
 	if (insert_env(head, name, value) == 1)
-		return (1);
+		return (free(name), free(value), 1);
 	free(name);
 	free(value);
 	return (0);
@@ -62,7 +62,7 @@ int	env_parser(char **envp, t_env **head, int i, int j)
 			if (envp[i][j] == '=' && equal == false)
 			{
 				equal = true;
-				name = ft_substr(envp[i], 0, j);
+				name = ft_substr(envp[i], 0, j + 1);
 				if (!name)
 					return (free(name), 1);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);

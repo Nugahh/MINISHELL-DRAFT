@@ -40,7 +40,7 @@ int	ft_exec(t_cmdexec **head, t_env **env)
 	if (cmd && !cmd->next && !ft_is_builtins(cmd))
 		return (ft_single(cmd, env, paths), free_paths(paths), 0);
 	else if (cmd && !cmd->next && ft_is_builtins(cmd))
-		return (ft_single_builtin(cmd, env), free_paths(paths), 0);
+		return (free_paths(paths), ft_single_builtin(cmd, env), 0);
 	ft_fork(head, env, paths);
 	signal(SIGINT, signal_handler);
 	while (cmd)

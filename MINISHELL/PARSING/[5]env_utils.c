@@ -17,10 +17,7 @@ char	**ft_env_to_array(t_env **head, int i, int j)
 	temp = *head;
 	while (temp)
 	{
-		envy[j] = ft_strjoin(temp->name, "=");
-		if (!envy[j])
-			return (ft_free_array(envy), NULL);
-		envy[j] = ft_strjoin(envy[j], temp->value);
+		envy[j] = ft_strjoin(temp->name, temp->value);
 		if (!envy[j])
 			return (ft_free_array(envy), NULL);
 		j++;

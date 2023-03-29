@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwong <fwong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: khuynh <khuynh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:38:24 by khuynh            #+#    #+#             */
-/*   Updated: 2023/03/27 18:12:46 by fwong            ###   ########.fr       */
+/*   Updated: 2023/03/30 00:46:29 by khuynh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		joiny[i++] = s2[j++];
 	joiny[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	//free(s1);
 	return (joiny);
 }
 
