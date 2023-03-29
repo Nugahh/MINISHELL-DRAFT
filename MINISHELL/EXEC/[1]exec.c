@@ -27,38 +27,6 @@ void	ft_fork(t_cmdexec **head, t_env **env, char **paths)
 	}
 }
 
-void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env)
-{
-	if (*(head) == cmd)
-	{
-		ft_dup_fd(cmd);
-		dup2(cmd->next->fd_pipe[1], STDOUT_FILENO);
-		close(cmd->next->fd_pipe[1]);
-		close(cmd->next->fd_pipe[0]);
-		ft_builtins(cmd, env);
-		exit(EXIT_SUCCESS);
-	}
-	else if (cmd->next == NULL)
-	{
-		dup2(cmd->fd_pipe[0], STDIN_FILENO);
-		close(cmd->fd_pipe[0]);
-		close(cmd->fd_pipe[1]);
-		ft_dup_fd(cmd);
-		ft_builtins(cmd, env);
-		exit(EXIT_SUCCESS);
-	}
-	else if (cmd->next != NULL)
-	{
-		dup2(cmd->fd_pipe[0], STDIN_FILENO);
-		ft_dup_fd(cmd);
-		dup2(cmd->next->fd_pipe[1], STDOUT_FILENO);
-		close(cmd->fd_pipe[0]);
-		close(cmd->next->fd_pipe[1]);
-		ft_builtins(cmd, env);
-		exit(EXIT_SUCCESS);
-	}
-}
-
 int	ft_exec(t_cmdexec **head, t_env **env)
 {
 	char		**paths;
