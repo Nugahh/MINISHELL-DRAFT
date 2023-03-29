@@ -39,7 +39,7 @@ int	env_lookup(t_env **env, char *str)
 	tempv = *env;
 	while (tempv)
 	{
-		if (ft_strcmp(tempv->name, str) == 0)
+		if (ft_strncmp(tempv->name, str, ft_strlen(tempv->name)) == 0)
 			return (1);
 		tempv = tempv->next;
 	}

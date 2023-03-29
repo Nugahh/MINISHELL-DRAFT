@@ -15,7 +15,7 @@ void	free_paths(char **paths)
 	free(paths);
 }
 
-void ft_dup_fd(t_cmdexec *cmd)
+void	ft_dup_fd(t_cmdexec *cmd)
 {
 	if (cmd->fd_in > 0)
 	{

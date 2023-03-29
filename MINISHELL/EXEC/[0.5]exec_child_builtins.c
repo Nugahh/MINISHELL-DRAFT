@@ -10,6 +10,7 @@ void	ft_single_builtin(t_cmdexec *cmd, t_env **env)
 	dup2(original_stdout, STDOUT_FILENO);
 	close(original_stdout);
 }
+
 void	ft_builtin_first(t_cmdexec *cmd, t_env **env)
 {
 	if (cmd->fd_out > 0 || cmd->fd_in > 0)

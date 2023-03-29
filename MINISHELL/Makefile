@@ -3,7 +3,6 @@
 NAME = minishell
 
 MFILES = \
-		TO-DELETE/delete.c 					\
 		PARSING/clean.c						\
 		PARSING/[1.0]node_utils.c			\
 		PARSING/[1.1]split_operators.c		\

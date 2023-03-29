@@ -38,10 +38,15 @@ void	ft_free_list(t_token **head)
 		if (temp->value)
 			free(temp->value);
 		temp->value = NULL;
-		// if (temp->next == NULL)
-		// 	return(free(temp));
 		temp = temp->next;
 	}
+	while (*head)
+	{
+		temp = *head;
+		*head = (*head)->next;
+		free(temp);
+	}
+	*head = NULL;
 }
 
 void	ft_free_env(t_env **env)
@@ -52,24 +57,25 @@ void	ft_free_env(t_env **env)
 		return ;
 	temp = *env;
 	if (temp->envy)
+	{
 		ft_free_array(temp->envy);
+		temp->envy = NULL;
+	}
 	while (temp)
 	{
 		if (temp->name)
-		{
-			temp->name = NULL;
 			free(temp->name);
-		}
 		if (temp->value)
-		{
-			temp->value = NULL;
 			free(temp->value);
-		}
-		if (temp->next == NULL)
-			return (free(temp));
 		temp = temp->next;
 	}
-	free(temp);
+	while (*env)
+	{
+		temp = *env;
+		*env = (*env)->next;
+		free(temp);
+	}
+	*env = NULL;
 }
 
 void	ft_free_array(char **array)
@@ -92,7 +98,15 @@ void	ft_free_cmdexec(t_cmdexec **head)
 	while (temp)
 	{
 		ft_free_array(temp->arg);
-		free(temp->lim);
+		if (temp->lim)
+			free(temp->lim);
 		temp = temp->next;
 	}
+	while (*head)
+	{
+		temp = *head;
+		*head = (*head)->next;
+		free(temp);
+	}
+	*head = NULL;
 }

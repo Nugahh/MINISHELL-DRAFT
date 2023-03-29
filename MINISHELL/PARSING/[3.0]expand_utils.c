@@ -49,8 +49,6 @@ int	len_env_expanded(char *copyToken, int **i_j, int len_env, t_env **env)
 
 	len = 0;
 	temp_env = *env;
-	// if (copyToken[i] == '?')
-	// 	return (len_status(g_error));
 	while (temp_env)
 	{
 		if (ft_strncmpBis(copyToken, temp_env->name, *i_j[0] + 1, len_env) == 0)

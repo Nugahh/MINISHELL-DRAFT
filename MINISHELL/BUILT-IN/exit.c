@@ -16,6 +16,12 @@ int	ft_strisnum(char *str)
 	return (1);
 }
 
+void	all_clean(t_cmdexec *head, t_env *env)
+{
+	ft_free_cmdexec(&head);
+	ft_free_env(&env);
+}
+
 void	ft_exit(t_cmdexec *cmd, t_env *env)
 
 {
@@ -41,10 +47,4 @@ void	ft_exit(t_cmdexec *cmd, t_env *env)
 		g_error = g_error % 256;
 	all_clean(cmd, env);
 	exit(g_error);
-}
-
-void	all_clean(t_cmdexec *head, t_env *env)
-{
-	ft_free_cmdexec(&head);
-	ft_free_env(&env);
 }
