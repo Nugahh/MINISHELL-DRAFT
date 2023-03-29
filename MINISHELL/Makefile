@@ -30,13 +30,13 @@ MFILES = \
 		BUILT-IN/export.c 					\
 		BUILT-IN/export_bis.c 				\
 		BUILT-IN/unset.c 					\
+		EXEC/[0.0]exec_builtins.c 			\
 		EXEC/[0.1]exec_utils.c				\
 		EXEC/[0.2]heredoc.c					\
 		EXEC/[0.3]find_cmd.c				\
 		EXEC/[0.4]exec_child.c				\
-		EXEC/[0.5]exec_child2.c				\
-		EXEC/[0.6]exec_pipe.c				\
-		EXEC/[1]exec_builtins.c 			\
+		EXEC/[0.5]exec_child_builtins.c		\
+		EXEC/[1]exec.c						\
 		EXEC/[2]signals.c 					\
 		main.c
 

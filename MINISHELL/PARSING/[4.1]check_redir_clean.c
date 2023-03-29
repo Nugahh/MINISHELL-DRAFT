@@ -5,7 +5,7 @@ void	ft_delete_redir(t_token *token, int count)
 	t_token	*temp;
 
 	temp = token;
-	while (temp && count > 0)
+	while (temp && count > 1)
 	{
 		if (temp->type == RIN || temp->type == ROUT || temp->type == DROUT)
 		{
