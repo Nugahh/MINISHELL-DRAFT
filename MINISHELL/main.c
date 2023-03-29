@@ -9,7 +9,7 @@ void	ft_free(t_cmdexec **head, char *command)
 	// free(head);
 }
 
-void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
+int	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 {
 	int		i;
 	int		state;
@@ -20,7 +20,9 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	head = NULL;
 	cmd = NULL;
 	command = NULL;
-	command = readline("minishell$> ");
+	command = readline("mimishell$> ");
+	if (command == NULL)
+		return (1);
 	add_history(command);
 	ft_first_split(command, &head, (int *[2]){&state, &i}, 0);
 	ft_check_syntax_error(&head);
@@ -32,11 +34,14 @@ void	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	return (exec_main(&cmd, env, command));
 }
 
-void	exec_main(t_cmdexec **head, t_env *env, char *command)
+int	exec_main(t_cmdexec **head, t_env *env, char *command)
 {
+	if (command == NULL)
+		return (1);
 	ft_exec(head, &env);
 	if (*head != NULL)
 		ft_free(head, command);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -47,11 +52,14 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	env = NULL;
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_quit);
+	signal(SIGQUIT, SIG_IGN);
 	if (env_parser(envp, &env, 0, 0) == 1)
 		return (ft_free_env(&env), 1);
 	while (1)
-		parsing(NULL, NULL, env);
+	{
+		if (parsing(NULL, NULL, env) == 1)
+			exit(1);
+	}
 	if (env)
 		ft_free_env(&env);
 	rl_clear_history();

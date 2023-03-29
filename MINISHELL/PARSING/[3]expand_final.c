@@ -57,7 +57,7 @@ int	remove_quotes(t_token **token)
 		return (1);
 	while (temp)
 	{
-		copy_token = check_node(temp, 0, 0, -1);
+		copy_token = check_node(temp, 0, 0, 0);
 		free(temp->value);
 		temp->value = ft_strdup(copy_token);
 		free(copy_token);
