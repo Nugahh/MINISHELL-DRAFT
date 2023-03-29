@@ -6,6 +6,7 @@ void	ft_init_pipes(t_cmdexec *cmd)
 		if (pipe(cmd->next->fd_pipe) == -1)
 			return (perror(" "));
 }
+
 void	ft_fork(t_cmdexec **head, t_env **env, char **paths)
 {
 	pid_t		pid;

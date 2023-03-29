@@ -120,7 +120,7 @@ int			ft_env(t_env **head, int fd);
 void		ft_exit(t_cmdexec *cmd, t_env *env);
 int			ft_export(t_env **env, char **str);
 int			ft_pwd(int fd);
-int			ft_disp_error();
+int			ft_disp_error(void);
 int			ft_unset(t_env **env, char **command, int i);
 
 /* [0.2]heredoc.c */
@@ -140,7 +140,7 @@ void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
 /* [0.5]exec_child2.c */
 
 void		ft_dup_fd(t_cmdexec *cmd);
-void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
+void		ft_single_builtin(t_cmdexec *cmd, t_env **env);
 
 /* [0.6]exec_pipe.c */
 void		ft_fork(t_cmdexec **head, t_env **env, char **paths);
@@ -148,8 +148,8 @@ int			ft_exec(t_cmdexec **head, t_env **env);
 
 int			ft_builtins(t_cmdexec *cmd, t_env **env);
 int			ft_is_builtins(t_cmdexec *cmd);
-void	ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
-void	ft_single_builtin(t_cmdexec *cmd, t_env **env);
+void		ft_exec_builtins(t_cmdexec **head, t_cmdexec *cmd, t_env **env);
+void		ft_single_builtin(t_cmdexec *cmd, t_env **env);
 // ========================================================================= //
 //                                 UTILS	                                 //
 // ========================================================================= //

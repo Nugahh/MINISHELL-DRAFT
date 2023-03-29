@@ -50,7 +50,8 @@ int	ft_echo(char **str, int fd)
 		ft_putchar_fd('\n', fd);
 	return (0);
 }
-int	ft_disp_error()
+
+int	ft_disp_error(void)
 {
 	ft_putnbr_fd(g_error, 2);
 	ft_putchar_fd('\n', 2);

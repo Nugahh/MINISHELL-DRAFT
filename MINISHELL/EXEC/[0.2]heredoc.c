@@ -1,6 +1,5 @@
 #include "../LIB/minishell.h"
 
-// instead of return (1), put a cleaner function
 int	open_temp(void)
 {
 	int		fd;
@@ -10,6 +9,7 @@ int	open_temp(void)
 		return (perror("heredoc"), 1);
 	return (fd);
 }
+
 void	signal_heredoc(int sig)
 {
 	if (sig == SIGQUIT)
