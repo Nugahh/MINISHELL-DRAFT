@@ -39,6 +39,7 @@ char	*check_cmd(char *cmd, char **paths)
 		cmd_path = ft_strjoin(tmp, cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
+		free(cmd_path);
 	}
-	return (free(cmd_path), free(tmp), NULL);
+	return ( NULL);
 }
