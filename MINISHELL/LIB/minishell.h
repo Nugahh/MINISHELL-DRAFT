@@ -69,14 +69,12 @@ typedef struct s_env
 extern int	g_error;
 
 int			main(int ac, char **av, char **envp);
-void		signal_handler(int signal);
-void		signal_quit(int signal);
 
 // ========================================================================= //
 //                               PARSING                                     //
 // ========================================================================= //
 
-int		parsing(t_token *head, t_cmdexec *cmd, t_env *env);
+int			parsing(t_token *head, t_cmdexec *cmd, t_env *env);
 
 /* [1] first_split.c */
 int			ft_get_state(char c, int state);
@@ -126,7 +124,7 @@ int			ft_disp_error();
 int			ft_unset(t_env **env, char **command, int i);
 
 /* [0.2]heredoc.c */
-int			heredoc(t_cmdexec **head);
+int			heredoc(t_cmdexec *cmd);
 
 /* [0.3]find_cmd.c */
 char		**get_path_and_split(char **envy);
@@ -214,6 +212,12 @@ int			rout_file(t_cmdexec *head, t_token *src);
 int			check_equal(char *str);
 int			check_symbolerror(char c);
 int			open_temp(void);
+
+/* SIGNAUX */
+void		signal_heredoc(int sig);
+void		signal_handler(int signal);
+void		signal_quit(int signal);
+
 
 // ========================================================================= //
 //                               TO DELETE                                   //

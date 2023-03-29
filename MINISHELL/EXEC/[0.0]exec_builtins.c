@@ -2,7 +2,9 @@
 
 int	ft_is_builtins(t_cmdexec *cmd)
 {
-	if (ft_strcmp(cmd->arg[0], "echo") == 0)
+	if (cmd->lim)
+		return (1);
+	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
 		return (1);
 	else if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		return (1);
@@ -24,7 +26,9 @@ int	ft_is_builtins(t_cmdexec *cmd)
 
 int	ft_builtins(t_cmdexec *cmd, t_env **env)
 {
-	if (ft_strcmp(cmd->arg[0], "echo") == 0)
+	if (cmd->lim)
+		heredoc(cmd);
+	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
 		ft_echo(cmd->arg, 1);
 	else if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		ft_cd(cmd->arg);

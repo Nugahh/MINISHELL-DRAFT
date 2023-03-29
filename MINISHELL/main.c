@@ -30,7 +30,7 @@ int	parsing(t_token *head, t_cmdexec *cmd, t_env *env)
 	ft_count_redir(&head, 0);
 	cmd_final(&cmd, &head);
 	// printstr(head);
-	// printcmdexec(cmd);
+	printcmdexec(cmd);
 	return (exec_main(&cmd, env, command));
 }
 
