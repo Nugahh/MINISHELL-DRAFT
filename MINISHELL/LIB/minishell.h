@@ -135,7 +135,8 @@ void		ft_single(t_cmdexec *cmd, t_env **env, char **paths);
 void		ft_first(t_cmdexec *cmd, char **paths, char **env);
 void		ft_last(t_cmdexec *cmd, char **paths, char **env);
 void		ft_between_pipes(t_cmdexec *cmd, char **paths, char **env);
-void		ft_child(t_cmdexec **head, t_cmdexec *cmd, char **paths, t_env **env);
+void		ft_child(t_cmdexec **head, t_cmdexec *cmd, \
+	char **paths, t_env **env);
 
 /* [0.5]exec_child2.c */
 
@@ -217,7 +218,6 @@ int			open_temp(void);
 void		signal_heredoc(int sig);
 void		signal_handler(int signal);
 void		signal_quit(int signal);
-
 
 // ========================================================================= //
 //                               TO DELETE                                   //

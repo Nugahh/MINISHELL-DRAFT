@@ -6,7 +6,8 @@ void	ft_free(t_cmdexec **head, char *command)
 {
 	ft_free_cmdexec(head);
 	free(command);
-	// free(head);
+	if (head)
+		free(head);
 }
 
 int	parsing(t_token *head, t_cmdexec *cmd, t_env *env)

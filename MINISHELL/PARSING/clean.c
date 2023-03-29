@@ -38,8 +38,6 @@ void	ft_free_list(t_token **head)
 		if (temp->value)
 			free(temp->value);
 		temp->value = NULL;
-		// if (temp->next == NULL)
-		// 	return(free(temp));
 		temp = temp->next;
 	}
 }

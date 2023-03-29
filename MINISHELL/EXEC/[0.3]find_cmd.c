@@ -40,5 +40,5 @@ char	*check_cmd(char *cmd, char **paths)
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
 	}
-	return (free(cmd_path), free(cmd_path), NULL);
+	return (free(cmd_path), free(tmp), NULL);
 }
