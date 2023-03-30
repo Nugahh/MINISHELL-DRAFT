@@ -51,7 +51,6 @@ int	ft_exec(t_cmdexec **head, t_env **env)
 		wait(&status);
 		cmd = cmd->next;
 	}
-	free(paths);
 	signal(SIGINT, signal_handler);
 	return (0);
 }

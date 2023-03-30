@@ -16,7 +16,7 @@ void	ft_builtin_first(t_cmdexec *cmd, t_env **env)
 	if (cmd->fd_out > 0 || cmd->fd_in > 0)
 	{
 		ft_dup_fd(cmd);
-			close(cmd->next->fd_pipe[1]);
+		close(cmd->next->fd_pipe[1]);
 		close(cmd->next->fd_pipe[0]);
 		ft_builtins(cmd, env);
 	}
@@ -34,7 +34,7 @@ void	ft_builtin_between_pipes(t_cmdexec *cmd, t_env **env)
 	if (cmd->fd_out > 0 || cmd->fd_in > 0)
 	{
 		ft_dup_fd(cmd);
-			close(cmd->next->fd_pipe[1]);
+		close(cmd->next->fd_pipe[1]);
 		close(cmd->next->fd_pipe[0]);
 		ft_builtins(cmd, env);
 	}
@@ -53,7 +53,7 @@ void	ft_builtin_last(t_cmdexec *cmd, t_env **env)
 	if (cmd->fd_out > 0 || cmd->fd_in > 0)
 	{
 		ft_dup_fd(cmd);
-			close(cmd->next->fd_pipe[1]);
+		close(cmd->next->fd_pipe[1]);
 		close(cmd->next->fd_pipe[0]);
 		ft_builtins(cmd, env);
 	}
