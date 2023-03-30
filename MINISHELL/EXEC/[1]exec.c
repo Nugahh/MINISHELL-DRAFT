@@ -23,7 +23,10 @@ void	ft_fork(t_cmdexec **head, t_env **env, char **paths)
 		else if (pid == 0)
 			ft_child(head, cmd, paths, env);
 		if (cmd->next != NULL)
+		{
 			close(cmd->next->fd_pipe[1]);
+			close(cmd->next->fd_pipe[0]);
+		}
 		cmd = cmd->next;
 	}
 }
